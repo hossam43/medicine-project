@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
 
@@ -26,20 +26,25 @@
       src="https://kit.fontawesome.com/4926783a6b.js"
       crossorigin="anonymous"
     ></script>
+    <script defer type="module" src="./app.js"></script>
   </head>
   <body>
+    <img src="./assets/images/bg/beams-basic.png" class="bg-w" alt="" />
     <header class="header-section">
       <img src="./assets/images/logo.png" class="logo" alt="website-logo" />
       <nav class="main-nav">
         <ul class="main-nav-list">
-          <li><a href="#services" class="main-nav-link">Servics</a></li>
-          <li><a href="#product" class="main-nav-link">Product</a></li>
-          <li><a href="#clients" class="main-nav-link">Clients</a></li>
-          <li><a href="#download" class="main-nav-link">Download</a></li>
+          <li><a href="#section--1" class="main-nav-link">Servics</a></li>
+          <li><a href="#section--2" class="main-nav-link">Product</a></li>
+          <li><a href="#section--3" class="main-nav-link">Clients</a></li>
+          <li><a href="#section--4" class="main-nav-link">Download</a></li>
           <li>
-            <a href="#popular" class="main-nav-link nav-cta">
-              <ion-icon name="cart-outline" class="nav-icon"></ion-icon> Cart
-            </a>
+            <div class="cart-box">
+              <a href="#" class="main-nav-link nav-cta">
+                <ion-icon name="cart-outline" class="nav-icon"></ion-icon>
+                <span class="count">0</span>
+              </a>
+            </div>
           </li>
         </ul>
       </nav>
@@ -49,18 +54,32 @@
       </button>
     </header>
 
+    <!-- shopping cart -->
+
+    <!-- <div class="listProduct"></div> -->
+
+    <div class="cartTab">
+      <h1>Shopping Cart</h1>
+      <div class="listCart"></div>
+      <div class="btn-cart">
+        <button class="close">CLOSE</button>
+        <button class="checkOut">Check Out</button>
+      </div>
+    </div>
+
     <section class="hero-section">
-      <div class="glowing purbel"></div>
       <div class="hero">
         <div class="hero-text-box">
-          <h1 class="heading-primary">Reliable on time home delivery</h1>
+          <p class="SectionHeader_subheader">Speed is Our Signature!</p>
+          <h1 class="heading-primary">Reliable on time home delivery 🛵💨</h1>
           <p class="hero-descreption">
-            Our in-house pharmacist ensure your medines reach you when you need
-            them.
+            We promise your medications will arrive quickly, exactly when you
+            need them.
           </p>
 
-          <div class="hero-input">
-            <input type="text" placeholder="Search Mediciens" />
+          <div class="input-box">
+            <input type="text" required />
+            <span>Search Mediciens</span>
             <ion-icon name="search-outline" class="hero-search-icon"></ion-icon>
           </div>
 
@@ -88,121 +107,246 @@
     </section>
 
     <main>
-      <section class="section-populer" id="popular">
-        <div class="container center-text">
-          <h2 class="heading-secondary">Most Popular Products</h2>
-        </div>
-
-        <div class="container grid grid--6--cols grid-gap-sm margin-bottom-sm">
-          <div class="populer-box">
-            <div class="populer-img-box">
+      <section class="section-catygory">
+        <div class="container grid grid--5--cols grid-gap-xl margin-bottom-sm">
+          <div class="catygory-box">
+            <div class="catygory-img-box" style="background-color: #dbe4ff">
               <img
-                class="populer-img"
-                src="./assets/images/products/product1 1.png"
+                class="catygory-img"
+                src="./assets/icons/cat-icon1.png"
                 alt=""
               />
             </div>
-            <div class="populer-text">
-              <p class="populer-title">product name</p>
-              <div class="populer-price-box">
-                <p class="populer-price"><strong>$43</strong></p>
-
-                <p class="populer-price-discount">$55</p>
-              </div>
+            <div class="catygory-text">
+              <p class="catygory-title">Pharmacy Essentials</p>
             </div>
           </div>
-          <div class="populer-box">
-            <div class="populer-img-box">
+          <div class="catygory-box">
+            <div class="catygory-img-box" style="background-color: #ffe8cc">
               <img
-                class="populer-img"
-                src="./assets/images/products/product2 1.png"
+                class="catygory-img"
+                src="./assets/icons/cat-icon2.png"
                 alt=""
               />
             </div>
-            <div class="populer-text">
-              <p class="populer-title">product name</p>
-              <div class="populer-price-box">
-                <p class="populer-price"><strong>$43</strong></p>
-
-                <p class="populer-price-discount">$55</p>
-              </div>
+            <div class="catygory-text">
+              <p class="catygory-title">Personal Care</p>
             </div>
           </div>
-          <div class="populer-box">
-            <div class="populer-img-box">
+          <div class="catygory-box">
+            <div class="catygory-img-box" style="background-color: #c5f6fa">
               <img
-                class="populer-img"
-                src="./assets/images/products/product3 1.png"
+                class="catygory-img"
+                src="./assets/icons/cat-icon3.png"
                 alt=""
               />
             </div>
-            <div class="populer-text">
-              <p class="populer-title">product name</p>
-              <div class="populer-price-box">
-                <p class="populer-price"><strong>$43</strong></p>
-
-                <p class="populer-price-discount">$55</p>
-              </div>
+            <div class="catygory-text">
+              <p class="catygory-title">Health Devices</p>
             </div>
           </div>
-          <div class="populer-box">
-            <div class="populer-img-box">
+          <div class="catygory-box">
+            <div class="catygory-img-box" style="background-color: #d3f9d8">
               <img
-                class="populer-img"
-                src="./assets/images/products/product-p5 1.png"
+                class="catygory-img"
+                src="./assets/icons/cat-icon4.png"
                 alt=""
               />
             </div>
-            <div class="populer-text">
-              <p class="populer-title">product name</p>
-              <div class="populer-price-box">
-                <p class="populer-price"><strong>$43</strong></p>
-
-                <p class="populer-price-discount">$55</p>
-              </div>
+            <div class="catygory-text">
+              <p class="catygory-title">Supplements</p>
             </div>
           </div>
-          <div class="populer-box">
-            <div class="populer-img-box">
+          <div class="catygory-box">
+            <div
+              class="catygory-img-box"
+              style="background-color: #ffffff"
+              data-border="border-color"
+            >
               <img
-                class="populer-img"
-                src="./assets/images/products/product-p8 1.png"
+                class="catygory-img"
+                src="./assets/icons/cat-icon5.png"
                 alt=""
               />
             </div>
-            <div class="populer-text">
-              <p class="populer-title">product name</p>
-              <div class="populer-price-box">
-                <p class="populer-price"><strong>$43</strong></p>
-
-                <p class="populer-price-discount">$55</p>
-              </div>
-            </div>
-          </div>
-          <div class="populer-box">
-            <div class="populer-img-box">
-              <img
-                class="populer-img"
-                src="./assets/images/products/product-p9 1.png"
-                alt=""
-              />
-            </div>
-            <div class="populer-text">
-              <p class="populer-title">product name</p>
-              <div class="populer-price-box">
-                <p class="populer-price"><strong>$43</strong></p>
-
-                <p class="populer-price-discount">$55</p>
-              </div>
+            <div class="catygory-text">
+              <p class="catygory-title">Fitness Gear</p>
             </div>
           </div>
         </div>
+      </section>
 
-        <div class="container center-text margin-bottom-md">
-          <button class="btn btn--option margin-right-sm">&LeftArrow;</button>
-          <button class="btn btn--option">&RightArrow;</button>
+      <!-- Popular section -->
+      <section class="section-popular section--reveal" id="section--1">
+        <div class="populer-section-border container grid grid-gap-sm">
+          <div class="container center-text">
+            <h2 class="heading-secondary margin-bottom-xsm">
+              Most Popular Products
+            </h2>
+            <h3 class="sub-heading">
+              Embrace Your Health Journey with Nature's Healing Bounty
+            </h3>
+          </div>
+
+          <div class="container grid grid--6--cols grid-gap-sm">
+            <div class="popular-box">
+              <div class="populer-img-box">
+                <img
+                  class="populer-img"
+                  src="./assets/images/products/product1 1.png"
+                  alt=""
+                />
+              </div>
+              <div class="populer-text">
+                <p class="populer-title">product name</p>
+                <div class="populer-price-box">
+                  <p class="populer-price"><strong>$43</strong></p>
+
+                  <p class="populer-price-discount">$55</p>
+                </div>
+                <button
+                  type="submit"
+                  name="add"
+                  class="add-to-cart btn btn--sm"
+                  tabindex="0"
+                >
+                  Add
+                </button>
+              </div>
+            </div>
+            <div class="populer-box">
+              <div class="populer-img-box">
+                <img
+                  class="populer-img"
+                  src="./assets/images/products/product2 1.png"
+                  alt=""
+                />
+              </div>
+              <div class="populer-text">
+                <p class="populer-title">product name</p>
+                <div class="populer-price-box">
+                  <p class="populer-price"><strong>$43</strong></p>
+
+                  <p class="populer-price-discount">$55</p>
+                </div>
+                <button
+                  type="submit"
+                  name="add"
+                  class="add-to-cart btn btn--sm"
+                  tabindex="0"
+                >
+                  Add
+                </button>
+              </div>
+            </div>
+            <div class="populer-box">
+              <div class="populer-img-box">
+                <img
+                  class="populer-img"
+                  src="./assets/images/products/product3 1.png"
+                  alt=""
+                />
+              </div>
+              <div class="populer-text">
+                <p class="populer-title">product name</p>
+                <div class="populer-price-box">
+                  <p class="populer-price"><strong>$43</strong></p>
+
+                  <p class="populer-price-discount">$55</p>
+                </div>
+                <button
+                  type="submit"
+                  name="add"
+                  class="add-to-cart btn btn--sm"
+                  tabindex="0"
+                >
+                  Add
+                </button>
+              </div>
+            </div>
+            <div class="populer-box">
+              <div class="populer-img-box">
+                <img
+                  class="populer-img"
+                  src="./assets/images/products/product-p5 1.png"
+                  alt=""
+                />
+              </div>
+              <div class="populer-text">
+                <p class="populer-title">product name</p>
+                <div class="populer-price-box">
+                  <p class="populer-price"><strong>$43</strong></p>
+
+                  <p class="populer-price-discount">$55</p>
+                </div>
+                <button
+                  type="submit"
+                  name="add"
+                  class="add-to-cart btn btn--sm"
+                  tabindex="0"
+                >
+                  Add
+                </button>
+              </div>
+            </div>
+            <div class="populer-box">
+              <div class="populer-img-box">
+                <img
+                  class="populer-img"
+                  src="./assets/images/products/product-p8 1.png"
+                  alt=""
+                />
+              </div>
+              <div class="populer-text">
+                <p class="populer-title">product name</p>
+                <div class="populer-price-box">
+                  <p class="populer-price"><strong>$43</strong></p>
+
+                  <p class="populer-price-discount">$55</p>
+                </div>
+                <button
+                  type="submit"
+                  name="add"
+                  class="add-to-cart btn btn--sm"
+                  tabindex="0"
+                >
+                  Add
+                </button>
+              </div>
+            </div>
+            <div class="populer-box">
+              <div class="populer-img-box">
+                <img
+                  class="populer-img"
+                  src="./assets/images/products/product-p91.png"
+                  alt=""
+                />
+              </div>
+              <div class="populer-text">
+                <p class="populer-title">product name</p>
+                <div class="populer-price-box">
+                  <p class="populer-price"><strong>$43</strong></p>
+
+                  <p class="populer-price-discount">$55</p>
+                </div>
+                <button
+                  type="submit"
+                  name="add"
+                  class="add-to-cart btn btn--sm"
+                  tabindex="0"
+                >
+                  Add
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="container center-text">
+            <button class="btn btn--sm margin-right-sm">&LeftArrow;</button>
+            <button class="btn btn--sm">&RightArrow;</button>
+          </div> -->
         </div>
-
+        <!-- Our feature and services -->
         <div class="feature-grid container grid grid--2--cols" id="services">
           <div class="features-box">
             <div class="feature-content">
@@ -211,12 +355,12 @@
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed,
                 a.consectetur adipisicing elit. Sed, a.
               </p>
-              <button class="btn btn--sm">Get started</button>
+              <button class="btn">Get started</button>
             </div>
             <div class="feature-img-box">
               <img
                 class="feature-img"
-                src="./assets/images/persons/person2-1250.png"
+                src="./assets/images/persons/person2-1250.webp"
                 alt=""
               />
             </div>
@@ -228,12 +372,12 @@
               <p class="feature-descreption">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed, a.
               </p>
-              <button class="btn btn--sm">Get started</button>
+              <button class="btn">Get started</button>
             </div>
             <div class="feature-img-box">
               <img
                 class="feature-img"
-                src="./assets/images/persons/person3-1250.png"
+                src="./assets/images/persons/person3-1250.webp"
                 alt=""
               />
             </div>
@@ -241,11 +385,13 @@
         </div>
       </section>
 
-      <section class="section-products" id="product">
+      <!--  Products Section -->
+      <section class="section-products" id="section--2">
         <div class="container center-text">
           <h2 class="heading-secondary">Brows medicinese & health product</h2>
         </div>
 
+        <!-- product menue -->
         <div class="container center-text margin-bottom-md">
           <ul class="categories-list">
             <li class="category-item">
@@ -277,125 +423,38 @@
           </ul>
         </div>
 
-        <div class="container center-text grid grid--4--cols margin-bottom-md">
-          <div class="products-box">
-            <div class="product-img-box">
-              <img
-                src="./assets/images/products/product02.png"
-                alt=""
-                class="product-img"
-              />
-            </div>
-            <p class="product-name">Product Name</p>
-            <p class="product-price"><strong>$54</strong></p>
-          </div>
-          <div class="products-box">
-            <div class="product-img-box">
-              <img
-                src="./assets/images/products/product01.png"
-                alt=""
-                class="product-img"
-              />
-            </div>
-            <p class="product-name">Product Name</p>
-            <p class="product-price"><strong>$54</strong></p>
-          </div>
-          <div class="products-box">
-            <div class="product-img-box">
-              <img
-                src="./assets/images/products/product03.png"
-                alt=""
-                class="product-img"
-              />
-            </div>
-            <p class="product-name">Product Name</p>
-            <p class="product-price"><strong>$54</strong></p>
-          </div>
-          <div class="products-box">
-            <div class="product-img-box">
-              <img
-                src="./assets/images/products/product04.png"
-                alt=""
-                class="product-img"
-              />
-            </div>
-            <p class="product-name">Product Name</p>
-            <p class="product-price"><strong>$54</strong></p>
-          </div>
-          <div class="products-box">
-            <div class="product-img-box">
-              <img
-                src="./assets/images/products/product05.png"
-                alt=""
-                class="product-img"
-              />
-            </div>
-            <p class="product-name">Product Name</p>
-            <p class="product-price"><strong>$54</strong></p>
-          </div>
-          <div class="products-box">
-            <div class="product-img-box">
-              <img
-                src="./assets/images/products/product06.png"
-                alt=""
-                class="product-img"
-              />
-            </div>
-            <p class="product-name">Product Name</p>
-            <p class="product-price"><strong>$504</strong></p>
-          </div>
-          <div class="products-box">
-            <div class="product-img-box">
-              <img
-                src="./assets/images/products/product07.png"
-                alt=""
-                class="product-img"
-              />
-            </div>
-            <p class="product-name">Product Name</p>
-            <p class="product-price"><strong>$54</strong></p>
-          </div>
-          <div class="products-box">
-            <div class="product-img-box">
-              <img
-                src="./assets/images/products/product-p9 1.png"
-                alt=""
-                class="product-img"
-              />
-            </div>
-            <p class="product-name">Product Name</p>
-            <p class="product-price"><strong>$24</strong></p>
-          </div>
-        </div>
+        <div
+          class="container center-text grid grid--4--cols margin-bottom-md productsContainer section--reveal"
+        ></div>
         <div class="container center-text">
-          <button class="btn btn--sm">View More</button>
+          <button class="btn">View More</button>
         </div>
       </section>
 
-      <section class="section-testimonials" id="clients">
+      <section class="section-testimonials" id="section--3">
         <div class="container center-text">
-          <h2 class="heading-secondary margin-bottom-lg">
-            Customer review & recommendation
-          </h2>
+          <h2 class="heading-secondary">Customer review & recommendation</h2>
         </div>
-        <div class="container grid grid--1--cols">
-          <div class="testimonial-background">
-            <div class="testimonials-box grid grid--2--cols grid-center-v">
+        <div class="container grid grid--1--cols section--reveal">
+          <!-- slider -->
+          <div class="slider">
+            <div class="slide slide--1 grid grid--2--cols grid-center-v">
+              <!-- slider content -->
               <div class="testimonial-img-box">
                 <div
-                  class="testimonial-img-url"
+                  class="testimonial-img-url-1"
                   role="img"
                   aria-label="a person saying his opinion about the website"
                 ></div>
                 <img
-                  src="./assets/images/persons/person5.jpg"
-                  alt=""
+                  src="./assets/images/persons/person5.webp"
+                  alt="a word from one of our cleints"
                   class="testimonial-img"
                 />
               </div>
               <div class="testimonial-content">
                 <i class="fa-solid fa-quote-left testimonial-icon"></i>
-                <p class="testimonial-text">
+                <blockquote class="testimonial-text">
                   Using Medicine's website has been a game-changer for me. The
                   user-friendly interface and wealth of information have made
                   managing my healthcare a breeze. I particularly love the
@@ -404,24 +463,88 @@
                   health information in one place is invaluable. Thanks to
                   Medicine, I feel more in control of my well-being. Highly
                   recommended😍.
-                </p>
+                </blockquote>
 
                 <p class="testimonial-name">
                   Adam Dariene<span>&dash; Medical Assistan</span>
                 </p>
               </div>
             </div>
-            <div class="dots">
-              <div class="dot"></div>
-              <div class="dot active"></div>
-              <div class="dot"></div>
+
+            <div class="slide slide--2 grid grid--2--cols grid-center-v">
+              <div class="testimonial-img-box">
+                <div
+                  class="testimonial-img-url-2"
+                  role="img"
+                  aria-label="a person saying his opinion about the website"
+                ></div>
+                <img
+                  src="./assets/images/persons/person6.webp"
+                  alt="a word from one of our cleints"
+                  class="testimonial-img"
+                />
+              </div>
+              <div class="testimonial-content">
+                <i class="fa-solid fa-quote-left testimonial-icon"></i>
+                <blockquote class="testimonial-text">
+                  Using Medicine's website has been a game-changer for me. The
+                  user-friendly interface and wealth of information have made
+                  managing my healthcare a breeze. I particularly love the
+                  mobile app; it's a lifesaver when it comes to remembering to
+                  take my medications on time. The convenience of having all my
+                  health information in one place is invaluable. Thanks to
+                  Medicine, I feel more in control of my well-being. Highly
+                  recommended😍.
+                </blockquote>
+
+                <p class="testimonial-name">
+                  Adam Dariene<span>&dash; Medical Assistan</span>
+                </p>
+              </div>
+            </div>
+
+            <div class="slide slide--2 grid grid--2--cols grid-center-v">
+              <div class="testimonial-img-box">
+                <div
+                  class="testimonial-img-url-3"
+                  role="img"
+                  aria-label="a person saying his opinion about the website"
+                ></div>
+                <img
+                  src="./assets/images/persons/person7.webp"
+                  alt="a word from one of our cleints"
+                  class="testimonial-img"
+                />
+              </div>
+              <div class="testimonial-content">
+                <i class="fa-solid fa-quote-left testimonial-icon"></i>
+                <blockquote class="testimonial-text">
+                  Using Medicine's website has been a game-changer for me. The
+                  user-friendly interface and wealth of information have made
+                  managing my healthcare a breeze. I particularly love the
+                  mobile app; it's a lifesaver when it comes to remembering to
+                  take my medications on time. The convenience of having all my
+                  health information in one place is invaluable. Thanks to
+                  Medicine, I feel more in control of my well-being. Highly
+                  recommended😍.
+                </blockquote>
+
+                <p class="testimonial-name">
+                  Adam Dariene<span>&dash; Medical Assistan</span>
+                </p>
+              </div>
             </div>
           </div>
+          <button class="slider__btn slider__btn--left">🡨</button>
+          <button class="slider__btn slider__btn--right">🡪</button>
+          <div class="dots"></div>
         </div>
       </section>
 
-      <section class="section-app" id="download">
-        <div class="app-grid container grid grid--2--cols grid-center-v">
+      <section class="section-app" id="section--4">
+        <div
+          class="app-grid container grid grid--2--cols grid-center-v section--reveal"
+        >
           <div class="app-content-box">
             <h2 class="heading-secondary margin-bottom-sm">
               Download the Medicine name mobile app
@@ -456,7 +579,7 @@
           </div>
           <div class="app-img-box">
             <img
-              src="./assets/images/screen-cropped.png"
+              src="./assets/images/screen-cropped.webp"
               alt=""
               class="app-img"
             />
@@ -538,7 +661,6 @@
         </nav>
       </div>
     </footer>
-    <script src="app.js"></script>
     <script
       type="module"
       src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"

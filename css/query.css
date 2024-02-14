@@ -107,7 +107,7 @@ Insted 1rem = 1em = 16px
   .grid--4--cols {
     grid-template-columns: repeat(3, 1fr);
   }
-  .testimonials-box {
+  .slide {
     grid-template-columns: 1fr;
     transform: translateY(-17%);
   }
@@ -249,7 +249,7 @@ Insted 1rem = 1em = 16px
     /* for the contetn */
     align-items: flex-start;
   }
-  .testimonials-box {
+  .slide {
     transform: translateY(-10%);
   }
 

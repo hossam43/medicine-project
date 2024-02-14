@@ -48,7 +48,7 @@ html {
   scroll-behavior: smooth;
 }
 body {
-  font-family: "Rubik", sans-serif, sans-serif;
+  font-family: "Roboto", sans-serif;
   line-height: 1;
   font-weight: 400;
   color: #1e144f;
@@ -87,6 +87,9 @@ body {
   grid-template-columns: repeat(4, 1fr);
 }
 
+.grid--5--cols {
+  grid-template-columns: repeat(5, 1fr);
+}
 .grid--6--cols {
   grid-template-columns: repeat(6, 1fr);
 }
@@ -118,9 +121,9 @@ body {
   display: block;
   font-size: 1.6rem;
   font-weight: 500;
-  color: #cf711f;
+  color: #333;
   text-transform: uppercase;
-  margin-bottom: 1.6rem;
+  margin-bottom: 3.2rem;
   letter-spacing: 0.75;
 }
 
@@ -130,52 +133,67 @@ body {
   margin-bottom: 2.4rem;
 }
 
+.SectionHeader_subheader {
+  font-size: 1.2rem;
+  line-height: 2.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1.12px;
+  margin: 0 0 1.2rem;
+}
+
 .btn,
 .btn:link,
 .btn:visited {
   display: inline-block;
-  text-decoration: none;
-  font-size: 2rem;
-  font-weight: 600;
-  padding: 1.6rem 3.2rem;
-  border-radius: 9px;
-  /* Only necessary for .btn */
-  border: none;
-  cursor: pointer;
+  font-size: 1.6rem;
   font-family: inherit;
+  font-weight: 500;
+  border: none;
+  padding: 1.25rem 4.5rem;
+  border-radius: 10rem;
+  cursor: pointer;
   transition: all 0.3s;
-}
-
-.btn--option {
-  background-color: #52b1ff;
   color: #fff;
-  padding: 0.8rem;
-  align-self: end;
+  background-color: #52b1ff;
 }
 
 /* the transation will apply automaticlly */
-.btn--option:hover {
-  background-color: #fff;
-  color: #52b1ff;
+.btn:hover {
+  background-color: #1e144f;
   box-shadow: 0 2px 8px 3px rgba(0, 0, 0, 0.05);
 }
 
 .btn--sm {
   background-color: #52b1ff;
   color: #fff;
-  font-size: 1.4rem;
-  padding: 1.4rem 2.4rem;
+  font-size: 1.6rem;
+  padding: 0.6rem 2.4rem;
 }
 
 .btn--sm:hover {
-  background-color: #fff;
-  color: #52b1ff;
+  background-color: #1e144f;
   box-shadow: 0 2px 8px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Section Revealing  animation */
+
+.element--hidden {
+  opacity: 0;
+  transform: translateY(8rem);
+}
+
+.section--reveal {
+  position: relative;
+  transition: transform 0.5s ease-in, opacity 0.5s ease-in;
 }
 
 /* HELPER/SETTINGS CLASSES */
 .margin-right-sm {
   margin-right: 1.6rem !important;
+}
+
+.margin-bottom-xsm {
+  margin-bottom: 1rem !important;
 }
 
 .margin-bottom-sm {
@@ -199,4 +217,9 @@ strong {
 .grid-gap-sm {
   column-gap: 2.4rem !important;
   row-gap: 3.2rem !important;
+}
+
+.grid-gap-xl {
+  column-gap: 11rem !important;
+  row-gap: 9.6rem;
 }
