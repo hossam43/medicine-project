@@ -80,7 +80,7 @@ const addDataHTML = () => {
       />
     </div>
     <p class="product-name">${product.name}</p>
-    <p class="product-price"><strong>$${product.price}</strong></p>
+    <p class="product-price"><strong>$${product.price.toFixed(2)}</strong></p>
     <button
       type="submit"
       name="add"

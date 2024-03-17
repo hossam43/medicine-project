@@ -2,49 +2,49 @@
   {
     "id": 1,
     "name": "Multi-functional Gym Equipment",
-    "price": 200,
+    "price": 600.0,
     "image": "assets/images/products/product01.png"
   },
   {
     "id": 2,
     "name": "Titan Grip",
-    "price": 54,
+    "price": 2.0,
     "image": "assets/images/products/product02.png"
   },
   {
     "id": 3,
     "name": "Kettlebell",
-    "price": 54,
+    "price": 80.0,
     "image": "assets/images/products/product03.png"
   },
   {
     "id": 4,
     "name": "Treadmill",
-    "price": 54,
+    "price": 422.0,
     "image": "assets/images/products/product04.png"
   },
   {
     "id": 5,
     "name": "Dumbbells",
-    "price": 54,
+    "price": 12.0,
     "image": "assets/images/products/product05.png"
   },
   {
     "id": 6,
     "name": "BN Micro PU",
-    "price": 504,
+    "price": 220.0,
     "image": "assets/images/products/product06.png"
   },
   {
     "id": 7,
     "name": "Jump Rope",
-    "price": 200,
+    "price": 10.0,
     "image": "assets/images/products/product07.png"
   },
   {
     "id": 8,
     "name": "CHLOROPHYLL Supplement",
-    "price": 24,
+    "price": 9.0,
     "image": "assets/images/products/product-p91.png"
   }
 ]
