@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Health Tips & Guides — MediShop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    :root{--p:#0057B7;--pd:#003D8F;--pl:#E8F1FF;--a:#FF6B35;--al:#FFF0EB;--g:#22C55E;--gl:#DCFCE7;--r:#EF4444;--y:#F59E0B;--bg:#F8FAFF;--sur:#fff;--sur2:#F1F5F9;--tx:#0F172A;--tx2:#475569;--tx3:#94A3B8;--brd:#E2E8F0;--rsm:8px;--rmd:14px;--rlg:22px;--rxl:32px;--shd:0 4px 20px rgba(0,87,183,.12);--shd2:0 12px 40px rgba(0,87,183,.18);--fd:'Syne',sans-serif;--fb:'DM Sans',sans-serif;--tr:all .25s cubic-bezier(.4,0,.2,1)}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{font-size:62.5%;scroll-behavior:smooth}
+    body{font-family:var(--fb);font-size:1.6rem;background:var(--bg);color:var(--tx)}
+    a{text-decoration:none;color:inherit}ul{list-style:none}img{display:block;max-width:100%}button{font-family:var(--fb);cursor:pointer;border:none;background:none}
+    .container{max-width:120rem;margin:0 auto;padding:0 3.2rem}
+    .btn{display:inline-flex;align-items:center;gap:.8rem;padding:1rem 2rem;border-radius:var(--rmd);font-size:1.4rem;font-weight:600;transition:var(--tr);cursor:pointer}
+    .btn-p{background:var(--p);color:#fff}.btn-p:hover{background:var(--pd)}
+    .btn-o{background:transparent;color:var(--p);border:2px solid var(--p)}.btn-o:hover{background:var(--pl)}
+    .btn-g{background:var(--sur2);color:var(--tx)}.btn-g:hover{background:var(--brd)}
+    .tag{display:inline-flex;align-items:center;gap:.5rem;font-size:1.2rem;font-weight:700;padding:.4rem 1rem;border-radius:100px;letter-spacing:.04em;text-transform:uppercase}
+    .tb{background:var(--pl);color:var(--p)}.to{background:var(--al);color:var(--a)}.tg{background:var(--gl);color:var(--g)}.tr{background:#FEE2E2;color:var(--r)}.ty{background:#FEF3C7;color:var(--y)}
+    /* HEADER */
+    .header{background:var(--sur);border-bottom:1px solid var(--brd);position:sticky;top:0;z-index:100;height:6.4rem;display:flex;align-items:center}
+    .hdr-in{display:flex;align-items:center;justify-content:space-between;gap:2rem}
+    .logo{display:flex;align-items:center;gap:1rem;font-family:var(--fd);font-size:2rem;font-weight:800;color:var(--p)}
+    .logo-ico{width:3.6rem;height:3.6rem;background:var(--p);border-radius:var(--rsm);display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.6rem}
+    .hdr-nav{display:flex;align-items:center;gap:.4rem}
+    .hnav-item{padding:.6rem 1.4rem;border-radius:var(--rsm);font-size:1.4rem;font-weight:500;color:var(--tx2);transition:var(--tr);cursor:pointer}
+    .hnav-item:hover,.hnav-item.active{background:var(--pl);color:var(--p)}
+    /* HERO BANNER */
+    .art-hero{background:linear-gradient(135deg,#003D8F 0%,#0057B7 60%,#1E7FD8 100%);padding:6.4rem 0;position:relative;overflow:hidden}
+    .art-hero::before{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1400&q=60') center/cover;opacity:.08}
+    .art-hero-in{position:relative;z-index:1;text-align:center;max-width:72rem;margin:0 auto}
+    .art-hero-tag{margin-bottom:1.6rem}
+    .art-hero-title{font-family:var(--fd);font-size:4.8rem;font-weight:800;color:#fff;line-height:1.15;margin-bottom:1.6rem}
+    .art-hero-title span{color:var(--a)}
+    .art-hero-desc{font-size:1.8rem;color:rgba(255,255,255,.8);line-height:1.65;margin-bottom:3.2rem}
+    /* SEARCH */
+    .search-wrap{display:flex;align-items:center;background:#fff;border-radius:var(--rlg);overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.15);max-width:64rem;margin:0 auto}
+    .search-wrap input{flex:1;border:none;outline:none;padding:1.6rem 2.4rem;font-size:1.6rem;font-family:var(--fb);color:var(--tx)}
+    .search-wrap button{padding:1.2rem 2.4rem;background:var(--a);color:#fff;font-size:1.6rem;font-weight:600;font-family:var(--fb);display:flex;align-items:center;gap:.8rem;transition:var(--tr)}.search-wrap button:hover{background:#e55a27}
+    .search-clear{padding:0 1.2rem;color:var(--tx3);font-size:1.4rem;cursor:pointer;display:none}
+    /* FILTER CHIPS */
+    .filters{background:var(--sur);border-bottom:1px solid var(--brd);padding:1.6rem 0;position:sticky;top:6.4rem;z-index:90}
+    .filters-in{display:flex;align-items:center;gap:1rem;overflow-x:auto;scrollbar-width:none}
+    .filters-in::-webkit-scrollbar{display:none}
+    .chip{padding:.6rem 1.6rem;border-radius:100px;font-size:1.4rem;font-weight:500;color:var(--tx2);border:1.5px solid var(--brd);background:var(--sur);transition:var(--tr);cursor:pointer;white-space:nowrap;flex-shrink:0}
+    .chip.active,.chip:hover{border-color:var(--p);color:var(--p);background:var(--pl)}
+    /* STATS BAR */
+    .stats-bar{background:var(--sur2);padding:1.2rem 0;border-bottom:1px solid var(--brd)}
+    .stats-in{display:flex;align-items:center;justify-content:space-between;gap:1.6rem;flex-wrap:wrap}
+    .stat-item{display:flex;align-items:center;gap:.8rem;font-size:1.4rem;color:var(--tx2)}
+    .stat-item strong{color:var(--tx);font-weight:700}
+    .sort-select{padding:.6rem 1.2rem;border:1.5px solid var(--brd);border-radius:var(--rsm);font-size:1.4rem;font-family:var(--fb);color:var(--tx);background:var(--sur);outline:none;cursor:pointer}
+    /* GRID */
+    .main-layout{display:grid;grid-template-columns:1fr 32rem;gap:3.2rem;padding:4rem 0}
+    .articles-grid{display:flex;flex-direction:column;gap:2.4rem}
+    /* ARTICLE CARDS */
+    .acard{background:var(--sur);border-radius:var(--rlg);overflow:hidden;border:1.5px solid var(--brd);transition:var(--tr);display:grid;grid-template-columns:32rem 1fr;cursor:pointer}
+    .acard:hover{transform:translateY(-3px);box-shadow:var(--shd2);border-color:transparent}
+    .acard-img{position:relative;overflow:hidden}
+    .acard-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+    .acard:hover .acard-img img{transform:scale(1.06)}
+    .acard-body{padding:2.8rem 3.2rem;display:flex;flex-direction:column}
+    .acard-meta{display:flex;align-items:center;gap:1.2rem;margin-bottom:1.4rem;flex-wrap:wrap}
+    .acard-author{display:flex;align-items:center;gap:.6rem;font-size:1.3rem;color:var(--tx2)}
+    .acard-author img{width:2.8rem;height:2.8rem;border-radius:50%;object-fit:cover}
+    .acard-date{font-size:1.3rem;color:var(--tx3)}
+    .acard-title{font-family:var(--fd);font-size:2.2rem;font-weight:800;color:var(--tx);line-height:1.35;margin-bottom:1.2rem}
+    .acard-exc{font-size:1.5rem;color:var(--tx2);line-height:1.7;flex:1}
+    .acard-footer{display:flex;align-items:center;justify-content:space-between;margin-top:2rem;padding-top:1.6rem;border-top:1px solid var(--brd)}
+    .acard-read{display:flex;align-items:center;gap:.6rem;font-size:1.4rem;font-weight:700;color:var(--p)}
+    .acard-stats{display:flex;align-items:center;gap:1.6rem;font-size:1.3rem;color:var(--tx3)}
+    /* FEATURED (first article) */
+    .acard.featured{grid-template-columns:1fr;grid-template-rows:30rem 1fr}
+    .acard.featured .acard-body{padding:3.2rem}
+    .acard.featured .acard-title{font-size:2.8rem}
+    /* SIDEBAR */
+    .sidebar{display:flex;flex-direction:column;gap:2.4rem}
+    .sbox{background:var(--sur);border-radius:var(--rlg);padding:2.4rem;border:1.5px solid var(--brd)}
+    .sbox-title{font-family:var(--fd);font-size:1.8rem;font-weight:800;color:var(--tx);margin-bottom:1.6rem;display:flex;align-items:center;gap:.8rem}
+    /* Trending */
+    .trend-list{display:flex;flex-direction:column;gap:1.2rem}
+    .trend-item{display:flex;align-items:center;gap:1.2rem;cursor:pointer;padding:.8rem;border-radius:var(--rsm);transition:var(--tr)}
+    .trend-item:hover{background:var(--bg)}
+    .trend-num{font-family:var(--fd);font-size:2rem;font-weight:800;color:var(--brd);flex-shrink:0;width:2.8rem}
+    .trend-item:hover .trend-num{color:var(--a)}
+    .trend-title{font-size:1.4rem;font-weight:600;color:var(--tx);line-height:1.4}
+    .trend-meta{font-size:1.2rem;color:var(--tx3)}
+    /* Newsletter sidebar */
+    .sbox-news{background:linear-gradient(135deg,var(--p),#1E7FD8);border:none}
+    .sbox-news .sbox-title{color:#fff}
+    .sbox-news p{font-size:1.4rem;color:rgba(255,255,255,.8);line-height:1.6;margin-bottom:1.6rem}
+    .sbox-news input{width:100%;padding:1rem 1.4rem;border:none;border-radius:var(--rsm);font-size:1.4rem;font-family:var(--fb);margin-bottom:1rem;outline:none}
+    .sbox-news button{width:100%;padding:1rem;background:var(--a);color:#fff;border-radius:var(--rsm);font-size:1.4rem;font-weight:600;font-family:var(--fb);transition:var(--tr)}.sbox-news button:hover{background:#e55a27}
+    /* Tags cloud */
+    .tag-cloud{display:flex;flex-wrap:wrap;gap:.8rem}
+    .tag-pill{padding:.5rem 1.2rem;background:var(--bg);border:1.5px solid var(--brd);border-radius:100px;font-size:1.3rem;color:var(--tx2);cursor:pointer;transition:var(--tr)}.tag-pill:hover{border-color:var(--p);color:var(--p);background:var(--pl)}
+    /* PAGINATION */
+    .pagination{display:flex;align-items:center;justify-content:center;gap:.8rem;padding:3.2rem 0}
+    .page-btn{width:4rem;height:4rem;border-radius:var(--rsm);display:flex;align-items:center;justify-content:center;font-size:1.4rem;font-weight:600;color:var(--tx2);border:1.5px solid var(--brd);background:var(--sur);transition:var(--tr);cursor:pointer}
+    .page-btn:hover,.page-btn.active{background:var(--p);color:#fff;border-color:var(--p)}
+    /* NO RESULTS */
+    .no-results{text-align:center;padding:6.4rem 2rem}
+    .no-results i{font-size:5.6rem;color:var(--brd);display:block;margin-bottom:1.6rem}
+    .no-results h3{font-family:var(--fd);font-size:2.4rem;font-weight:800;color:var(--tx);margin-bottom:.8rem}
+    .no-results p{font-size:1.6rem;color:var(--tx2)}
+    /* ===== ARTICLE READER OVERLAY ===== */
+    .reader-ov{position:fixed;inset:0;background:var(--bg);z-index:1000;overflow-y:auto;display:none;animation:rdIn .3s ease}
+    .reader-ov.open{display:block}
+    @keyframes rdIn{from{opacity:0;transform:translateY(2rem)}to{opacity:1;transform:none}}
+    .reader-header{background:var(--sur);border-bottom:1px solid var(--brd);position:sticky;top:0;z-index:10;padding:1.6rem 0}
+    .reader-hdr-in{display:flex;align-items:center;justify-content:space-between;gap:2rem}
+    .reader-back{display:flex;align-items:center;gap:.8rem;font-size:1.5rem;font-weight:600;color:var(--tx2);cursor:pointer;padding:.6rem 1.2rem;border-radius:var(--rsm);transition:var(--tr)}.reader-back:hover{background:var(--sur2);color:var(--tx)}
+    .reader-actions{display:flex;gap:.8rem}
+    .reader-act{width:3.6rem;height:3.6rem;border-radius:var(--rsm);background:var(--sur2);display:flex;align-items:center;justify-content:center;color:var(--tx2);font-size:1.4rem;transition:var(--tr);cursor:pointer}.reader-act:hover{background:var(--brd)}
+    /* Progress bar */
+    .read-progress{position:fixed;top:0;left:0;height:.3rem;background:var(--a);z-index:1001;width:0%;transition:width .1s linear}
+    /* Hero image */
+    .art-hero-img{width:100%;height:48rem;object-fit:cover;display:block}
+    .reader-body{max-width:76rem;margin:0 auto;padding:4rem 2.4rem}
+    .art-category{margin-bottom:2rem}
+    .art-title{font-family:var(--fd);font-size:4.8rem;font-weight:800;color:var(--tx);line-height:1.15;margin-bottom:2rem}
+    .art-byline{display:flex;align-items:center;gap:2.4rem;padding:2rem 0;border-top:1px solid var(--brd);border-bottom:1px solid var(--brd);margin-bottom:3.2rem;flex-wrap:wrap}
+    .art-author-wrap{display:flex;align-items:center;gap:1.2rem}
+    .art-avatar{width:4.8rem;height:4.8rem;border-radius:50%;object-fit:cover;background:var(--pl)}
+    .art-author-name{font-size:1.5rem;font-weight:700;color:var(--tx)}
+    .art-author-role{font-size:1.3rem;color:var(--tx2)}
+    .art-byline-stats{display:flex;gap:2rem;flex-wrap:wrap}
+    .art-byline-stat{display:flex;align-items:center;gap:.5rem;font-size:1.4rem;color:var(--tx2)}
+    .art-byline-stat i{color:var(--p)}
+    /* Article content styles */
+    .art-content{font-size:1.8rem;line-height:1.8;color:var(--tx2)}
+    .art-content p{margin-bottom:2.4rem}
+    .art-content h2{font-family:var(--fd);font-size:2.8rem;font-weight:800;color:var(--tx);margin:3.2rem 0 1.6rem;line-height:1.3}
+    .art-content h3{font-family:var(--fd);font-size:2.2rem;font-weight:700;color:var(--tx);margin:2.4rem 0 1.2rem;line-height:1.35}
+    .art-content ul,.art-content ol{margin:0 0 2.4rem 2.4rem}
+    .art-content li{margin-bottom:.8rem;line-height:1.7}
+    .art-content ul li{list-style:disc}
+    .art-content ol li{list-style:decimal}
+    .art-content strong{color:var(--tx);font-weight:700}
+    .art-content blockquote{border-left:4px solid var(--p);padding:1.6rem 2.4rem;background:var(--pl);border-radius:0 var(--rmd) var(--rmd) 0;margin:2.4rem 0;font-style:italic;color:var(--tx)}
+    .art-content .tip-box{background:var(--gl);border:1.5px solid var(--g);border-radius:var(--rmd);padding:2rem 2.4rem;margin:2.4rem 0}
+    .art-content .tip-box strong{color:#155724}
+    .art-content .warn-box{background:#FEF3C7;border:1.5px solid var(--y);border-radius:var(--rmd);padding:2rem 2.4rem;margin:2.4rem 0}
+    .art-content img{width:100%;border-radius:var(--rlg);margin:2.4rem 0}
+    /* Share */
+    .art-share{background:var(--sur2);border-radius:var(--rlg);padding:2.4rem;margin:3.2rem 0;display:flex;align-items:center;gap:2.4rem;flex-wrap:wrap}
+    .art-share p{font-size:1.5rem;font-weight:600;color:var(--tx)}
+    .share-btns{display:flex;gap:.8rem}
+    .share-btn{padding:.8rem 1.6rem;border-radius:var(--rsm);font-size:1.4rem;font-weight:600;display:flex;align-items:center;gap:.6rem;transition:var(--tr);cursor:pointer}
+    .sb-fb{background:#1877F2;color:#fff}.sb-tw{background:#1DA1F2;color:#fff}.sb-wa{background:#25D366;color:#fff}.sb-cp{background:var(--sur);color:var(--tx);border:1.5px solid var(--brd)}
+    /* Related articles */
+    .related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem;margin-top:2rem}
+    .rel-card{background:var(--sur);border-radius:var(--rmd);overflow:hidden;border:1.5px solid var(--brd);cursor:pointer;transition:var(--tr)}
+    .rel-card:hover{border-color:var(--p);transform:translateY(-2px);box-shadow:var(--shd)}
+    .rel-card-img{aspect-ratio:16/9;overflow:hidden}
+    .rel-card-img img{width:100%;height:100%;object-fit:cover;transition:transform .3s}
+    .rel-card:hover .rel-card-img img{transform:scale(1.05)}
+    .rel-card-body{padding:1.4rem}
+    .rel-card-title{font-family:var(--fd);font-size:1.5rem;font-weight:700;color:var(--tx);line-height:1.4;margin-bottom:.6rem}
+    .rel-card-meta{font-size:1.2rem;color:var(--tx3)}
+    /* TOAST */
+    .toast-c{position:fixed;bottom:2.4rem;right:2.4rem;z-index:2000;display:flex;flex-direction:column;gap:.8rem}
+    .toast{display:flex;align-items:center;gap:1rem;padding:1.2rem 1.8rem;background:var(--tx);color:#fff;border-radius:var(--rmd);font-size:1.4rem;font-weight:500;box-shadow:var(--shd2);animation:tin .3s ease;max-width:34rem}
+    @keyframes tin{from{opacity:0;transform:translateX(2rem)}to{opacity:1;transform:translateX(0)}}
+    .toast i{font-size:1.5rem}.ts i{color:var(--g)}.te i{color:var(--r)}
+    /* RESPONSIVE */
+    @media(max-width:960px){.main-layout{grid-template-columns:1fr}.sidebar{display:none}.acard{grid-template-columns:1fr}.acard-img{height:22rem}.acard.featured .acard-img{height:26rem}.related-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:600px){.container{padding:0 1.6rem}.art-hero-title{font-size:3.2rem}.art-title{font-size:3rem}.art-content{font-size:1.6rem}.related-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+
+<!-- READ PROGRESS -->
+<div class="read-progress" id="readProgress"></div>
+
+<!-- HEADER -->
+<header class="header"><div class="container"><div class="hdr-in">
+  <a href="index.html" class="logo"><div class="logo-ico"><i class="fas fa-heart-pulse"></i></div>MediShop</a>
+  <div class="hdr-nav">
+    <a href="index.html" class="hnav-item"><i class="fas fa-home"></i> Home</a>
+    <span class="hnav-item active"><i class="fas fa-book-medical"></i> Articles</span>
+    <a href="index.html#products" class="hnav-item"><i class="fas fa-shopping-bag"></i> Shop</a>
+    <a href="account.html" class="hnav-item"><i class="fas fa-user"></i> Account</a>
+    <a href="checkout.html" class="hnav-item btn-p" style="color:#fff;border-radius:var(--rsm);padding:.6rem 1.4rem"><i class="fas fa-cart-shopping"></i> Cart</a>
+  </div>
+</div></div></header>
+
+<!-- HERO BANNER -->
+<div class="art-hero"><div class="container"><div class="art-hero-in">
+  <div class="art-hero-tag"><span class="tag" style="background:rgba(255,255,255,.15);color:#fff"><i class="fas fa-book-medical"></i> HEALTH GUIDES</span></div>
+  <h1 class="art-hero-title">Health Tips &<br><span>Expert Guides</span></h1>
+  <p class="art-hero-desc">Evidence-based health articles from our team of pharmacists, doctors, and certified fitness coaches.</p>
+  <div class="search-wrap">
+    <input type="text" id="searchInp" placeholder="Search articles, topics, authors…" oninput="liveSearch(this.value)"/>
+    <span class="search-clear" id="searchClear" onclick="clearSearch()"><i class="fas fa-xmark"></i></span>
+    <button onclick="doSearch()"><i class="fas fa-magnifying-glass"></i> Search</button>
+  </div>
+  <div style="margin-top:1.4rem;display:flex;align-items:center;justify-content:center;gap:2rem;flex-wrap:wrap">
+    <span style="font-size:1.4rem;color:rgba(255,255,255,.65)"><i class="fas fa-fire"></i> Trending: <span style="color:rgba(255,255,255,.9);cursor:pointer" onclick="quickSearch('home gym')">Home gym</span>, <span style="color:rgba(255,255,255,.9);cursor:pointer" onclick="quickSearch('supplements')">Supplements</span>, <span style="color:rgba(255,255,255,.9);cursor:pointer" onclick="quickSearch('heart health')">Heart health</span></span>
+  </div>
+</div></div></div>
+
+<!-- FILTERS -->
+<div class="filters" id="filtersBar"><div class="container"><div class="filters-in">
+  <span class="chip active" onclick="filterCat('all',this)">All Articles</span>
+  <span class="chip" onclick="filterCat('fitness',this)">🏋️ Fitness</span>
+  <span class="chip" onclick="filterCat('medical',this)">💊 Medical</span>
+  <span class="chip" onclick="filterCat('nutrition',this)">🥗 Nutrition</span>
+  <span class="chip" onclick="filterCat('cardiology',this)">🫀 Cardiology</span>
+  <span class="chip" onclick="filterCat('baby',this)">👶 Baby Care</span>
+  <span class="chip" onclick="filterCat('skincare',this)">✨ Skincare</span>
+  <span class="chip" onclick="filterCat('mental',this)">🧠 Mental Health</span>
+</div></div></div>
+
+<!-- STATS BAR -->
+<div class="stats-bar"><div class="container"><div class="stats-in">
+  <div style="display:flex;gap:2.4rem;flex-wrap:wrap">
+    <div class="stat-item"><i class="fas fa-file-medical"></i><span><strong id="artCount">12</strong> Articles</span></div>
+    <div class="stat-item"><i class="fas fa-users"></i><span><strong>6</strong> Expert Authors</span></div>
+    <div class="stat-item"><i class="fas fa-eye"></i><span><strong>48k+</strong> Monthly Readers</span></div>
+  </div>
+  <select class="sort-select" id="sortSelect" onchange="sortArticles(this.value)">
+    <option value="newest">Newest First</option>
+    <option value="popular">Most Popular</option>
+    <option value="readtime">Quickest Read</option>
+  </select>
+</div></div></div>
+
+<!-- MAIN CONTENT -->
+<div class="container"><div class="main-layout" id="mainLayout">
+  <div>
+    <div class="articles-grid" id="articlesGrid"></div>
+    <div class="pagination" id="pagination"></div>
+  </div>
+  <aside class="sidebar">
+    <!-- TRENDING -->
+    <div class="sbox">
+      <div class="sbox-title"><i class="fas fa-fire" style="color:var(--a)"></i> Trending Now</div>
+      <div class="trend-list" id="trendingList"></div>
+    </div>
+    <!-- CATEGORIES -->
+    <div class="sbox">
+      <div class="sbox-title"><i class="fas fa-tags" style="color:var(--p)"></i> Categories</div>
+      <div class="tag-cloud" id="catCloud"></div>
+    </div>
+    <!-- NEWSLETTER -->
+    <div class="sbox sbox-news">
+      <div class="sbox-title"><i class="fas fa-envelope"></i> Health Newsletter</div>
+      <p>Get weekly evidence-based health tips directly in your inbox. No spam, ever.</p>
+      <input type="email" id="sideEmail" placeholder="Your email address"/>
+      <button onclick="sideSubscribe()">Subscribe <i class="fas fa-arrow-right"></i></button>
+    </div>
+    <!-- TOP AUTHORS -->
+    <div class="sbox">
+      <div class="sbox-title"><i class="fas fa-user-doctor" style="color:var(--g)"></i> Our Experts</div>
+      <div style="display:flex;flex-direction:column;gap:1.4rem" id="authorsList"></div>
+    </div>
+  </aside>
+</div></div>
+
+<!-- ARTICLE READER -->
+<div class="reader-ov" id="readerOv">
+  <div class="reader-header"><div class="container"><div class="reader-hdr-in">
+    <button class="reader-back" onclick="closeReader()"><i class="fas fa-arrow-left"></i> Back to Articles</button>
+    <div class="reader-actions">
+      <div class="reader-act" onclick="shareArticle()" title="Share"><i class="fas fa-share-nodes"></i></div>
+      <div class="reader-act" id="bookmarkBtn" onclick="toggleBookmark()" title="Bookmark"><i class="far fa-bookmark"></i></div>
+      <div class="reader-act" onclick="window.print()" title="Print"><i class="fas fa-print"></i></div>
+    </div>
+  </div></div></div>
+  <img class="art-hero-img" id="artHeroImg" src="" alt=""/>
+  <div class="reader-body">
+    <div class="art-category" id="artCategory"></div>
+    <h1 class="art-title" id="artTitle"></h1>
+    <div class="art-byline" id="artByline"></div>
+    <div class="art-content" id="artContent"></div>
+    <div class="art-share">
+      <p><i class="fas fa-share-nodes"></i> Share this article</p>
+      <div class="share-btns">
+        <button class="share-btn sb-fb" onclick="shareOn('facebook')"><i class="fab fa-facebook-f"></i> Facebook</button>
+        <button class="share-btn sb-tw" onclick="shareOn('twitter')"><i class="fab fa-x-twitter"></i> Twitter</button>
+        <button class="share-btn sb-wa" onclick="shareOn('whatsapp')"><i class="fab fa-whatsapp"></i> WhatsApp</button>
+        <button class="share-btn sb-cp" onclick="copyLink()"><i class="fas fa-link"></i> Copy Link</button>
+      </div>
+    </div>
+    <div>
+      <h2 style="font-family:var(--fd);font-size:2.4rem;font-weight:800;color:var(--tx);margin-bottom:2rem;border-top:1px solid var(--brd);padding-top:3.2rem">Related Articles</h2>
+      <div class="related-grid" id="relatedGrid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast-c" id="toastC"></div>
+
+<script>
+// ============================================================
+// DATA — All articles
+// ============================================================
+const AUTHORS = {
+  mahmoud: {name:"Dr. Mahmoud Ali", role:"Fitness & Sports Medicine", avatar:"https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=80&q=80"},
+  sara: {name:"Pharm. Sara Khaled", role:"Clinical Pharmacist", avatar:"https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=80&q=80"},
+  karim: {name:"Dr. Karim Saad", role:"Sports Nutritionist", avatar:"https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=80&q=80"},
+  fatma: {name:"Dr. Fatma Nour", role:"Cardiologist", avatar:"https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=80&q=80"},
+  amira: {name:"Dr. Amira Hassan", role:"Pediatrician", avatar:"https://images.unsplash.com/photo-1651008376811-b90baee60c1f?w=80&q=80"},
+  rania: {name:"Dr. Rania Omar", role:"Dermatologist", avatar:"https://images.unsplash.com/photo-1527613426441-4da17471b66d?w=80&q=80"},
+};
+
+const ARTICLES = [
+  {
+    id:1, featured:true,
+    title:"The Complete Guide to Building a Home Gym on a Budget",
+    excerpt:"Discover the essential equipment you need and how to maximize your workout space without overspending. Everything from dumbbells to full racks — ranked by ROI.",
+    cat:"fitness", catLabel:"FITNESS", tagCls:"to",
+    date:"March 20, 2026", readTime:6, views:12400, likes:342,
+    author:"mahmoud",
+    image:"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=85",
+    tags:["home gym","fitness","equipment","budget"],
+    content:`
+<p>Building a home gym doesn't require a massive budget. With the right approach and smart choices, you can create a fully functional workout space that rivals commercial gyms — for a fraction of the cost.</p>
+<h2>Start with the Essentials</h2>
+<p>Before splurging on expensive machines, focus on versatile equipment that delivers the most value per dollar spent. A good set of adjustable dumbbells, resistance bands, and a jump rope can handle 80% of your fitness needs.</p>
+<blockquote>"The best home gym is the one you actually use. Start small, stay consistent, then upgrade."</blockquote>
+<h3>The Must-Have Equipment List</h3>
+<ul>
+  <li><strong>Adjustable Dumbbells</strong> — Replace an entire rack in one compact unit. The Bowflex 552s adjust from 5–52 lbs in seconds.</li>
+  <li><strong>Pull-up Bar</strong> — Fits any doorframe, works your entire upper body. One of the best $30 investments in fitness.</li>
+  <li><strong>Resistance Bands Set</strong> — Perfect for stretching, warmups, and assisted exercises. Also great for travel.</li>
+  <li><strong>Jump Rope</strong> — The most effective cardio tool per dollar spent. 20 minutes = 300+ calories burned.</li>
+  <li><strong>Yoga Mat</strong> — Essential for floor work, stretching, and bodyweight exercises.</li>
+  <li><strong>Kettlebell 16kg</strong> — One kettlebell opens up swings, Turkish get-ups, goblet squats, and carries.</li>
+</ul>
+<div class="tip-box"><strong>💡 Pro Tip:</strong> Buy used equipment. Gym closures and resolutions mean used equipment floods marketplaces every January and March. You can often get equipment at 40–60% off retail.</div>
+<h2>Space Optimization</h2>
+<p>Even a 10×10 ft area is enough for a comprehensive workout space. Use wall-mounted storage for plates and bands. Foldable benches and stackable bumper plates maximize your usable area dramatically.</p>
+<h3>Flooring Matters</h3>
+<p>Rubber horse stall mats (2cm thick) from agricultural supply stores cost a fraction of dedicated gym mats and are equally durable. A 6×8 ft area covered with them costs around $80 and protects your floor while reducing noise.</p>
+<h2>Phase Your Investment</h2>
+<p>Don't rush your purchases. Build in phases:</p>
+<ol>
+  <li><strong>Phase 1 ($100–200):</strong> Dumbbells, bands, mat, jump rope</li>
+  <li><strong>Phase 2 ($300–500):</strong> Pull-up station, kettlebell, flooring</li>
+  <li><strong>Phase 3 ($500–1000):</strong> Adjustable bench, barbell + plates</li>
+  <li><strong>Phase 4 ($1000+):</strong> Power rack, cable machine, treadmill/rower</li>
+</ol>
+<div class="warn-box"><strong>⚠️ Avoid:</strong> Don't buy a treadmill before establishing a consistent training habit. Most treadmills become expensive clothes hangers. Build the habit first.</div>
+<h2>Sample Workout for a Minimal Home Gym</h2>
+<p>With just dumbbells, a pull-up bar, and a mat, you can perform: dumbbell squats, Romanian deadlifts, dumbbell rows, pull-ups, push-ups, dumbbell shoulder press, lunges, and core work. That's a complete full-body program covering all major movement patterns.</p>
+<p>The research is clear: training at home produces results equal to gym training when volume and effort are matched. The convenience factor often leads to better adherence, which is the biggest predictor of long-term results.</p>`
+  },
+  {
+    id:2,
+    title:"How to Safely Store Your Medications at Home",
+    excerpt:"Proper medication storage prevents degradation and keeps your family safe. Our clinical pharmacist breaks down the golden rules every household needs.",
+    cat:"medical", catLabel:"MEDICAL", tagCls:"tb",
+    date:"March 15, 2026", readTime:4, views:8900, likes:218,
+    author:"sara",
+    image:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=800&q=85",
+    tags:["medication","safety","storage","pharmacy"],
+    content:`
+<p>Improper medication storage is one of the most overlooked health risks in Egyptian households. Heat, humidity, and light can degrade medications significantly faster than their expiration dates suggest.</p>
+<h2>The Golden Rules</h2>
+<ul>
+  <li><strong>Cool and Dry:</strong> Store most medications below 25°C, away from humidity</li>
+  <li><strong>Not the Bathroom:</strong> Despite common belief, bathrooms are the worst place due to steam and temperature fluctuations</li>
+  <li><strong>Away from Light:</strong> UV light breaks down many active pharmaceutical compounds</li>
+  <li><strong>Original Packaging:</strong> Keep medications in their original bottles or blister packs with the label intact</li>
+  <li><strong>Not the Kitchen:</strong> The area near the stove and sink creates heat/humidity cycles that degrade medications</li>
+</ul>
+<blockquote>"The medicine cabinet in your bathroom is ironically the worst place to store medicine."</blockquote>
+<h2>Refrigerated Medications</h2>
+<p>Some medications require refrigeration: insulin, certain eye drops, some antibiotics (amoxicillin suspension), and most biologics. Always check the label. Store these in the main compartment of your fridge (2–8°C), never in the door where temperatures fluctuate with opening.</p>
+<div class="warn-box"><strong>⚠️ Never freeze:</strong> Medications marked "refrigerate" should never be frozen unless specifically stated. Freezing destroys the structure of many protein-based medications like insulin.</div>
+<h2>Child Safety is Non-Negotiable</h2>
+<p>Use child-resistant caps and store all medications in a locked cabinet if you have children under 12 in the home. Medication poisoning is among the leading causes of accidental childhood injury in Egypt.</p>
+<ul>
+  <li>Never tell children medicine is "candy" to encourage compliance</li>
+  <li>Store medications at least 1.5m above ground level</li>
+  <li>Keep the Poison Control Center number visible: <strong>08008880700</strong></li>
+</ul>
+<h2>Medication Disposal</h2>
+<p>Never flush medications down the toilet or throw them in household trash. Flushed medications contaminate water supplies. Return expired medications to your pharmacist — MediShop offers free medication disposal at all partner locations.</p>
+<div class="tip-box"><strong>💡 Organization Tip:</strong> Do a medication audit every 6 months. Check expiry dates, dispose of expired items properly, and restock essentials. A well-organized medicine cabinet saves lives.</div>`
+  },
+  {
+    id:3,
+    title:"Top 10 Supplements for Energy and Muscle Recovery",
+    excerpt:"With thousands of products on the market, what actually works? Our sports nutritionist cuts through the noise with science-backed recommendations.",
+    cat:"nutrition", catLabel:"NUTRITION", tagCls:"tg",
+    date:"March 10, 2026", readTime:8, views:19200, likes:512,
+    author:"karim",
+    image:"https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=800&q=85",
+    tags:["supplements","protein","creatine","recovery","energy"],
+    content:`
+<p>With thousands of supplements on the market, it's hard to know what actually works. We cut through the noise and focus on compounds with solid clinical evidence for energy and recovery.</p>
+<h2>For Energy — The Evidence Tier List</h2>
+<h3>1. Creatine Monohydrate — S Tier</h3>
+<p>The single most studied sports supplement in history. Increases phosphocreatine stores for explosive strength and power output. 5g/day, every day. No loading needed. Benefits accumulate over weeks. Cost: roughly $15/month.</p>
+<h3>2. Caffeine — S Tier</h3>
+<p>Not just for alertness. Genuine ergogenic aid that improves endurance, strength, and focus. 3–6mg/kg body weight, 45 minutes pre-workout. Cycle off one week per month to maintain sensitivity.</p>
+<h3>3. B-Complex Vitamins — A Tier</h3>
+<p>Essential cofactors in energy metabolism. Deficiency is surprisingly common, especially B12 in vegetarians and B1 in those with high carbohydrate diets. Get bloodwork before assuming deficiency.</p>
+<h3>4. CoQ10 (Ubiquinol form) — A Tier</h3>
+<p>Supports mitochondrial function. Especially important over age 35. Also depleted by statin medications — always supplement CoQ10 if prescribed statins.</p>
+<h3>5. Iron — A Tier (if deficient)</h3>
+<p>Even mild anemia dramatically reduces energy and exercise capacity. Get ferritin levels tested. Don't supplement blindly — excess iron is harmful.</p>
+<h2>For Recovery</h2>
+<h3>6. Whey Protein Isolate — S Tier</h3>
+<p>Fast-absorbing, complete amino acid profile. Take 25–40g within 30–60 minutes of training. WPI is preferred over concentrate for those with lactose sensitivity.</p>
+<h3>7. Magnesium Glycinate — A Tier</h3>
+<p>Supports sleep quality, muscle relaxation, and over 300 enzymatic reactions. The glycinate form has superior absorption and doesn't cause digestive issues. 400mg before bed.</p>
+<h3>8. Omega-3 Fish Oil — A Tier</h3>
+<p>Reduces exercise-induced inflammation. Look for at least 2g EPA+DHA combined daily. Quality matters — choose brands with third-party testing for heavy metals.</p>
+<h3>9. Tart Cherry Extract — B Tier</h3>
+<p>Clinically proven to reduce DOMS (delayed onset muscle soreness) in multiple RCTs. Particularly useful after leg day or unusual training loads.</p>
+<h3>10. Zinc — B Tier</h3>
+<p>Critical for testosterone production and immune function, heavily depleted by intense exercise and sweating. 15–30mg zinc gluconate or picolinate post-workout on empty days.</p>
+<div class="tip-box"><strong>💡 Bottom Line:</strong> Most people need just 3: creatine + protein + fish oil. Add others based on bloodwork and specific goals. Don't let supplement companies convince you their proprietary blend is more important than your training and diet.</div>`
+  },
+  {
+    id:4,
+    title:"5 Daily Habits That Protect Your Heart",
+    excerpt:"Cardiovascular disease is Egypt's leading cause of mortality — yet up to 80% of cases are preventable. These five habits have the strongest evidence base.",
+    cat:"cardiology", catLabel:"CARDIOLOGY", tagCls:"tb",
+    date:"March 5, 2026", readTime:5, views:14300, likes:445,
+    author:"fatma",
+    image:"https://images.unsplash.com/photo-1559757175-5700dde675bc?w=800&q=85",
+    tags:["heart health","cardiology","hypertension","prevention"],
+    content:`
+<p>Cardiovascular disease remains Egypt's leading cause of mortality, yet up to 80% of cases are preventable through lifestyle modifications. These five daily habits have the strongest evidence base for protecting your heart.</p>
+<h2>1. Walk 8,000 Steps Daily</h2>
+<p>A landmark 2023 meta-analysis of 226,889 individuals found that 8,000 steps/day reduces all-cause mortality by 51% compared to 4,000 steps. You don't need a gym membership — consistent daily walking delivers remarkable cardiovascular benefits. Use a pedometer or smartphone app to track accurately.</p>
+<h2>2. Sleep 7–9 Hours (Non-Negotiable)</h2>
+<p>Sleep deprivation elevates cortisol, increases blood pressure, disrupts glucose metabolism, and accelerates arterial stiffness. Chronic short sleep (under 6 hours) doubles hypertension risk and significantly raises heart attack probability. Good sleep hygiene: dark room, cool temperature (18–20°C), consistent schedule.</p>
+<blockquote>"Sleep is the most powerful cardiovascular intervention that costs nothing."</blockquote>
+<h2>3. Eat Mediterranean-Style</h2>
+<p>The landmark PREDIMED trial showed a Mediterranean diet supplemented with extra-virgin olive oil or nuts reduces major cardiovascular events by 30%. Core principles: olive oil as primary fat, abundant vegetables and legumes, fish twice weekly, moderate red wine (optional), very limited processed foods.</p>
+<h2>4. Manage Stress Actively</h2>
+<p>Chronic psychological stress elevates inflammatory markers (IL-6, CRP, fibrinogen) directly linked to atherosclerosis. The mechanisms are real and measurable. Effective interventions with clinical evidence include: regular aerobic exercise, 10–20 minutes daily meditation, adequate social connection, and time in nature.</p>
+<div class="warn-box"><strong>⚠️ Avoid:</strong> Smoking even one cigarette per day carries 70% of the cardiovascular risk of smoking a full pack. There is no safe level of cigarette smoking for heart health.</div>
+<h2>5. Monitor Your Numbers Annually</h2>
+<p>Blood pressure, fasting blood sugar, and lipid panels are silent. Most people with dangerously elevated values feel completely normal. Regular screening catches problems early when they're most treatable.</p>
+<ul>
+  <li><strong>Blood pressure target:</strong> Below 120/80 mmHg</li>
+  <li><strong>Fasting glucose:</strong> Below 100 mg/dL</li>
+  <li><strong>LDL cholesterol:</strong> Below 100 mg/dL (below 70 if high-risk)</li>
+  <li><strong>Triglycerides:</strong> Below 150 mg/dL</li>
+</ul>
+<div class="tip-box"><strong>💡 MediShop tip:</strong> Our Omron blood pressure monitors let you track at home daily. Research shows home monitoring predicts cardiovascular outcomes better than clinic measurements.</div>`
+  },
+  {
+    id:5,
+    title:"Essential Nutrition Guide for Babies 0–12 Months",
+    excerpt:"The first year of life sets the nutritional foundation for decades to come. Everything parents need to know, from birth through the first birthday.",
+    cat:"baby", catLabel:"BABY CARE", tagCls:"to",
+    date:"February 28, 2026", readTime:7, views:9800, likes:312,
+    author:"amira",
+    image:"https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&q=85",
+    tags:["baby","nutrition","breastfeeding","solids","infant"],
+    content:`
+<p>The first year of life sets the nutritional foundation for decades to come. Getting it right has lifelong implications for your child's immune system, cognitive development, and metabolic health.</p>
+<h2>0–6 Months: Breast Milk is Complete</h2>
+<p>Human breast milk is the biological gold standard. It provides all required macronutrients and micronutrients, passive immunity through immunoglobulins (particularly IgA), and hundreds of bioactive compounds no formula can replicate — including stem cells, growth factors, and beneficial bacteria.</p>
+<div class="tip-box"><strong>💡 Key fact:</strong> Exclusive breastfeeding for 6 months reduces infant mortality by up to 13% according to Lancet analysis of 75 countries. The benefits are dose-dependent — any breastfeeding is better than none.</div>
+<h2>The One Exception: Vitamin D</h2>
+<p>All exclusively breastfed infants require Vitamin D3 supplementation (400 IU/day) from birth, regardless of maternal Vitamin D status. Breast milk is inherently insufficient in Vitamin D — this is a feature of evolution, not a defect. Supplementation is universally recommended by pediatric associations worldwide.</p>
+<h2>6–12 Months: Starting Solids</h2>
+<p>Start single-ingredient purees at 6 months (not before). Introduce foods in this order of priority:</p>
+<ol>
+  <li>Iron-rich foods first — iron-fortified cereals, pureed meat, lentils (breast milk iron becomes insufficient at 6 months)</li>
+  <li>Vegetables — starting with single ingredients like sweet potato, pea, carrot</li>
+  <li>Fruits — after vegetables are accepted</li>
+  <li>Proteins — egg yolk, fish (low mercury), legumes</li>
+</ol>
+<p>Introduce one new food every 3–5 days and watch for allergic reactions: hives, vomiting, diarrhea, difficulty breathing. Early introduction of allergenic foods (peanuts, eggs) actually reduces allergy risk — the old advice to delay was incorrect.</p>
+<h2>Foods to Avoid Before Age 1</h2>
+<ul>
+  <li><strong>Honey</strong> — Clostridium botulinum spores cause infant botulism, which can be fatal</li>
+  <li><strong>Cow's milk as a main drink</strong> — Kidneys cannot handle the protein and mineral load</li>
+  <li><strong>Added salt</strong> — Damages developing kidneys</li>
+  <li><strong>Added sugar</strong> — Programs sweet preference and displaces nutritious foods</li>
+  <li><strong>Choking hazards</strong> — Whole grapes, nuts, raw hard vegetables, large chunks</li>
+  <li><strong>Low-fat products</strong> — Fat is essential for brain development in the first two years</li>
+</ul>`
+  },
+  {
+    id:6,
+    title:"Building an Effective Skincare Routine for Egypt's Climate",
+    excerpt:"Dermatologist-approved skincare adapted for Egypt's extreme UV index, heat, and varied humidity. Stop wasting money on products that don't suit your environment.",
+    cat:"skincare", catLabel:"SKINCARE", tagCls:"tg",
+    date:"February 20, 2026", readTime:5, views:11200, likes:398,
+    author:"rania",
+    image:"https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=800&q=85",
+    tags:["skincare","sunscreen","routine","hyperpigmentation","Egypt"],
+    content:`
+<p>Egypt's climate presents unique skincare challenges: extreme UV radiation, high temperatures, and either desert dryness or coastal humidity. European skincare routines don't translate directly — here's what actually works for Egyptian skin.</p>
+<h2>The Single Most Important Step: Sunscreen</h2>
+<p>Egypt's UV index regularly reaches 10–11 (Extreme) during summer and 7–8 (High) in winter. Photoaging, hyperpigmentation, and skin cancer risk are all dramatically higher without daily sun protection.</p>
+<blockquote>"SPF50+ sunscreen is the most effective anti-aging, anti-pigmentation, and health-protecting product available. Nothing else comes close."</blockquote>
+<p>Choose chemical sunscreens for lightweight daily wear, mineral (zinc oxide/titanium dioxide) for sensitive skin or post-procedure. Reapply every 2 hours of sun exposure.</p>
+<h2>Morning Routine (5 minutes)</h2>
+<ol>
+  <li><strong>Gentle gel cleanser</strong> — Never bar soap (strips natural barrier)</li>
+  <li><strong>Vitamin C serum 10–15%</strong> — Antioxidant protection against UV-induced oxidative damage. Apply to damp skin.</li>
+  <li><strong>Lightweight water-gel moisturizer</strong> — Look for niacinamide, ceramides, or hyaluronic acid</li>
+  <li><strong>SPF50+ broad-spectrum sunscreen</strong> — The non-negotiable final step</li>
+</ol>
+<h2>Evening Routine</h2>
+<ol>
+  <li><strong>Oil cleanser</strong> — Removes sunscreen and makeup effectively</li>
+  <li><strong>Foam/gel second cleanse</strong> — Removes residue</li>
+  <li><strong>Retinol 0.025%–0.1%</strong> (2–3x per week) or <strong>AHA 5–10%</strong> exfoliant — Start low and slow</li>
+  <li><strong>Hyaluronic acid serum</strong> — Apply to damp skin</li>
+  <li><strong>Night moisturizer</strong> — Richer than day cream, with ceramides</li>
+</ol>
+<h2>Treating Hyperpigmentation</h2>
+<p>Melasma and post-inflammatory hyperpigmentation are extremely prevalent in Egypt due to both genetic predisposition and high UV exposure. The evidence-based triple therapy:</p>
+<ul>
+  <li><strong>Niacinamide 4–10%</strong> — Inhibits melanosome transfer, reduces pigmentation transfer to skin cells</li>
+  <li><strong>Vitamin C 15–20%</strong> — Inhibits tyrosinase enzyme, reduces melanin synthesis</li>
+  <li><strong>Consistent SPF50+</strong> — Without this, all treatments are futile. UV triggers melanin production directly.</li>
+</ul>
+<div class="warn-box"><strong>⚠️ Avoid:</strong> Mercury-containing "whitening creams" are still sold in Egyptian markets. They cause kidney damage, nerve damage, and worsen skin long-term. Check ingredients and avoid hydroquinone products without dermatologist supervision.</div>`
+  },
+  {
+    id:7,
+    title:"Understanding Blood Pressure: Your Complete Guide",
+    excerpt:"High blood pressure affects 1 in 3 Egyptian adults and most don't know it. Everything you need to understand, monitor, and manage your blood pressure.",
+    cat:"cardiology", catLabel:"CARDIOLOGY", tagCls:"tb",
+    date:"February 15, 2026", readTime:6, views:16700, likes:523,
+    author:"fatma",
+    image:"https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=85",
+    tags:["blood pressure","hypertension","heart","monitoring"],
+    content:`
+<p>Hypertension affects approximately 35% of Egyptian adults — and most are unaware. Known as the "silent killer," elevated blood pressure causes progressive organ damage for years before any symptoms appear.</p>
+<h2>Reading Your Blood Pressure Numbers</h2>
+<p>A blood pressure reading has two numbers: systolic (when heart contracts) over diastolic (between beats). Units are mmHg.</p>
+<ul>
+  <li><strong>Normal:</strong> Below 120/80</li>
+  <li><strong>Elevated:</strong> 120–129 / below 80</li>
+  <li><strong>Stage 1 Hypertension:</strong> 130–139 / 80–89</li>
+  <li><strong>Stage 2 Hypertension:</strong> 140+ / 90+</li>
+  <li><strong>Hypertensive Crisis:</strong> Above 180/120 — seek emergency care immediately</li>
+</ul>
+<h2>How to Measure Correctly at Home</h2>
+<ol>
+  <li>Rest seated for 5 minutes before measuring</li>
+  <li>No caffeine, exercise, or smoking for 30 minutes prior</li>
+  <li>Sit with feet flat, back supported, arm at heart level</li>
+  <li>Take two readings 1 minute apart — average them</li>
+  <li>Measure at the same time each day (morning before medication is ideal)</li>
+  <li>Log results — trends matter more than single readings</li>
+</ol>
+<div class="tip-box"><strong>💡 White coat hypertension:</strong> Up to 20% of people have elevated clinic readings but normal home readings. Home monitoring provides far more accurate assessment of true cardiovascular risk.</div>
+<h2>Lifestyle Changes That Lower Blood Pressure</h2>
+<p>These interventions have evidence supporting 5–15 mmHg reductions in systolic pressure — sometimes as effective as medication:</p>
+<ul>
+  <li><strong>DASH Diet:</strong> Rich in fruits, vegetables, whole grains, low-fat dairy — reduces systolic by 8–14 mmHg</li>
+  <li><strong>Sodium reduction:</strong> Under 2300mg/day (1500mg if hypertensive) — reduces by 5–6 mmHg</li>
+  <li><strong>Regular exercise:</strong> 150 min/week moderate aerobic — reduces by 4–9 mmHg</li>
+  <li><strong>Weight loss:</strong> 1 mmHg per kg lost</li>
+  <li><strong>Limiting alcohol:</strong> No more than 1 drink/day for women, 2 for men</li>
+  <li><strong>Quitting smoking:</strong> Immediate reduction in arterial stiffness</li>
+</ul>`
+  },
+  {
+    id:8,
+    title:"The Science of Sleep: Why 7 Hours Isn't Enough for Everyone",
+    excerpt:"Sleep science has exploded in recent years. Here's what we now know about optimizing sleep for health, performance, and longevity — beyond just counting hours.",
+    cat:"mental", catLabel:"MENTAL HEALTH", tagCls:"tr",
+    date:"February 10, 2026", readTime:7, views:22100, likes:678,
+    author:"mahmoud",
+    image:"https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=800&q=85",
+    tags:["sleep","mental health","recovery","circadian","performance"],
+    content:`
+<p>We spend roughly one-third of our lives asleep — yet sleep science has only recently become a serious field of medicine. What we've learned in the last decade has fundamentally changed how we understand health, aging, and performance.</p>
+<h2>Why Sleep Is Not Optional</h2>
+<p>During sleep, your brain physically cleans itself. The glymphatic system — discovered only in 2012 — pumps cerebrospinal fluid through brain tissue, washing out metabolic waste products including amyloid-beta proteins associated with Alzheimer's disease. This process is 10x more active during sleep than wakefulness.</p>
+<blockquote>"After 17 hours of sustained wakefulness, cognitive performance drops to the equivalent of a blood alcohol of 0.05%. After 24 hours, it drops to 0.10%."</blockquote>
+<h2>The Two Systems That Control Sleep</h2>
+<p><strong>Circadian Rhythm (Process C):</strong> Your internal 24-hour biological clock, primarily controlled by light exposure. Morning sunlight sets the clock; evening blue light delays it — pushing your natural sleep time later.</p>
+<p><strong>Sleep Pressure (Process S):</strong> Adenosine builds up in your brain throughout the day. The longer you're awake, the more adenosine accumulates, and the sleepier you feel. Caffeine works by blocking adenosine receptors — not eliminating the adenosine itself, which is why you crash when caffeine clears.</p>
+<h2>Individual Sleep Needs</h2>
+<p>The "8 hours for everyone" advice is an oversimplification. Genuine short sleepers (carrying mutations in the DEC2 or ADRB1 genes) function optimally on 6 hours. These people are extremely rare — about 1–3% of the population. Most people who claim they "do fine on 5 hours" are chronically sleep-deprived and have lost the ability to accurately assess their own impairment.</p>
+<h2>Optimizing Sleep Quality</h2>
+<ul>
+  <li><strong>Temperature:</strong> 18–19°C is optimal for core body temperature drop needed for sleep onset</li>
+  <li><strong>Darkness:</strong> Even small amounts of light in the room disrupt melatonin production</li>
+  <li><strong>Consistency:</strong> Same wake time every day — even weekends — is the single most important factor</li>
+  <li><strong>Morning sunlight:</strong> 10–30 minutes of outdoor light within 1 hour of waking anchors your circadian rhythm</li>
+  <li><strong>Caffeine cutoff:</strong> The half-life of caffeine is 5–6 hours. Last cup before 2pm for most people.</li>
+</ul>
+<div class="tip-box"><strong>💡 Quick test:</strong> Can you fall asleep within 5 minutes of lying down? This indicates sleep deprivation, not good sleep ability. Healthy sleepers take 10–20 minutes to fall asleep.</div>`
+  },
+  {
+    id:9,
+    title:"Understanding Food Labels: What the Numbers Actually Mean",
+    excerpt:"Nutrition labels are designed to confuse. A nutritionist breaks down exactly what to look at, what to ignore, and the tricks manufacturers use.",
+    cat:"nutrition", catLabel:"NUTRITION", tagCls:"tg",
+    date:"February 5, 2026", readTime:5, views:13400, likes:389,
+    author:"karim",
+    image:"https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=800&q=85",
+    tags:["nutrition","food labels","diet","calories","macros"],
+    content:`
+<p>The average person spends 30 seconds reading a food label and still walks away confused. Manufacturers know this, and many labels are designed to obscure rather than inform. Here's your complete guide to reading food labels accurately.</p>
+<h2>Start with Serving Size (It's a Trap)</h2>
+<p>The first trick is the serving size. A "single-serving" bag of chips might list 2.5 servings. Everything on the label is per serving. Always multiply by the number of servings you're actually consuming.</p>
+<div class="warn-box"><strong>⚠️ Classic example:</strong> A 500ml soft drink might list calories per 250ml serving. The bottle contains 2 servings = double the listed calories. Manufacturers have 20 years of research into what serving sizes make their products look acceptable.</div>
+<h2>Calories: What Actually Matters</h2>
+<p>Calories are a measure of energy. But not all calories are equal in how they affect satiety, hormones, and metabolic health. 100 calories of sugar behaves very differently from 100 calories of protein metabolically.</p>
+<h2>The Big Three Macros</h2>
+<ul>
+  <li><strong>Protein</strong> — The most important macro to track. Highly satiating, thermogenic (costs energy to digest), and essential for muscle. Aim for 1.6–2.2g per kg of body weight daily if active.</li>
+  <li><strong>Carbohydrates</strong> — Look at fiber (deduct from total carbs for "net carbs"). High fiber = slower blood sugar rise = better for metabolic health.</li>
+  <li><strong>Fat</strong> — Distinguish between saturated fat (moderate is fine), trans fat (avoid entirely — listed as "partially hydrogenated"), and unsaturated fats (aim for these).</li>
+</ul>
+<h2>The Ingredients List: The Real Information</h2>
+<p>Ingredients are listed in descending order by weight. If sugar appears in the first three ingredients, the product is primarily sugar. Watch for sugar aliases: high-fructose corn syrup, dextrose, maltose, glucose syrup, agave nectar, fruit juice concentrate — these are all sugar.</p>
+<h2>Marketing Claims to Ignore</h2>
+<ul>
+  <li><strong>"Natural"</strong> — Completely unregulated. Arsenic is natural.</li>
+  <li><strong>"Low fat"</strong> — Usually means high sugar, since fat is replaced with sweeteners to maintain palatability</li>
+  <li><strong>"Fortified with vitamins"</strong> — Doesn't make junk food nutritious</li>
+  <li><strong>"No added sugar"</strong> — May still contain high amounts of naturally occurring sugars</li>
+</ul>`
+  },
+  {
+    id:10,
+    title:"Managing Diabetes in Egypt: Diet, Exercise, and Medication",
+    excerpt:"Egypt has one of the highest diabetes rates in the world. A practical evidence-based guide to managing type 2 diabetes with lifestyle and medication.",
+    cat:"medical", catLabel:"MEDICAL", tagCls:"tb",
+    date:"January 28, 2026", readTime:9, views:24500, likes:712,
+    author:"sara",
+    image:"https://images.unsplash.com/photo-1576671081837-49000212a370?w=800&q=85",
+    tags:["diabetes","blood sugar","medication","diet","Egypt"],
+    content:`
+<p>Egypt has the 9th highest diabetes prevalence in the world, affecting approximately 15.2% of adults according to IDF data. Type 2 diabetes is largely preventable and, in early stages, often reversible through lifestyle modification.</p>
+<h2>Understanding Blood Sugar Control</h2>
+<p>Blood glucose is measured in mg/dL. Key targets for those managing diabetes:</p>
+<ul>
+  <li><strong>Fasting glucose:</strong> 80–130 mg/dL</li>
+  <li><strong>2-hour post-meal:</strong> Below 180 mg/dL</li>
+  <li><strong>HbA1c (3-month average):</strong> Below 7% for most patients</li>
+</ul>
+<h2>The Most Effective Dietary Approach</h2>
+<p>Multiple dietary patterns improve glycemic control. The two with strongest evidence for type 2 diabetes are:</p>
+<h3>Low-Carbohydrate Diet</h3>
+<p>Reducing carbohydrates to under 130g/day directly reduces glucose load. In multiple RCTs, this produces the fastest reductions in HbA1c and often allows medication reduction. Foods to minimize: white bread, white rice, potatoes, sugary drinks, sweets.</p>
+<h3>Mediterranean Diet</h3>
+<p>Moderate carbohydrates with high fiber, olive oil, fish, legumes, and vegetables. Consistently shown to reduce HbA1c by 0.3–0.5% compared to standard low-fat dietary advice.</p>
+<div class="tip-box"><strong>💡 Egyptian staples to prioritize:</strong> Lentils (adas) have an exceptionally low glycemic index. Foul medames (fava beans) is rich in fiber and protein. Olive oil for cooking. Whole grain bread over white. Limit white rice portion size.</div>
+<h2>Exercise as Medicine</h2>
+<p>Exercise increases glucose transport into muscles independently of insulin — meaning even insulin-resistant muscles can take up glucose during and after exercise. Effects persist for 24–48 hours.</p>
+<ul>
+  <li>Minimum: 150 minutes moderate aerobic weekly</li>
+  <li>Resistance training 2–3x/week is particularly effective for insulin sensitivity</li>
+  <li>Even walking 10–15 minutes after meals blunts post-meal glucose spikes significantly</li>
+</ul>`
+  },
+  {
+    id:11,
+    title:"Protein for Vegetarians and Vegans: A Complete Guide",
+    excerpt:"Plant-based eating is growing in Egypt. Getting adequate protein without meat or dairy is very achievable — if you know what you're doing.",
+    cat:"nutrition", catLabel:"NUTRITION", tagCls:"tg",
+    date:"January 20, 2026", readTime:6, views:8900, likes:278,
+    author:"karim",
+    image:"https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&q=85",
+    tags:["vegetarian","vegan","protein","plant-based","nutrition"],
+    content:`
+<p>The myth that plant foods can't provide complete protein persists despite decades of contrary evidence. You can absolutely meet all your protein needs on a vegetarian or vegan diet — with a basic understanding of food combining and variety.</p>
+<h2>How Much Protein Do You Need?</h2>
+<p>For sedentary adults: 0.8g per kg body weight (minimum). For active individuals: 1.6–2.2g per kg. For a 70kg active person, that's 112–154g of protein daily — very achievable from plants.</p>
+<h2>Complete vs Incomplete Proteins</h2>
+<p>Animal proteins are "complete" — containing all 9 essential amino acids in adequate ratios. Most plant proteins are "incomplete" — low in one or more essential amino acids (usually lysine or methionine). The solution is variety, not supplements.</p>
+<h3>Best Plant Protein Sources</h3>
+<ul>
+  <li><strong>Lentils (Adas):</strong> 18g protein per cooked cup — high in lysine, very affordable</li>
+  <li><strong>Chickpeas (Hummus/Koshari):</strong> 15g per cup, very versatile</li>
+  <li><strong>Fava Beans (Foul):</strong> 13g per cup, Egyptian staple</li>
+  <li><strong>Tofu:</strong> 20g per cup, complete protein — all essential amino acids</li>
+  <li><strong>Tempeh:</strong> 30g per cup — highest plant protein per serving</li>
+  <li><strong>Edamame:</strong> 17g per cup, complete protein</li>
+  <li><strong>Quinoa:</strong> 8g per cup, complete protein — one of very few plant complete proteins</li>
+  <li><strong>Greek yogurt (vegetarian):</strong> 20g per cup if including dairy</li>
+</ul>
+<div class="tip-box"><strong>💡 Practical approach:</strong> A bowl of lentil soup + bread = complementary proteins that together provide a complete amino acid profile. Traditional Egyptian cuisine already optimizes plant protein combining through dishes like koshari and foul with bread.</div>
+<h2>Supplements for Vegans</h2>
+<p>Nutrients requiring supplementation on a strict vegan diet: Vitamin B12 (critical — no plant source), Vitamin D3 (algae-based available), Omega-3 EPA/DHA (algae oil), Iron (monitor ferritin), Zinc, and Calcium (if no fortified foods).</p>`
+  },
+  {
+    id:12,
+    title:"First Aid at Home: What Every Egyptian Family Should Know",
+    excerpt:"Basic first aid knowledge saves lives. These are the most important skills and items every household should have — explained simply.",
+    cat:"medical", catLabel:"MEDICAL", tagCls:"tb",
+    date:"January 15, 2026", readTime:8, views:31200, likes:892,
+    author:"sara",
+    image:"https://images.unsplash.com/photo-1585435557343-3b092031a831?w=800&q=85",
+    tags:["first aid","emergency","CPR","home safety","family"],
+    content:`
+<p>Every year in Egypt, thousands of preventable deaths occur because bystanders lacked basic first aid knowledge. These skills take minutes to learn and could save a life in your household.</p>
+<h2>The Essential First Aid Kit</h2>
+<ul>
+  <li>Sterile gauze pads (various sizes)</li>
+  <li>Adhesive bandages (plasters) in multiple sizes</li>
+  <li>Medical tape</li>
+  <li>Antiseptic solution (povidone-iodine) or wipes</li>
+  <li>Scissors and tweezers</li>
+  <li>Digital thermometer</li>
+  <li>Disposable gloves</li>
+  <li>Paracetamol and ibuprofen (check age-appropriate doses)</li>
+  <li>ORS packets (for dehydration)</li>
+  <li>Emergency contact list including Poison Control: 08008880700</li>
+</ul>
+<h2>The DRSABC Action Plan (Emergency Response)</h2>
+<ol>
+  <li><strong>D — Danger:</strong> Check the scene is safe for you to approach</li>
+  <li><strong>R — Response:</strong> Check if the person responds to voice/touch</li>
+  <li><strong>S — Send for help:</strong> Call 123 (ambulance) immediately</li>
+  <li><strong>A — Airway:</strong> Open airway by tilting head back, lifting chin</li>
+  <li><strong>B — Breathing:</strong> Check for breathing (look, listen, feel)</li>
+  <li><strong>C — CPR:</strong> If not breathing, begin CPR</li>
+</ol>
+<h2>Hands-Only CPR (No Training Needed)</h2>
+<p>For adults who collapse suddenly: call 123 first, then push hard and fast in the center of the chest. Rate: 100–120 compressions per minute (to the beat of "Stayin' Alive"). Don't stop until emergency services arrive or the person recovers. Hands-only CPR is as effective as CPR with rescue breaths for sudden cardiac arrest in adults.</p>
+<div class="warn-box"><strong>⚠️ Choking:</strong> If a conscious adult is choking (cannot speak, cough, or breathe), perform the Heimlich maneuver: stand behind them, make a fist above their navel, grasp with other hand, give 5 hard upward thrusts. Repeat until object is expelled or they become unconscious.</div>
+<h2>Burns</h2>
+<p>Cool water (not ice) for 20 minutes. Do not apply toothpaste, butter, or oil — these cause infection. Cover with clean non-fluffy material. Seek medical attention for burns larger than the person's palm, on face/hands/genitals, or if blisters form.</p>`
+  },
+];
+
+// ============================================================
+// STATE
+// ============================================================
+let currentCat = 'all';
+let searchQuery = '';
+let sortMode = 'newest';
+let bookmarks = JSON.parse(localStorage.getItem('ms_bookmarks') || '[]');
+let openArticleId = null;
+const ARTICLES_PER_PAGE = 6;
+let currentPage = 1;
+
+// ============================================================
+// RENDER ARTICLES LIST
+// ============================================================
+function getFiltered() {
+  let list = [...ARTICLES];
+  if (currentCat !== 'all') list = list.filter(a => a.cat === currentCat);
+  if (searchQuery) {
+    const q = searchQuery.toLowerCase();
+    list = list.filter(a =>
+      a.title.toLowerCase().includes(q) ||
+      a.excerpt.toLowerCase().includes(q) ||
+      a.tags.some(t => t.includes(q)) ||
+      a.catLabel.toLowerCase().includes(q) ||
+      AUTHORS[a.author].name.toLowerCase().includes(q)
+    );
+  }
+  if (sortMode === 'popular') list.sort((a, b) => b.views - a.views);
+  else if (sortMode === 'readtime') list.sort((a, b) => a.readTime - b.readTime);
+  else list.sort((a, b) => new Date(b.date) - new Date(a.date));
+  return list;
+}
+
+function renderGrid() {
+  const list = getFiltered();
+  const grid = document.getElementById('articlesGrid');
+  document.getElementById('artCount').textContent = list.length;
+  const start = (currentPage - 1) * ARTICLES_PER_PAGE;
+  const page = list.slice(start, start + ARTICLES_PER_PAGE);
+
+  if (!page.length) {
+    grid.innerHTML = `<div class="no-results"><i class="fas fa-search"></i><h3>No Articles Found</h3><p>Try a different search term or category.</p><button class="btn btn-p" style="margin-top:1.6rem" onclick="clearSearch()">Clear Search</button></div>`;
+    document.getElementById('pagination').innerHTML = '';
+    return;
+  }
+
+  grid.innerHTML = page.map((a, idx) => {
+    const auth = AUTHORS[a.author];
+    const isFeatured = idx === 0 && currentPage === 1 && !searchQuery && currentCat === 'all';
+    const isBookmarked = bookmarks.includes(a.id);
+    return `
+    <div class="acard ${isFeatured ? 'featured' : ''}" onclick="openArticle(${a.id})">
+      <div class="acard-img">
+        <img src="${a.image}" alt="${a.title}" onerror="this.parentElement.style.background='var(--pl)'">
+        ${isBookmarked ? '<div style="position:absolute;top:1.2rem;right:1.2rem;background:var(--a);color:#fff;width:3.2rem;height:3.2rem;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.3rem"><i class="fas fa-bookmark"></i></div>' : ''}
+      </div>
+      <div class="acard-body">
+        <div class="acard-meta">
+          <span class="tag ${a.tagCls}" style="font-size:1.1rem">${a.catLabel}</span>
+          <div class="acard-author"><img src="${auth.avatar}" alt="${auth.name}" onerror="this.style.display='none'"><span>${auth.name}</span></div>
+          <span class="acard-date">${a.date}</span>
+        </div>
+        <h2 class="acard-title">${a.title}</h2>
+        <p class="acard-exc">${a.excerpt}</p>
+        <div class="acard-footer">
+          <span class="acard-read"><i class="fas fa-book-open"></i> ${a.readTime} min read</span>
+          <div class="acard-stats">
+            <span><i class="fas fa-eye"></i> ${(a.views/1000).toFixed(1)}k</span>
+            <span><i class="fas fa-heart"></i> ${a.likes}</span>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  renderPagination(list.length);
+}
+
+function renderPagination(total) {
+  const pages = Math.ceil(total / ARTICLES_PER_PAGE);
+  const el = document.getElementById('pagination');
+  if (pages <= 1) { el.innerHTML = ''; return; }
+  let html = `<button class="page-btn" onclick="goPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled style="opacity:.4"' : ''}><i class="fas fa-chevron-left"></i></button>`;
+  for (let i = 1; i <= pages; i++) {
+    html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goPage(${i})">${i}</button>`;
+  }
+  html += `<button class="page-btn" onclick="goPage(${currentPage + 1})" ${currentPage === pages ? 'disabled style="opacity:.4"' : ''}><i class="fas fa-chevron-right"></i></button>`;
+  el.innerHTML = html;
+}
+
+function goPage(n) {
+  const list = getFiltered();
+  const pages = Math.ceil(list.length / ARTICLES_PER_PAGE);
+  if (n < 1 || n > pages) return;
+  currentPage = n;
+  renderGrid();
+  document.getElementById('mainLayout').scrollIntoView({ behavior: 'smooth' });
+}
+
+// ============================================================
+// SIDEBAR
+// ============================================================
+function renderSidebar() {
+  // Trending
+  const topArticles = [...ARTICLES].sort((a, b) => b.views - a.views).slice(0, 5);
+  document.getElementById('trendingList').innerHTML = topArticles.map((a, i) => `
+    <div class="trend-item" onclick="openArticle(${a.id})">
+      <span class="trend-num">0${i + 1}</span>
+      <div><div class="trend-title">${a.title}</div><div class="trend-meta">${a.readTime} min · ${(a.views / 1000).toFixed(1)}k views</div></div>
+    </div>`).join('');
+
+  // Category cloud
+  const cats = [
+    {key:'fitness',label:'Fitness'},
+    {key:'medical',label:'Medical'},
+    {key:'nutrition',label:'Nutrition'},
+    {key:'cardiology',label:'Cardiology'},
+    {key:'baby',label:'Baby Care'},
+    {key:'skincare',label:'Skincare'},
+    {key:'mental',label:'Mental Health'},
+  ];
+  document.getElementById('catCloud').innerHTML = cats.map(c => {
+    const count = ARTICLES.filter(a => a.cat === c.key).length;
+    return `<span class="tag-pill" onclick="filterCat('${c.key}', null)">${c.label} <span style="opacity:.6">(${count})</span></span>`;
+  }).join('');
+
+  // Authors
+  const uniqueAuthors = [...new Set(ARTICLES.map(a => a.author))];
+  document.getElementById('authorsList').innerHTML = uniqueAuthors.map(k => {
+    const auth = AUTHORS[k];
+    const count = ARTICLES.filter(a => a.author === k).length;
+    return `<div style="display:flex;align-items:center;gap:1.2rem"><img src="${auth.avatar}" alt="${auth.name}" style="width:4.4rem;height:4.4rem;border-radius:50%;object-fit:cover" onerror="this.style.display='none'"><div><div style="font-size:1.4rem;font-weight:600;color:var(--tx)">${auth.name}</div><div style="font-size:1.2rem;color:var(--tx2)">${auth.role} · ${count} articles</div></div></div>`;
+  }).join('');
+}
+
+// ============================================================
+// FILTERS & SEARCH
+// ============================================================
+function filterCat(cat, el) {
+  currentCat = cat;
+  currentPage = 1;
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  if (el) el.classList.add('active');
+  else {
+    document.querySelectorAll('.chip').forEach(c => {
+      if (c.textContent.toLowerCase().includes(cat) || (cat === 'all' && c.textContent.includes('All'))) c.classList.add('active');
+    });
+  }
+  renderGrid();
+}
+
+function liveSearch(val) {
+  searchQuery = val;
+  document.getElementById('searchClear').style.display = val ? 'block' : 'none';
+  currentPage = 1;
+  if (val.length >= 2 || val === '') renderGrid();
+}
+
+function doSearch() {
+  searchQuery = document.getElementById('searchInp').value.trim();
+  currentPage = 1;
+  renderGrid();
+  document.getElementById('mainLayout').scrollIntoView({ behavior: 'smooth' });
+}
+
+function clearSearch() {
+  document.getElementById('searchInp').value = '';
+  searchQuery = '';
+  document.getElementById('searchClear').style.display = 'none';
+  currentPage = 1;
+  renderGrid();
+}
+
+function quickSearch(term) {
+  document.getElementById('searchInp').value = term;
+  searchQuery = term;
+  document.getElementById('searchClear').style.display = 'block';
+  currentPage = 1;
+  renderGrid();
+  document.getElementById('mainLayout').scrollIntoView({ behavior: 'smooth' });
+}
+
+function sortArticles(val) {
+  sortMode = val;
+  currentPage = 1;
+  renderGrid();
+}
+
+document.getElementById('searchInp').addEventListener('keydown', e => { if (e.key === 'Enter') doSearch(); });
+
+// ============================================================
+// ARTICLE READER
+// ============================================================
+function openArticle(id) {
+  const a = ARTICLES.find(x => x.id === id);
+  if (!a) return;
+  openArticleId = id;
+  const auth = AUTHORS[a.author];
+  const isBookmarked = bookmarks.includes(id);
+
+  document.getElementById('artHeroImg').src = a.image;
+  document.getElementById('artHeroImg').alt = a.title;
+  document.getElementById('artCategory').innerHTML = `<span class="tag ${a.tagCls}">${a.catLabel}</span>`;
+  document.getElementById('artTitle').textContent = a.title;
+  document.getElementById('artByline').innerHTML = `
+    <div class="art-author-wrap">
+      <img class="art-avatar" src="${auth.avatar}" alt="${auth.name}" onerror="this.style.display='none'">
+      <div><div class="art-author-name">${auth.name}</div><div class="art-author-role">${auth.role}</div></div>
+    </div>
+    <div class="art-byline-stats">
+      <span class="art-byline-stat"><i class="fas fa-calendar"></i> ${a.date}</span>
+      <span class="art-byline-stat"><i class="fas fa-clock"></i> ${a.readTime} min read</span>
+      <span class="art-byline-stat"><i class="fas fa-eye"></i> ${a.views.toLocaleString()} views</span>
+      <span class="art-byline-stat"><i class="fas fa-heart"></i> ${a.likes} likes</span>
+    </div>`;
+  document.getElementById('artContent').innerHTML = a.content;
+  document.getElementById('bookmarkBtn').innerHTML = `<i class="${isBookmarked ? 'fas' : 'far'} fa-bookmark"></i>`;
+
+  // Related articles (same category, different id)
+  const related = ARTICLES.filter(x => x.cat === a.cat && x.id !== id).slice(0, 3);
+  document.getElementById('relatedGrid').innerHTML = related.map(r => `
+    <div class="rel-card" onclick="openArticle(${r.id})">
+      <div class="rel-card-img"><img src="${r.image}" alt="${r.title}" onerror="this.parentElement.style.background='var(--pl)'"></div>
+      <div class="rel-card-body">
+        <div class="rel-card-title">${r.title}</div>
+        <div class="rel-card-meta">${r.readTime} min · ${r.date}</div>
+      </div>
+    </div>`).join('');
+
+  const ov = document.getElementById('readerOv');
+  ov.classList.add('open');
+  ov.scrollTop = 0;
+  document.body.style.overflow = 'hidden';
+
+  // Update URL
+  history.pushState({articleId: id}, '', `?id=${id}`);
+
+  // Read progress
+  ov.addEventListener('scroll', updateProgress);
+}
+
+function closeReader() {
+  document.getElementById('readerOv').classList.remove('open');
+  document.body.style.overflow = '';
+  document.getElementById('readerOv').removeEventListener('scroll', updateProgress);
+  document.getElementById('readProgress').style.width = '0%';
+  openArticleId = null;
+  history.pushState({}, '', 'articles.html');
+}
+
+function updateProgress() {
+  const ov = document.getElementById('readerOv');
+  const scrolled = ov.scrollTop;
+  const total = ov.scrollHeight - ov.clientHeight;
+  const pct = total > 0 ? (scrolled / total * 100) : 0;
+  document.getElementById('readProgress').style.width = pct + '%';
+}
+
+// ============================================================
+// BOOKMARK
+// ============================================================
+function toggleBookmark() {
+  if (!openArticleId) return;
+  const btn = document.getElementById('bookmarkBtn');
+  if (bookmarks.includes(openArticleId)) {
+    bookmarks = bookmarks.filter(i => i !== openArticleId);
+    btn.innerHTML = '<i class="far fa-bookmark"></i>';
+    toast('<i class="far fa-bookmark"></i> Removed from bookmarks', 's');
+  } else {
+    bookmarks.push(openArticleId);
+    btn.innerHTML = '<i class="fas fa-bookmark"></i>';
+    toast('<i class="fas fa-bookmark"></i> Saved to bookmarks!', 's');
+  }
+  try { localStorage.setItem('ms_bookmarks', JSON.stringify(bookmarks)); } catch(e) {}
+  renderGrid();
+}
+
+// ============================================================
+// SHARE
+// ============================================================
+function shareArticle() {
+  if (navigator.share && openArticleId) {
+    const a = ARTICLES.find(x => x.id === openArticleId);
+    navigator.share({ title: a.title, url: window.location.href });
+  } else {
+    copyLink();
+  }
+}
+
+function shareOn(platform) {
+  const url = encodeURIComponent(window.location.href);
+  const a = openArticleId ? ARTICLES.find(x => x.id === openArticleId) : null;
+  const title = encodeURIComponent(a ? a.title : 'MediShop Health Article');
+  const urls = {
+    facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}`,
+    twitter: `https://twitter.com/intent/tweet?text=${title}&url=${url}`,
+    whatsapp: `https://wa.me/?text=${title}%20${url}`,
+  };
+  window.open(urls[platform], '_blank', 'width=600,height=400');
+}
+
+function copyLink() {
+  navigator.clipboard.writeText(window.location.href).then(() => {
+    toast('<i class="fas fa-check-circle"></i> Link copied!', 's');
+  });
+}
+
+// ============================================================
+// NEWSLETTER
+// ============================================================
+function sideSubscribe() {
+  const e = document.getElementById('sideEmail').value;
+  if (!e || !e.includes('@')) { toast('<i class="fas fa-xmark"></i> Enter a valid email.', 'e'); return; }
+  toast('<i class="fas fa-check-circle"></i> Subscribed! Check your inbox.', 's');
+  document.getElementById('sideEmail').value = '';
+}
+
+// ============================================================
+// TOAST
+// ============================================================
+function toast(html, type = 's') {
+  const tc = document.getElementById('toastC');
+  const t = document.createElement('div');
+  t.className = `toast t${type}`;
+  t.innerHTML = html;
+  tc.appendChild(t);
+  setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateX(2rem)'; t.style.transition = 'all .3s'; setTimeout(() => t.remove(), 300); }, 3000);
+}
+
+// ============================================================
+// INIT — check URL for direct article link
+// ============================================================
+function init() {
+  renderGrid();
+  renderSidebar();
+  // Check if URL has ?id=
+  const params = new URLSearchParams(window.location.search);
+  const id = parseInt(params.get('id'));
+  if (id && ARTICLES.find(a => a.id === id)) {
+    setTimeout(() => openArticle(id), 100);
+  }
+}
+
+// Handle browser back button
+window.addEventListener('popstate', () => {
+  const params = new URLSearchParams(window.location.search);
+  const id = parseInt(params.get('id'));
+  if (id) { openArticle(id); }
+  else { closeReader(); }
+});
+
+init();
+</script>
+</body>
+</html>

@@ -1,665 +1,541 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Mediceine: Your trusted destination for lightning-fast, secure access to essential medications."
-    />
-    <link rel="icon" href="./assets/icons/favicon.png" />
-    <link rel="apple-touch-icon" href="./assets/icons/favicon-192.png" />
-    <link rel="manifest" href="./manifest.webmanifest" />
-    <title>Medicine &mdash; Your trusted destination</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
-      rel="stylesheet"
-    />
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>MediShop — Medical & Fitness Essentials</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="ms-shared.css"/>
+  <style>
+    /* ── HERO ── */
+    .hero-wrap{display:grid;grid-template-columns:1fr 38rem;gap:2rem;padding:2.4rem 0}
+    .hero-main{border-radius:var(--rxl);overflow:hidden;position:relative;min-height:47rem;display:flex;align-items:center;background:#001433}
+    .hslide{position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease;display:flex;align-items:center;pointer-events:none}
+    .hslide.active{opacity:1;z-index:1;pointer-events:auto}
+    .hslide-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform 9s ease}
+    .hslide.active .hslide-bg{transform:scale(1.06)}
+    .hslide-ov{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,10,40,.9) 0%,rgba(0,10,40,.6) 55%,rgba(0,10,40,.1) 100%)}
+    .hcontent{position:relative;z-index:2;padding:5.6rem 4.8rem;max-width:58rem}
+    .htitle{font-family:var(--fd);font-size:4.4rem;font-weight:800;color:#fff;line-height:1.12;margin-bottom:1.6rem}
+    .htitle span{color:var(--a)}
+    .hdesc{font-size:1.7rem;color:rgba(255,255,255,.82);line-height:1.65;margin-bottom:3.2rem}
+    .hctas{display:flex;gap:1.4rem;flex-wrap:wrap}
+    .hstats{display:flex;gap:3.2rem;margin-top:3.4rem;flex-wrap:wrap}
+    .hstat-num{font-family:var(--fd);font-size:2.4rem;font-weight:800;color:#fff}
+    .hstat-lbl{font-size:1.3rem;color:rgba(255,255,255,.6)}
+    .hdots{position:absolute;bottom:2.4rem;left:4.8rem;z-index:3;display:flex;gap:.8rem}
+    .hdot{width:2.4rem;height:.5rem;background:rgba(255,255,255,.35);border-radius:100px;cursor:pointer;transition:var(--tr)}
+    .hdot.active{width:3.6rem;background:var(--a)}
+    /* SIDE CARDS */
+    .hero-side{display:flex;flex-direction:column;gap:1.6rem}
+    .scard{border-radius:var(--rlg);overflow:hidden;flex:1;position:relative;min-height:21rem;cursor:pointer}
+    .scard-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .5s ease}
+    .scard:hover .scard-bg{transform:scale(1.06)}
+    .scard-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.8) 0%,rgba(0,0,0,.2) 65%,transparent 100%)}
+    .scard-body{position:absolute;bottom:0;left:0;right:0;padding:2.4rem;z-index:1}
+    .scard-tag{font-size:1.1rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.7);margin-bottom:.5rem}
+    .scard-title{font-family:var(--fd);font-size:2rem;font-weight:800;color:#fff;line-height:1.3;margin-bottom:1.2rem}
+    .scard-cta{display:inline-flex;align-items:center;gap:.6rem;background:rgba(255,255,255,.18);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.25);color:#fff;padding:.7rem 1.4rem;border-radius:var(--rsm);font-size:1.3rem;font-weight:600;transition:var(--tr)}
+    .scard:hover .scard-cta{background:rgba(255,255,255,.32)}
+    .cd-row{display:flex;gap:.5rem;align-items:center;margin-bottom:1rem}
+    .cdu{background:rgba(0,0,0,.3);color:#fff;border-radius:6px;padding:.3rem .8rem;font-family:var(--fd);font-size:2rem;font-weight:800;min-width:3.8rem;text-align:center;backdrop-filter:blur(4px)}
+    .cds{color:var(--a);font-size:1.6rem;font-weight:700}
+    /* FLASH */
+    .flash-sec{background:var(--tx);padding:3.2rem 0}
+    .flash-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:2.4rem;flex-wrap:wrap;gap:1.2rem}
+    .flash-ttl{display:flex;align-items:center;gap:1.4rem;font-family:var(--fd);font-size:2.4rem;font-weight:800;color:#fff}
+    .ftu{background:var(--a);color:#fff;border-radius:var(--rsm);padding:.4rem .8rem;font-size:1.8rem;font-weight:800;font-family:var(--fd);min-width:3.8rem;text-align:center}
+    .fts{color:var(--a);font-size:1.6rem;font-weight:700}
+    /* CATS */
+    .cat-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:1.2rem}
+    .ccat{display:flex;flex-direction:column;align-items:center;gap:1rem;padding:2rem 1.2rem;border-radius:var(--rmd);background:var(--bg);border:2px solid var(--brd);transition:var(--tr);cursor:pointer;text-align:center}
+    .ccat:hover,.ccat.sel{border-color:var(--p);background:var(--pl);transform:translateY(-3px);box-shadow:var(--shd)}
+    .ccat:hover .cat-ico,.ccat.sel .cat-ico{background:var(--p)!important;color:#fff!important}
+    .cat-ico{width:5.4rem;height:5.4rem;border-radius:var(--rmd);display:flex;align-items:center;justify-content:center;font-size:2.2rem;transition:var(--tr)}
+    .cat-lbl{font-size:1.3rem;font-weight:600;color:var(--tx)}
+    /* FILTER TABS */
+    .ftabs{display:flex;gap:.8rem;flex-wrap:wrap}
+    .ftab{padding:.6rem 1.6rem;border-radius:100px;font-size:1.4rem;font-weight:500;color:var(--tx2);border:1.5px solid var(--brd);background:var(--sur);transition:var(--tr);cursor:pointer}
+    .ftab.active,.ftab:hover{border-color:var(--p);color:var(--p);background:var(--pl)}
+    /* FEATURES */
+    .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2.4rem}
+    .fbox{border-radius:var(--rxl);padding:3.2rem;position:relative;overflow:hidden}
+    .fb-b{background:linear-gradient(135deg,#003D8F,#1E7FD8);color:#fff}
+    .fb-d{background:linear-gradient(135deg,#1a1a2e,#16213e);color:#fff}
+    .fb-l{background:var(--sur2)}
+    .fbox-ico{width:5.4rem;height:5.4rem;border-radius:var(--rmd);background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:2.2rem;margin-bottom:2rem}
+    .fb-l .fbox-ico{background:var(--pl);color:var(--p)}
+    .fbox-ttl{font-family:var(--fd);font-size:2.2rem;font-weight:800;margin-bottom:.8rem;line-height:1.3}
+    .fb-l .fbox-ttl{color:var(--tx)}
+    .fbox-desc{font-size:1.5rem;line-height:1.65;opacity:.8;margin-bottom:2.4rem}
+    .fb-l .fbox-desc{opacity:1;color:var(--tx2)}
+    .fbox-shape{position:absolute;bottom:-20%;right:-10%;width:20rem;height:20rem;border-radius:50%;background:rgba(255,255,255,.05)}
+    /* ARTICLES */
+    .blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2.4rem}
+    .acard{border-radius:var(--rlg);overflow:hidden;background:var(--sur);border:1.5px solid var(--brd);transition:var(--tr);cursor:pointer}
+    .acard:hover{transform:translateY(-4px);box-shadow:var(--shd);border-color:var(--p)}
+    .acard-img{aspect-ratio:16/9;overflow:hidden;background:var(--sur2)}
+    .acard-img img{width:100%;height:100%;object-fit:cover;transition:transform .35s}
+    .acard:hover .acard-img img{transform:scale(1.05)}
+    .acard-body{padding:2rem}
+    .acard-meta{display:flex;align-items:center;gap:1rem;margin-bottom:1rem;flex-wrap:wrap}
+    .acard-date{font-size:1.2rem;color:var(--tx3)}
+    .acard-title{font-family:var(--fd);font-size:1.8rem;font-weight:700;color:var(--tx);line-height:1.4;margin-bottom:.8rem}
+    .acard-exc{font-size:1.4rem;color:var(--tx2);line-height:1.6}
+    .aread{display:inline-flex;align-items:center;gap:.5rem;margin-top:1.4rem;font-size:1.4rem;font-weight:600;color:var(--p);transition:var(--tr)}
+    .aread:hover{gap:1rem}
+    /* TESTIMONIALS */
+    .test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+    .tcard{background:var(--sur2);border-radius:var(--rlg);padding:2.8rem;border:1.5px solid var(--brd);transition:var(--tr)}
+    .tcard:hover{border-color:var(--p);box-shadow:var(--shd)}
+    .tcard-q{font-size:4rem;line-height:1;color:var(--p);font-family:Georgia,serif;margin-bottom:.8rem}
+    .tcard-txt{font-size:1.5rem;line-height:1.7;color:var(--tx2);margin-bottom:2rem}
+    .tcard-hdr{display:flex;align-items:center;gap:1.4rem}
+    .tavatar{width:5rem;height:5rem;border-radius:50%;object-fit:cover;background:var(--pl)}
+    .tcard-name{font-weight:700;font-size:1.5rem;color:var(--tx)}
+    .tcard-role{font-size:1.3rem;color:var(--tx2)}
+    /* NEWSLETTER */
+    .news-sec{background:linear-gradient(135deg,#003D8F,#0057B7);padding:6.4rem 0}
+    .news-in{display:grid;grid-template-columns:1fr 1fr;gap:4.8rem;align-items:center}
+    .news-title{font-family:var(--fd);font-size:3.4rem;font-weight:800;color:#fff;margin-bottom:1.2rem}
+    .news-desc{font-size:1.6rem;color:rgba(255,255,255,.75);line-height:1.6}
+    .news-form{display:flex;gap:1rem;background:rgba(255,255,255,.1);padding:.6rem .6rem .6rem 2rem;border-radius:var(--rmd);border:1px solid rgba(255,255,255,.2)}
+    .news-form input{flex:1;background:transparent;border:none;outline:none;color:#fff;font-size:1.5rem}.news-form input::placeholder{color:rgba(255,255,255,.5)}
+    /* LOYALTY */
+    .loy-sec{background:var(--tx);padding:5.6rem 0}
+    .loy-grid{display:grid;grid-template-columns:1fr 1fr;gap:6.4rem;align-items:center}
+    .loy-title{font-family:var(--fd);font-size:3.4rem;font-weight:800;color:#fff;margin-bottom:1.4rem}
+    .loy-desc{font-size:1.6rem;color:rgba(255,255,255,.7);line-height:1.7;margin-bottom:3.2rem}
+    .loy-tiers{display:flex;flex-direction:column;gap:1.2rem}
+    .ltier{display:flex;align-items:center;gap:1.6rem;background:rgba(255,255,255,.06);padding:1.6rem 2rem;border-radius:var(--rmd);border:1px solid rgba(255,255,255,.08)}
+    .ltier-ico{width:4.4rem;height:4.4rem;border-radius:var(--rsm);display:flex;align-items:center;justify-content:center;font-size:1.8rem;flex-shrink:0}
+    .lb{background:#CD7F32;color:#fff}.ls{background:#A8A9AD;color:#fff}.lg{background:#FFD700;color:#333}
+    .ltier-name{font-weight:700;color:#fff;font-size:1.4rem}
+    .ltier-desc{font-size:1.2rem;color:rgba(255,255,255,.5)}
+    .ltier-pts{margin-left:auto;font-family:var(--fd);font-size:1.3rem;font-weight:700;color:var(--a)}
+    /* APP */
+    .app-sec{background:var(--sur2);padding:6.4rem 0}
+    .app-grid{display:grid;grid-template-columns:1fr 1fr;gap:6.4rem;align-items:center}
+    .app-title{font-family:var(--fd);font-size:3.4rem;font-weight:800;color:var(--tx);margin-bottom:1.6rem}
+    .app-desc{font-size:1.6rem;color:var(--tx2);line-height:1.7;margin-bottom:2.4rem}
+    .pills{display:flex;flex-wrap:wrap;gap:1rem;margin-bottom:3.2rem}
+    .pill{display:flex;align-items:center;gap:.6rem;padding:.6rem 1.4rem;background:var(--pl);color:var(--p);border-radius:100px;font-size:1.3rem;font-weight:600}
+    .app-btns{display:flex;gap:1.4rem;flex-wrap:wrap}
+    .app-btn{display:flex;align-items:center;gap:1.2rem;padding:1.4rem 2.4rem;background:var(--tx);color:#fff;border-radius:var(--rmd);transition:var(--tr)}.app-btn:hover{background:var(--p)}
+    .app-btn i{font-size:2.2rem}.app-btn-txt span{display:block;font-size:1.1rem;opacity:.6}.app-btn-txt strong{font-size:1.6rem;font-weight:700}
+    .app-mockup{width:28rem;filter:drop-shadow(0 20px 40px rgba(0,87,183,.25))}
+    /* Responsive extras */
+    @media(max-width:960px){.hero-wrap{grid-template-columns:1fr}.hero-side{flex-direction:row}.feat-grid,.test-grid,.blog-grid{grid-template-columns:1fr}.news-in,.app-grid,.loy-grid{grid-template-columns:1fr}.cat-grid{grid-template-columns:repeat(4,1fr)}}
+    @media(max-width:600px){.hero-wrap{padding:1.6rem 0}.hcontent{padding:3.2rem 2.4rem}.htitle{font-size:3.2rem}.hero-side{flex-direction:column}.cat-grid{grid-template-columns:repeat(3,1fr)}.ftabs{gap:.6rem}.blog-grid{grid-template-columns:1fr}.hstats{gap:1.6rem}}
+  </style>
+</head>
+<body>
 
-    <!-- CSS Links -->
-    <link rel="stylesheet" href="./css/general.css" />
-    <link rel="stylesheet" type="text/css" href="./css/styles.css" />
-    <link rel="stylesheet" href="./css/query.css" />
-    <script
-      src="https://kit.fontawesome.com/4926783a6b.js"
-      crossorigin="anonymous"
-    ></script>
-    <script defer type="module" src="./app.js"></script>
-  </head>
-  <body>
-    <img src="./assets/images/bg/beams-basic.png" class="bg-w" alt="" />
-    <header class="header-section">
-      <img src="./assets/images/logo.png" class="logo" alt="website-logo" />
-      <nav class="main-nav">
-        <ul class="main-nav-list">
-          <li><a href="#section--1" class="main-nav-link">Servics</a></li>
-          <li><a href="#section--2" class="main-nav-link">Product</a></li>
-          <li><a href="#section--3" class="main-nav-link">Clients</a></li>
-          <li><a href="#section--4" class="main-nav-link">Download</a></li>
-          <li>
-            <div class="cart-box">
-              <a href="#" class="main-nav-link nav-cta">
-                <ion-icon name="cart-outline" class="nav-icon"></ion-icon>
-                <span class="count">0</span>
-              </a>
-            </div>
-          </li>
-        </ul>
-      </nav>
-      <button class="btn-mobile-nav">
-        <ion-icon class="icon-mobile-nav" name="menu-outline"></ion-icon>
-        <ion-icon class="icon-mobile-nav" name="close-outline"></ion-icon>
-      </button>
-    </header>
+<!-- TOP BAR -->
+<div class="ms-topbar"><div class="container"><div class="ms-tb-in">
+  <div style="display:flex;align-items:center;gap:.8rem"><i class="fas fa-truck-fast"></i> Free delivery over $50</div>
+  <div class="ms-mq"><div class="ms-mq-track"><span><i class="fas fa-shield-halved"></i> 100% Certified Products</span><span><i class="fas fa-bolt"></i> Flash Sale — Up to 40% OFF</span><span><i class="fas fa-headset"></i> 24/7 Pharmacist Support</span><span><i class="fas fa-rotate-left"></i> 30-Day Easy Returns</span><span><i class="fas fa-shield-halved"></i> 100% Certified Products</span><span><i class="fas fa-bolt"></i> Flash Sale — Up to 40% OFF</span><span><i class="fas fa-headset"></i> 24/7 Pharmacist Support</span><span><i class="fas fa-rotate-left"></i> 30-Day Easy Returns</span></div></div>
+  <div class="ms-tb-r"><a href="#"><i class="fas fa-map-marker-alt"></i> Egypt</a><a href="account.html"><i class="fas fa-user"></i> My Account</a><a href="#"><i class="fas fa-heart"></i> Wishlist</a></div>
+</div></div></div>
 
-    <!-- shopping cart -->
-
-    <!-- <div class="listProduct"></div> -->
-
-    <div class="cartTab">
-      <h1>Shopping Cart</h1>
-      <div class="listCart"></div>
-      <div class="btn-cart">
-        <button class="close">CLOSE</button>
-        <button class="checkOut">Check Out</button>
+<!-- HEADER -->
+<header class="ms-header"><div class="container"><div class="ms-hdr-in">
+  <a href="index.html" class="ms-logo"><div class="ms-logo-ico"><i class="fas fa-heart-pulse"></i></div>MediShop</a>
+  <div class="ms-srch">
+    <select id="searchCat"><option value="all">All Categories</option><option value="medical">Medical</option><option value="fitness">Fitness</option><option value="supplements">Supplements</option><option value="devices">Devices</option><option value="natural">Natural</option></select>
+    <input type="text" id="searchInput" placeholder="Search medicines, gym equipment, supplements…"/>
+    <button onclick="doSearch()"><i class="fas fa-magnifying-glass"></i></button>
+  </div>
+  <div class="ms-acts">
+    <div class="ms-hact" style="position:relative" id="accountHact">
+      <i class="fas fa-user-circle" id="accountIcon"></i><span id="accountLabel">Account</span>
+      <div class="ms-umenu" id="userMenu">
+        <div class="ms-umhdr"><div class="ms-umname" id="umName">Guest</div><div class="ms-umemail" id="umEmail"></div></div>
+        <div class="ms-umi" onclick="location.href='account.html'"><i class="fas fa-user"></i> My Profile</div>
+        <div class="ms-umi" onclick="location.href='account.html'"><i class="fas fa-box"></i> My Orders</div>
+        <div class="ms-umi" onclick="location.href='account.html'"><i class="fas fa-heart"></i> Wishlist</div>
+        <div class="ms-umi" id="logoutBtn" onclick="doLogout()" style="color:var(--r)"><i class="fas fa-right-from-bracket" style="color:var(--r)"></i> Logout</div>
       </div>
     </div>
+    <div class="ms-hact" onclick="openCart()"><i class="fas fa-cart-shopping"></i><span class="ms-cbadge" id="msCartBadge">0</span><span>Cart</span></div>
+    <a class="ms-hact" href="account.html"><i class="fas fa-user-plus"></i><span>Sign Up</span></a>
+  </div>
+</div></div></header>
 
-    <section class="hero-section">
-      <div class="hero">
-        <div class="hero-text-box">
-          <p class="SectionHeader_subheader">Speed is Our Signature!</p>
-          <h1 class="heading-primary">Reliable on time home delivery 🛵💨</h1>
-          <p class="hero-descreption">
-            We promise your medications will arrive quickly, exactly when you
-            need them.
-          </p>
+<!-- SITENAV -->
+<nav class="ms-nav"><div class="container"><div class="ms-nav-in">
+  <div class="ms-ni active" onclick="filterByNav('all',this)"><i class="fas fa-house"></i> Home</div>
+  <div class="ms-ni" onclick="filterByNav('medical',this)"><i class="fas fa-pills"></i> Medical</div>
+  <div class="ms-ni" onclick="filterByNav('fitness',this)"><i class="fas fa-dumbbell"></i> Fitness & Gym</div>
+  <div class="ms-ni" onclick="filterByNav('supplements',this)"><i class="fas fa-capsules"></i> Supplements</div>
+  <div class="ms-ni" onclick="filterByNav('baby',this)"><i class="fas fa-baby"></i> Baby & Mom</div>
+  <div class="ms-ni" onclick="filterByNav('personal',this)"><i class="fas fa-heart"></i> Personal Care</div>
+  <div class="ms-ni" onclick="filterByNav('devices',this)"><i class="fas fa-stethoscope"></i> Devices</div>
+  <div class="ms-ni" onclick="filterByNav('natural',this)"><i class="fas fa-leaf"></i> Natural</div>
+  <div class="ms-ni ms-ni-deal" onclick="document.getElementById('flash').scrollIntoView({behavior:'smooth'})"><i class="fas fa-fire"></i> Deals 🔥</div>
+</div></div></nav>
 
-          <div class="input-box">
-            <input type="text" required />
-            <span>Search Mediciens</span>
-            <ion-icon name="search-outline" class="hero-search-icon"></ion-icon>
-          </div>
+<!-- ══════════════════ HERO ══════════════════ -->
+<div style="background:var(--bg)"><div class="container"><div class="hero-wrap">
+  <!-- Main slideshow -->
+  <div class="hero-main" id="heroMain"><div class="hdots" id="heroDots"></div></div>
+  <!-- Side cards with REAL lifestyle photos -->
+  <div class="hero-side">
+    <div class="scard" onclick="filterByNav('fitness',null);document.getElementById('products').scrollIntoView({behavior:'smooth'})">
+      <div class="scard-bg" style="background-image:url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=700&q=85')"></div>
+      <div class="scard-ov"></div>
+      <div class="scard-body">
+        <div class="scard-tag">🏋️ Fitness Collection</div>
+        <div class="scard-title">Premium Gym Equipment at Home</div>
+        <span class="scard-cta">Explore <i class="fas fa-arrow-right"></i></span>
+      </div>
+    </div>
+    <div class="scard" onclick="document.getElementById('flash').scrollIntoView({behavior:'smooth'})">
+      <div class="scard-bg" style="background-image:url('https://images.unsplash.com/photo-1607619056574-7b8d3ee536b2?w=700&q=85')"></div>
+      <div class="scard-ov"></div>
+      <div class="scard-body">
+        <div class="scard-tag">⚡ Flash Deals End In</div>
+        <div class="cd-row"><div class="cdu" id="h1">05</div><span class="cds">:</span><div class="cdu" id="m1">42</div><span class="cds">:</span><div class="cdu" id="s1">18</div></div>
+        <div class="scard-title">Up to 40% Off Today Only</div>
+        <span class="scard-cta">Grab Deals <i class="fas fa-arrow-right"></i></span>
+      </div>
+    </div>
+  </div>
+</div></div></div>
 
-          <div class="notes">
-            <span class="dot-for">•</span>
-            <p>For Egyptian Only</p>
-          </div>
+<!-- TRUST BAR -->
+<div class="ms-trust"><div class="container"><div class="ms-trust-in">
+  <div class="ms-ti"><div class="ms-ti-ico ms-tic-b"><i class="fas fa-truck-fast"></i></div><div><strong>30-Minute Delivery</strong><span>Cairo & Giza</span></div></div>
+  <div class="ms-ti"><div class="ms-ti-ico ms-tic-g"><i class="fas fa-shield-halved"></i></div><div><strong>100% Authentic</strong><span>Certified products</span></div></div>
+  <div class="ms-ti"><div class="ms-ti-ico ms-tic-o"><i class="fas fa-rotate-left"></i></div><div><strong>Easy Returns</strong><span>30-day policy</span></div></div>
+  <div class="ms-ti"><div class="ms-ti-ico ms-tic-y"><i class="fas fa-headset"></i></div><div><strong>24/7 Support</strong><span>Pharmacist helpline</span></div></div>
+</div></div></div>
 
-          <div class="social-prove-box">
-            <div class="sucess">
-              <h2>100%</h2>
-              <p>Delvery Sucss</p>
-            </div>
-            <div class="customer-review">
-              <h2>5.0<span>(67k)</span></h2>
-              <p>Customer review</p>
-            </div>
-          </div>
-        </div>
+<!-- FLASH DEALS -->
+<section class="flash-sec" id="flash"><div class="container">
+  <div class="flash-hdr reveal">
+    <div class="flash-ttl"><span class="tag to"><i class="fas fa-fire"></i> FLASH DEALS</span>Today's Hottest Offers</div>
+    <div style="display:flex;align-items:center;gap:1rem"><span style="font-size:1.4rem;color:rgba(255,255,255,.5)">Ends in:</span><div style="display:flex;align-items:center;gap:.4rem"><div class="ftu" id="fh">05</div><span class="fts">:</span><div class="ftu" id="fm">42</div><span class="fts">:</span><div class="ftu" id="fs2">18</div></div></div>
+  </div>
+  <div class="ms-fgrid reveal" id="flashGrid"></div>
+</div></section>
 
-        <div class="hero-img-box">
-          <img class="hero-img" src="./assets/images/hero_croped.png" alt="" />
+<!-- CATEGORIES -->
+<section style="background:var(--sur)" class="sp"><div class="container">
+  <div class="sec-hdr reveal"><div><h2 class="sec-title">Browse by Category</h2><p class="sec-sub" style="margin:0">Find exactly what you need, fast</p></div></div>
+  <div class="cat-grid reveal">
+    <div class="ccat" onclick="filterByCat('pharmacy',this)"><div class="cat-ico" style="background:#EEF2FF;color:#4F46E5"><i class="fas fa-pills"></i></div><span class="cat-lbl">Pharmacy</span></div>
+    <div class="ccat" onclick="filterByCat('cardiology',this)"><div class="cat-ico" style="background:#FFF1F2;color:#F43F5E"><i class="fas fa-heart-pulse"></i></div><span class="cat-lbl">Cardiology</span></div>
+    <div class="ccat" onclick="filterByCat('fitness',this)"><div class="cat-ico" style="background:#F0FDF4;color:#22C55E"><i class="fas fa-dumbbell"></i></div><span class="cat-lbl">Fitness</span></div>
+    <div class="ccat" onclick="filterByCat('supplements',this)"><div class="cat-ico" style="background:#EFF6FF;color:#3B82F6"><i class="fas fa-capsules"></i></div><span class="cat-lbl">Supplements</span></div>
+    <div class="ccat" onclick="filterByCat('baby',this)"><div class="cat-ico" style="background:#FFF7ED;color:#F97316"><i class="fas fa-baby"></i></div><span class="cat-lbl">Baby Care</span></div>
+    <div class="ccat" onclick="filterByCat('devices',this)"><div class="cat-ico" style="background:#FEFCE8;color:#CA8A04"><i class="fas fa-stethoscope"></i></div><span class="cat-lbl">Devices</span></div>
+    <div class="ccat" onclick="filterByCat('natural',this)"><div class="cat-ico" style="background:#F5F3FF;color:#8B5CF6"><i class="fas fa-leaf"></i></div><span class="cat-lbl">Natural</span></div>
+    <div class="ccat" onclick="filterByCat('personal',this)"><div class="cat-ico" style="background:#FDF4FF;color:#C026D3"><i class="fas fa-spa"></i></div><span class="cat-lbl">Skincare</span></div>
+  </div>
+</div></section>
+
+<!-- PRODUCTS -->
+<section style="background:var(--bg)" class="sp" id="products"><div class="container">
+  <div class="sec-hdr reveal">
+    <div><h2 class="sec-title" id="prodsTitle">Most Popular Products</h2><p class="sec-sub" style="margin:0" id="prodsSub">Embrace your health journey</p></div>
+    <div class="ftabs" id="filterTabs">
+      <div class="ftab active" onclick="filterProds('all',this)">All</div>
+      <div class="ftab" onclick="filterProds('medical',this)">Medical</div>
+      <div class="ftab" onclick="filterProds('fitness',this)">Fitness</div>
+      <div class="ftab" onclick="filterProds('supplements',this)">Supplements</div>
+      <div class="ftab" onclick="filterProds('devices',this)">Devices</div>
+      <div class="ftab" onclick="filterProds('natural',this)">Natural</div>
+    </div>
+  </div>
+  <div class="ms-pgrid reveal" id="productsGrid"></div>
+  <div style="text-align:center;margin-top:3.6rem" class="reveal" id="loadMoreWrap">
+    <button class="btn btn-o" style="padding:1.2rem 3.2rem;font-size:1.5rem" onclick="loadMore()">Load More <i class="fas fa-arrow-down"></i></button>
+  </div>
+</div></section>
+
+<!-- FEATURES -->
+<section style="background:var(--sur)" class="sp"><div class="container"><div class="feat-grid reveal">
+  <div class="fbox fb-b"><div class="fbox-shape"></div><div class="fbox-ico"><i class="fas fa-user-doctor"></i></div><div class="fbox-ttl">Chat with a Doctor</div><p class="fbox-desc">Talk to a licensed physician in under 2 minutes from anywhere in Egypt.</p><a href="#" class="btn" style="background:rgba(255,255,255,.2);color:#fff;border:1.5px solid rgba(255,255,255,.3)">Get Started <i class="fas fa-arrow-right"></i></a></div>
+  <div class="fbox fb-d"><div class="fbox-shape"></div><div class="fbox-ico" style="background:rgba(255,107,53,.2);color:var(--a)"><i class="fas fa-truck-fast"></i></div><div class="fbox-ttl">30-Minute Delivery</div><p class="fbox-desc">Tired of pharmacy queues? We bring your medicines fast and secure.</p><button class="btn btn-a" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">Order Now <i class="fas fa-arrow-right"></i></button></div>
+  <div class="fbox fb-l"><div class="fbox-ico"><i class="fas fa-shield-halved"></i></div><div class="fbox-ttl">Certified & Safe</div><p class="fbox-desc">Every product is verified and certified. Shop with complete confidence.</p><button class="btn btn-p">Learn More <i class="fas fa-arrow-right"></i></button></div>
+</div></div></section>
+
+<!-- ARTICLES PREVIEW -->
+<section style="background:var(--bg)" class="sp"><div class="container">
+  <div style="text-align:center;margin-bottom:4rem" class="reveal">
+    <span class="tag tg"><i class="fas fa-book-medical"></i> HEALTH GUIDES</span>
+    <h2 class="sec-title" style="margin-top:1rem">Health Tips & Guides</h2>
+    <p class="sec-sub">Expert advice from our pharmacists and fitness coaches</p>
+  </div>
+  <div class="blog-grid reveal" id="articlesPreview"></div>
+  <div style="text-align:center;margin-top:3.2rem" class="reveal"><a href="articles.html" class="btn btn-p" style="padding:1.2rem 3.2rem;font-size:1.5rem">View All Articles <i class="fas fa-arrow-right"></i></a></div>
+</div></section>
+
+<!-- TESTIMONIALS -->
+<section style="background:var(--sur)" class="sp"><div class="container">
+  <div style="text-align:center;margin-bottom:4rem" class="reveal">
+    <span class="tag tb"><i class="fas fa-star"></i> REVIEWS</span>
+    <h2 class="sec-title" style="margin-top:1rem">What Our Customers Say</h2>
+    <p class="sec-sub">Join 67,000+ satisfied customers across Egypt</p>
+  </div>
+  <div class="test-grid reveal">
+    <div class="tcard"><div class="tcard-q">"</div><p class="tcard-txt">MediShop completely transformed how I manage my health. The 30-minute delivery is a lifesaver when I'm unwell and can't leave home.</p><div class="tcard-hdr"><img class="tavatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" alt=""><div><div class="tcard-name">Ahmed Hassan</div><div class="tcard-role">Verified · Cairo</div><div class="stars" style="margin-top:.4rem"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div></div></div></div>
+    <div class="tcard"><div class="tcard-q">"</div><p class="tcard-txt">My gym equipment arrived perfectly packaged. Quality is excellent, prices unbeatable. My home gym is finally complete!</p><div class="tcard-hdr"><img class="tavatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80" alt=""><div><div class="tcard-name">Nour Ibrahim</div><div class="tcard-role">Verified · Giza</div><div class="stars" style="margin-top:.4rem"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div></div></div></div>
+    <div class="tcard"><div class="tcard-q">"</div><p class="tcard-txt">Consulting a pharmacist at midnight and getting my prescription delivered — I never thought that was possible. MediShop made it real.</p><div class="tcard-hdr"><img class="tavatar" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&q=80" alt=""><div><div class="tcard-name">Omar Khalil</div><div class="tcard-role">Verified · Alexandria</div><div class="stars" style="margin-top:.4rem"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div></div></div></div>
+  </div>
+</div></section>
+
+<!-- NEWSLETTER -->
+<section class="news-sec"><div class="container"><div class="news-in reveal">
+  <div><span class="tag" style="background:rgba(255,255,255,.15);color:rgba(255,255,255,.9);margin-bottom:1.4rem"><i class="fas fa-envelope"></i> NEWSLETTER</span><h2 class="news-title">Get Health Tips &<br>Exclusive Deals</h2><p class="news-desc">Subscribe for weekly guides and a 10% discount on your first order.</p></div>
+  <div><div class="news-form"><input type="email" id="newsEmail" placeholder="Enter your email…"/><button class="btn btn-a" onclick="subscribeNews()">Subscribe <i class="fas fa-arrow-right"></i></button></div><p style="font-size:1.3rem;color:rgba(255,255,255,.45);margin-top:1rem"><i class="fas fa-lock"></i> No spam. Unsubscribe anytime.</p></div>
+</div></div></section>
+
+<!-- LOYALTY -->
+<section class="loy-sec"><div class="container"><div class="loy-grid reveal">
+  <div><span class="tag" style="background:rgba(255,215,0,.15);color:#FFD700;margin-bottom:1.4rem"><i class="fas fa-crown"></i> LOYALTY PROGRAM</span><h2 class="loy-title">Earn Points,<br>Get Rewards</h2><p class="loy-desc">Earn points on every purchase. Unlock exclusive discounts, free delivery, and priority support.</p><a href="account.html" class="btn btn-a">Join for Free <i class="fas fa-arrow-right"></i></a></div>
+  <div class="loy-tiers">
+    <div class="ltier"><div class="ltier-ico lb"><i class="fas fa-medal"></i></div><div><div class="ltier-name">Bronze Member</div><div class="ltier-desc">5% cashback + free standard delivery</div></div><div class="ltier-pts">0+ pts</div></div>
+    <div class="ltier"><div class="ltier-ico ls"><i class="fas fa-medal"></i></div><div><div class="ltier-name">Silver Member</div><div class="ltier-desc">10% cashback + priority dispatch</div></div><div class="ltier-pts">500+ pts</div></div>
+    <div class="ltier"><div class="ltier-ico lg"><i class="fas fa-crown"></i></div><div><div class="ltier-name">Gold Member</div><div class="ltier-desc">15% cashback + exclusive deals + free express</div></div><div class="ltier-pts">2000+ pts</div></div>
+  </div>
+</div></div></section>
+
+<!-- APP -->
+<section class="app-sec"><div class="container"><div class="app-grid reveal">
+  <div><span class="tag tb" style="margin-bottom:1.4rem"><i class="fas fa-mobile-screen"></i> MOBILE APP</span><h2 class="app-title">Your Health in<br>Your Pocket</h2><p class="app-desc">Order medicines, track delivery, set medication reminders, and chat with pharmacists — all from our app.</p><div class="pills"><div class="pill"><i class="fas fa-bell"></i> Reminders</div><div class="pill"><i class="fas fa-map-pin"></i> Live Tracking</div><div class="pill"><i class="fas fa-clock"></i> 30-Min Delivery</div><div class="pill"><i class="fas fa-user-doctor"></i> Doctor Chat</div></div><div class="app-btns"><a href="#" class="app-btn"><i class="fab fa-apple"></i><div class="app-btn-txt"><span>Download on the</span><strong>App Store</strong></div></a><a href="#" class="app-btn"><i class="fab fa-google-play"></i><div class="app-btn-txt"><span>Get it on</span><strong>Google Play</strong></div></a></div></div>
+  <div style="display:flex;justify-content:center"><img class="app-mockup" src="./assets/images/screen-cropped.webp" alt="App" onerror="this.src='https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&q=80'"></div>
+</div></div></section>
+
+<!-- FOOTER -->
+<footer class="ms-footer"><div class="container">
+  <div class="ms-ftr-top">
+    <div><div class="ms-flogo"><div class="ms-logo-ico" style="width:3.4rem;height:3.4rem;font-size:1.6rem"><i class="fas fa-heart-pulse"></i></div> MediShop</div><p class="ms-fdesc">Egypt's most trusted online pharmacy and fitness store. Delivering health and wellness to your door since 2020.</p><div class="ms-fsoc"><a href="#" class="ms-fsb"><i class="fab fa-instagram"></i></a><a href="#" class="ms-fsb"><i class="fab fa-facebook-f"></i></a><a href="#" class="ms-fsb"><i class="fab fa-tiktok"></i></a><a href="#" class="ms-fsb"><i class="fab fa-youtube"></i></a></div></div>
+    <div class="ms-fcol"><div class="ms-fcol-ttl">Quick Links</div><ul><li><a href="#">About Us</a></li><li><a href="articles.html">Health Blog</a></li><li><a href="#flash">Flash Deals</a></li><li><a href="account.html">My Account</a></li><li><a href="checkout.html">Checkout</a></li></ul></div>
+    <div class="ms-fcol"><div class="ms-fcol-ttl">Support</div><ul><li><a href="#">Help Center</a></li><li><a href="#">Track Order</a></li><li><a href="#">Returns</a></li><li><a href="#">Pharmacist Chat</a></li><li><a href="#">Contact Us</a></li></ul></div>
+    <div class="ms-fcol"><div class="ms-fcol-ttl">Contact</div><ul><li><a href="#">📍 Nasr City, Cairo</a></li><li><a href="tel:+20201234567">📞 +20 20 123 4567</a></li><li><a href="mailto:hello@medishop.com">✉️ hello@medishop.com</a></li><li><a href="#">🕐 Open 24/7</a></li></ul></div>
+  </div>
+  <div class="ms-ftr-btm"><div style="color:rgba(255,255,255,.35)">© 2026 MediShop, Inc. All rights reserved.</div><div class="ms-pms"><span style="color:rgba(255,255,255,.35);margin-right:.4rem">We accept:</span><div class="ms-pm">VISA</div><div class="ms-pm">MC</div><div class="ms-pm">Fawry</div><div class="ms-pm">Vodafone</div><div class="ms-pm">COD</div></div></div>
+</div></footer>
+
+<!-- CART SIDEBAR -->
+<div class="ms-cart-ov" id="cartOv" onclick="closeCart()"></div>
+<div class="ms-cart-sb" id="cartSb">
+  <div class="ms-csb-hdr"><div class="ms-csb-ttl">Cart <span style="background:var(--r);color:#fff;border-radius:100px;padding:.2rem .7rem;font-size:1.2rem;font-weight:700;margin-left:.4rem" id="cntSide">0</span></div><button class="ms-csb-x" onclick="closeCart()"><i class="fas fa-xmark"></i></button></div>
+  <div class="ms-cart-items" id="cartItems"></div>
+  <div class="ms-csb-foot">
+    <div class="ms-cpn-row"><input class="ms-cpn-inp" type="text" placeholder="Coupon code (try HEALTH10)…" id="couponInp"/><button class="btn btn-o btn-sm" onclick="applyCoupon()">Apply</button></div>
+    <div class="ms-srow"><span style="color:var(--tx2)">Subtotal</span><span class="sv" id="cartSub">$0.00</span></div>
+    <div class="ms-srow"><span style="color:var(--tx2)">Delivery</span><span style="color:var(--g);font-size:1.4rem"><i class="fas fa-check-circle"></i> FREE</span></div>
+    <hr style="border:none;border-top:1px solid var(--brd);margin:1.2rem 0">
+    <div class="ms-srow" style="margin-bottom:1.2rem"><span style="font-weight:700;font-size:1.7rem">Total</span><span class="sv" id="cartTotal">$0.00</span></div>
+    <a href="checkout.html" class="btn btn-a" style="width:100%;justify-content:center;padding:1.6rem;font-size:1.6rem;border-radius:var(--rmd)"><i class="fas fa-lock"></i> Secure Checkout</a>
+    <button class="btn btn-g" style="width:100%;justify-content:center;margin-top:.8rem" onclick="closeCart()">Continue Shopping</button>
+  </div>
+</div>
+<div class="ms-toast-c" id="msToastC"></div>
+
+<!-- DATA + SHARED -->
+<script src="ms-data.js"></script>
+<script>
+let cart = msGetCart();
+let wishlist = msGetWL();
+let currentFilter = 'all', visibleCount = 8;
+let slideIdx = 0;
+
+// ── HERO ──
+function buildHero(){
+  const main=document.getElementById('heroMain'), dots=document.getElementById('heroDots');
+  MS_HERO_SLIDES.forEach((s,i)=>{
+    const sl=document.createElement('div'); sl.className='hslide'+(i===0?' active':'');
+    sl.innerHTML=`<div class="hslide-bg" style="background-image:url('${s.bg}')"></div><div class="hslide-ov"></div>
+    <div class="hcontent">
+      <div style="margin-bottom:1.4rem"><span class="tag" style="background:rgba(255,255,255,.15);color:#fff;font-size:1.1rem">${s.eyebrow}</span></div>
+      <h1 class="htitle">${s.title}</h1>
+      <p class="hdesc">${s.desc}</p>
+      <div class="hctas">
+        <button class="btn btn-a" style="font-size:1.6rem;padding:1.4rem 2.8rem" onclick="filterByNav('${s.filter}',null);document.getElementById('products').scrollIntoView({behavior:'smooth'})"><i class="fas fa-cart-plus"></i> ${s.cta}</button>
+        <button class="btn" style="background:rgba(255,255,255,.15);color:#fff;border:1.5px solid rgba(255,255,255,.3);font-size:1.6rem;padding:1.4rem 2.8rem" onclick="document.getElementById('flash').scrollIntoView({behavior:'smooth'})"><i class="fas fa-fire"></i> Flash Deals</button>
+      </div>
+      <div class="hstats">
+        <div><div class="hstat-num">67k+</div><div class="hstat-lbl">Customers</div></div>
+        <div><div class="hstat-num">5.0 ★</div><div class="hstat-lbl">Avg. Rating</div></div>
+        <div><div class="hstat-num">30min</div><div class="hstat-lbl">Delivery</div></div>
+      </div>
+    </div>`;
+    main.insertBefore(sl, dots);
+    const d=document.createElement('div'); d.className='hdot'+(i===0?' active':''); d.onclick=()=>goSlide(i); dots.appendChild(d);
+  });
+}
+function goSlide(n){
+  document.querySelectorAll('.hslide').forEach((s,i)=>s.classList.toggle('active',i===n));
+  document.querySelectorAll('.hdot').forEach((d,i)=>d.classList.toggle('active',i===n));
+  slideIdx=n;
+}
+setInterval(()=>goSlide((slideIdx+1)%MS_HERO_SLIDES.length), 5500);
+
+// ── FLASH ──
+function renderFlash(){
+  document.getElementById('flashGrid').innerHTML=MS_FLASH.map(p=>`
+    <div class="ms-fcard" onclick="addToCart(${p.id},'${p.name}',${p.price},'${p.image}')">
+      <div class="ms-fcard-img"><img src="${p.image}" alt="${p.name}" onerror="this.src='https://placehold.co/120x120/1a1a2e/ff6b35?text=Deal'"></div>
+      <div class="ms-fbadge">-${p.discount}%</div>
+      <div class="ms-fcard-name">${p.name}</div>
+      <div class="ms-fprices"><span class="ms-fp">$${p.price.toFixed(2)}</span><span class="ms-fpo">$${p.oldPrice.toFixed(2)}</span></div>
+      <div class="ms-fpl"><span>🔥 ${p.sold} sold</span><span>${p.total-p.sold} left</span></div>
+      <div class="ms-fpt"><div class="ms-fpf" style="width:${(p.sold/p.total*100).toFixed(0)}%"></div></div>
+    </div>`).join('');
+}
+
+// ── PRODUCTS ──
+function renderProducts(filter='all', count=8){
+  const all = filter==='all' ? MS_PRODUCTS : MS_PRODUCTS.filter(p=>p.cat===filter);
+  const show = all.slice(0, count);
+  const g = document.getElementById('productsGrid');
+  if(!all.length){
+    g.innerHTML=`<div class="ms-ecat"><i class="fas fa-box-open"></i><p>No products in this category yet.</p></div>`;
+    document.getElementById('loadMoreWrap').style.display='none'; return;
+  }
+  g.innerHTML=show.map(p=>{
+    const inWL=wishlist.includes(p.id);
+    return`<div class="ms-pcard">
+      <div class="ms-pbadges">${p.badge==='sale'?'<span class="ms-pb ms-pb-s">SALE</span>':''}${p.badge==='new'?'<span class="ms-pb ms-pb-n">NEW</span>':''}${p.badge==='top'?'<span class="ms-pb ms-pb-t">TOP</span>':''}</div>
+      <button class="ms-pwish ${inWL?'on':''}" onclick="toggleWL(event,${p.id})"><i class="${inWL?'fas':'far'} fa-heart"></i></button>
+      <div class="ms-pimg">
+        <img src="${p.image}" alt="${p.name}" onerror="this.src='https://placehold.co/200x200/e8f1ff/0057B7?text=${encodeURIComponent(p.name.slice(0,8))}'">
+        <div class="ms-pquick"><button class="btn btn-p btn-sm" onclick="addToCart(${p.id},'${p.name}',${p.price},'${p.image}')"><i class="fas fa-cart-plus"></i> Add</button></div>
+      </div>
+      <div class="ms-pbody">
+        <div class="ms-pbrand">${p.brand}</div>
+        <div class="ms-pname">${p.name}</div>
+        <div class="ms-prating"><div class="stars">${msStars(p.rating)}</div><span class="ms-rcount">${p.rating} (${p.reviews})</span></div>
+        ${p.stock<=10?`<div class="ms-stk"><div class="ms-stk-lbl">⚠️ Only ${p.stock} left!</div><div class="ms-stk-trk"><div class="ms-stk-fill" style="width:${p.stock*10}%"></div></div></div>`:''}
+        <div class="ms-pft">
+          <div class="ms-pprices"><span class="ms-pnow">$${p.price.toFixed(2)}</span>${p.oldPrice?`<span class="ms-pold">$${p.oldPrice.toFixed(2)}</span>`:''}</div>
+          <button class="ms-add-btn" onclick="addToCart(${p.id},'${p.name}',${p.price},'${p.image}')"><i class="fas fa-plus"></i></button>
         </div>
       </div>
-    </section>
+    </div>`;}).join('');
+  document.getElementById('loadMoreWrap').style.display = all.length>count ? '' : 'none';
+}
 
-    <main>
-      <section class="section-catygory">
-        <div class="container grid grid--5--cols grid-gap-xl margin-bottom-sm">
-          <div class="catygory-box">
-            <div class="catygory-img-box" style="background-color: #dbe4ff">
-              <img
-                class="catygory-img"
-                src="./assets/icons/cat-icon1.png"
-                alt=""
-              />
-            </div>
-            <div class="catygory-text">
-              <p class="catygory-title">Pharmacy Essentials</p>
-            </div>
-          </div>
-          <div class="catygory-box">
-            <div class="catygory-img-box" style="background-color: #ffe8cc">
-              <img
-                class="catygory-img"
-                src="./assets/icons/cat-icon2.png"
-                alt=""
-              />
-            </div>
-            <div class="catygory-text">
-              <p class="catygory-title">Personal Care</p>
-            </div>
-          </div>
-          <div class="catygory-box">
-            <div class="catygory-img-box" style="background-color: #c5f6fa">
-              <img
-                class="catygory-img"
-                src="./assets/icons/cat-icon3.png"
-                alt=""
-              />
-            </div>
-            <div class="catygory-text">
-              <p class="catygory-title">Health Devices</p>
-            </div>
-          </div>
-          <div class="catygory-box">
-            <div class="catygory-img-box" style="background-color: #d3f9d8">
-              <img
-                class="catygory-img"
-                src="./assets/icons/cat-icon4.png"
-                alt=""
-              />
-            </div>
-            <div class="catygory-text">
-              <p class="catygory-title">Supplements</p>
-            </div>
-          </div>
-          <div class="catygory-box">
-            <div
-              class="catygory-img-box"
-              style="background-color: #ffffff"
-              data-border="border-color"
-            >
-              <img
-                class="catygory-img"
-                src="./assets/icons/cat-icon5.png"
-                alt=""
-              />
-            </div>
-            <div class="catygory-text">
-              <p class="catygory-title">Fitness Gear</p>
-            </div>
-          </div>
-        </div>
-      </section>
+function loadMore(){ visibleCount+=8; renderProducts(currentFilter, visibleCount); }
 
-      <!-- Popular section -->
-      <section class="section-popular section--reveal" id="section--1">
-        <div class="populer-section-border container grid grid-gap-sm">
-          <div class="container center-text">
-            <h2 class="heading-secondary margin-bottom-xsm">
-              Most Popular Products
-            </h2>
-            <h3 class="sub-heading">
-              Embrace Your Health Journey with Nature's Healing Bounty
-            </h3>
-          </div>
+function filterProds(cat, tabEl){
+  currentFilter=cat; visibleCount=8;
+  document.querySelectorAll('.ftab').forEach(t=>t.classList.remove('active'));
+  if(tabEl) tabEl.classList.add('active');
+  renderProducts(cat, 8);
+  document.getElementById('products').scrollIntoView({behavior:'smooth'});
+}
 
-          <div class="container grid grid--6--cols grid-gap-sm">
-            <div class="popular-box">
-              <div class="populer-img-box">
-                <img
-                  class="populer-img"
-                  src="./assets/images/products/product1 1.png"
-                  alt=""
-                />
-              </div>
-              <div class="populer-text">
-                <p class="populer-title">Freak Show 500mg</p>
-                <div class="populer-price-box">
-                  <p class="populer-price"><strong>$95.00</strong></p>
-                </div>
-                <button
-                  type="submit"
-                  name="add"
-                  class="add-to-cart btn btn--sm"
-                  tabindex="0"
-                >
-                  Add
-                </button>
-              </div>
-            </div>
-            <div class="populer-box">
-              <div class="populer-img-box">
-                <img
-                  class="populer-img"
-                  src="./assets/images/products/product2 1.png"
-                  alt=""
-                />
-              </div>
-              <div class="populer-text">
-                <p class="populer-title">Drink sleep Grow</p>
-                <div class="populer-price-box">
-                  <p class="populer-price"><strong>$38.00</strong></p>
+function filterByCat(cat, card){
+  document.querySelectorAll('.ccat').forEach(c=>c.classList.remove('sel'));
+  if(card) card.classList.add('sel');
+  currentFilter=cat; visibleCount=8;
+  const names={pharmacy:'Pharmacy',cardiology:'Cardiology',fitness:'Fitness & Gym',supplements:'Supplements',baby:'Baby Care',devices:'Devices',natural:'Natural & Organic',personal:'Personal Care',all:'All Products'};
+  document.getElementById('prodsTitle').textContent = names[cat]||'Products';
+  document.getElementById('prodsSub').textContent = `Showing all ${names[cat]||cat} products`;
+  renderProducts(cat, 8);
+  document.getElementById('products').scrollIntoView({behavior:'smooth'});
+}
 
-                  <p class="populer-price-discount">$48.00</p>
-                </div>
-                <button
-                  type="submit"
-                  name="add"
-                  class="add-to-cart btn btn--sm"
-                  tabindex="0"
-                >
-                  Add
-                </button>
-              </div>
-            </div>
-            <div class="populer-box">
-              <div class="populer-img-box">
-                <img
-                  class="populer-img"
-                  src="./assets/images/products/product3 1.png"
-                  alt=""
-                />
-              </div>
-              <div class="populer-text">
-                <p class="populer-title">G Fuel</p>
-                <div class="populer-price-box">
-                  <p class="populer-price"><strong>$43.00</strong></p>
+function filterByNav(cat, el){
+  if(el){ document.querySelectorAll('.ms-ni').forEach(n=>n.classList.remove('active')); el.classList.add('active'); }
+  filterProds(cat, null);
+}
 
-                  <p class="populer-price-discount">$55.00</p>
-                </div>
-                <button
-                  type="submit"
-                  name="add"
-                  class="add-to-cart btn btn--sm"
-                  tabindex="0"
-                >
-                  Add
-                </button>
-              </div>
-            </div>
-            <div class="populer-box">
-              <div class="populer-img-box">
-                <img
-                  class="populer-img"
-                  src="./assets/images/products/product-p5 1.png"
-                  alt=""
-                />
-              </div>
-              <div class="populer-text">
-                <p class="populer-title">Comtrex</p>
-                <div class="populer-price-box">
-                  <p class="populer-price"><strong>$2.05</strong></p>
-                </div>
-                <button
-                  type="submit"
-                  name="add"
-                  class="add-to-cart btn btn--sm"
-                  tabindex="0"
-                >
-                  Add
-                </button>
-              </div>
-            </div>
-            <div class="populer-box">
-              <div class="populer-img-box">
-                <img
-                  class="populer-img"
-                  src="./assets/images/products/product-p8 1.png"
-                  alt=""
-                />
-              </div>
-              <div class="populer-text">
-                <p class="populer-title">Enalapril 10mg</p>
-                <div class="populer-price-box">
-                  <p class="populer-price"><strong>$5.00</strong></p>
-                </div>
-                <button
-                  type="submit"
-                  name="add"
-                  class="add-to-cart btn btn--sm"
-                  tabindex="0"
-                >
-                  Add
-                </button>
-              </div>
-            </div>
-            <div class="populer-box">
-              <div class="populer-img-box">
-                <img
-                  class="populer-img"
-                  src="./assets/images/products/product-p91.png"
-                  alt=""
-                />
-              </div>
-              <div class="populer-text">
-                <p class="populer-title">Hemorroimed 30mg</p>
-                <div class="populer-price-box">
-                  <p class="populer-price"><strong>$9.00</strong></p>
+// ── SEARCH ──
+function doSearch(){
+  const q=document.getElementById('searchInput').value.trim().toLowerCase();
+  const cat=document.getElementById('searchCat').value;
+  if(!q) return;
+  let res=MS_PRODUCTS.filter(p=>p.name.toLowerCase().includes(q)||p.brand.toLowerCase().includes(q));
+  if(cat!=='all') res=res.filter(p=>p.cat===cat);
+  document.getElementById('prodsTitle').textContent=`Results: "${q}"`;
+  document.getElementById('prodsSub').textContent=`${res.length} product${res.length!==1?'s':''} found`;
+  const g=document.getElementById('productsGrid');
+  document.getElementById('loadMoreWrap').style.display='none';
+  if(!res.length){ g.innerHTML=`<div class="ms-ecat"><i class="fas fa-search"></i><p>No results for "<strong>${q}</strong>"</p></div>`; }
+  else{
+    g.innerHTML=res.map(p=>`<div class="ms-pcard"><div class="ms-pimg"><img src="${p.image}" alt="${p.name}" onerror="this.src='https://placehold.co/200x200/e8f1ff/0057B7?text=P'"></div><div class="ms-pbody"><div class="ms-pbrand">${p.brand}</div><div class="ms-pname">${p.name}</div><div class="ms-pft"><div class="ms-pprices"><span class="ms-pnow">$${p.price.toFixed(2)}</span></div><button class="ms-add-btn" onclick="addToCart(${p.id},'${p.name}',${p.price},'${p.image}')"><i class="fas fa-plus"></i></button></div></div></div>`).join('');
+  }
+  document.getElementById('products').scrollIntoView({behavior:'smooth'});
+}
+document.getElementById('searchInput').addEventListener('keydown',e=>{ if(e.key==='Enter') doSearch(); });
 
-                  <p class="populer-price-discount">$12.00</p>
-                </div>
-                <button
-                  type="submit"
-                  name="add"
-                  class="add-to-cart btn btn--sm"
-                  tabindex="0"
-                >
-                  Add
-                </button>
-              </div>
-            </div>
-          </div>
+// ── CART ──
+function addToCart(id,name,price,image){
+  cart = msAddToCart(id,name,price,image);
+  renderCartUI();
+  msToast(`<i class="fas fa-check-circle"></i> ${name.slice(0,26)}… added!`,'s');
+}
+function updateQty(id,d){
+  const item=cart.find(i=>i.id===id); if(!item) return;
+  item.qty+=d; if(item.qty<=0) cart=cart.filter(i=>i.id!==id);
+  msSave('ms_cart',cart); renderCartUI();
+}
+function removeFromCart(id){ cart=cart.filter(i=>i.id!==id); msSave('ms_cart',cart); renderCartUI(); }
+function openCart(){ document.getElementById('cartSb').classList.add('open'); document.getElementById('cartOv').classList.add('open'); document.body.style.overflow='hidden'; }
+function closeCart(){ document.getElementById('cartSb').classList.remove('open'); document.getElementById('cartOv').classList.remove('open'); document.body.style.overflow=''; }
+function renderCartUI(){
+  const cnt=cart.reduce((s,i)=>s+i.qty,0), sub=cart.reduce((s,i)=>s+i.price*i.qty,0);
+  document.getElementById('msCartBadge').textContent=cnt;
+  document.getElementById('cntSide').textContent=cnt;
+  document.getElementById('cartSub').textContent=`$${sub.toFixed(2)}`;
+  document.getElementById('cartTotal').textContent=`$${sub.toFixed(2)}`;
+  const c=document.getElementById('cartItems');
+  if(!cart.length){ c.innerHTML=`<div class="ms-cart-empty"><i class="fas fa-cart-shopping"></i><p>Your cart is empty</p><button class="btn btn-p btn-sm" onclick="closeCart();document.getElementById('products').scrollIntoView({behavior:'smooth'})">Start Shopping</button></div>`; return; }
+  c.innerHTML=cart.map(i=>`<div class="ms-ci"><div class="ms-ci-img"><img src="${i.image}" alt="${i.name}" onerror="this.src='https://placehold.co/80x80/e8f1ff/0057B7?text=P'"></div><div><div class="ms-ci-name">${i.name}</div><div class="ms-ci-price">$${(i.price*i.qty).toFixed(2)}</div><div class="ms-qty"><button class="ms-qbtn" onclick="updateQty(${i.id},-1)"><i class="fas fa-minus"></i></button><span class="ms-qnum">${i.qty}</span><button class="ms-qbtn" onclick="updateQty(${i.id},1)"><i class="fas fa-plus"></i></button></div><div class="ms-ci-rm" onclick="removeFromCart(${i.id})"><i class="fas fa-trash"></i> Remove</div></div></div>`).join('');
+}
+function applyCoupon(){ const c=document.getElementById('couponInp').value.trim().toUpperCase(); if(c==='HEALTH10') msToast('<i class="fas fa-tag"></i> 10% discount applied!','s'); else msToast('<i class="fas fa-xmark"></i> Invalid coupon.','e'); }
 
-          <!-- <div class="container center-text">
-            <button class="btn btn--sm margin-right-sm">&LeftArrow;</button>
-            <button class="btn btn--sm">&RightArrow;</button>
-          </div> -->
-        </div>
-        <!-- Our feature and services -->
-        <div class="feature-grid container grid grid--2--cols" id="services">
-          <div class="features-box">
-            <div class="feature-content">
-              <h3 class="heading-tertiary">Chat with a doctor</h3>
-              <p class="feature-descreption">
-                Don't self medicate. Talk to an expert. Consult a doctor in less
-                than 2 minutes.
-              </p>
-              <button class="btn">Get started</button>
-            </div>
-            <div class="feature-img-box">
-              <img
-                class="feature-img"
-                src="./assets/images/persons/person2-1250.webp"
-                alt=""
-              />
-            </div>
-          </div>
+// ── WISHLIST ──
+function toggleWL(e,id){ e.stopPropagation(); const btn=e.currentTarget; if(wishlist.includes(id)){ wishlist=wishlist.filter(i=>i!==id); btn.classList.remove('on'); btn.querySelector('i').className='far fa-heart'; msToast('<i class="far fa-heart"></i> Removed from wishlist','s'); } else{ wishlist.push(id); btn.classList.add('on'); btn.querySelector('i').className='fas fa-heart'; msToast('<i class="fas fa-heart"></i> Added to wishlist!','s'); } msSave('ms_wl',wishlist); }
 
-          <div class="features-box">
-            <div class="feature-content">
-              <h3 class="heading-tertiary">Home delivery in 30 minutes</h3>
-              <p class="feature-descreption">
-                Tired of waiting in a queue? Too weak to go down and buy
-                medicines?
-              </p>
-              <button class="btn">Order Now</button>
-            </div>
-            <div class="feature-img-box">
-              <img
-                class="feature-img"
-                src="./assets/images/persons/person3-1250.webp"
-                alt=""
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!--  Products Section -->
-      <section class="section-products" id="section--2">
-        <div class="container center-text">
-          <h2 class="heading-secondary">Brows medicinese & health product</h2>
-        </div>
-
-        <!-- product menue -->
-        <div class="container center-text margin-bottom-md">
-          <ul class="categories-list">
-            <li class="category-item">
-              <i class="category-icon fa-solid fa-baby"></i>
-              <span class="category-text">Baby Care</span>
-            </li>
-            <li class="category-item">
-              <i class="category-icon fa-solid fa-people-roof"></i>
-              <span class="category-text">Family Care</span>
-            </li>
-
-            <li class="category-item">
-              <i class="category-icon fa-solid fa-bowl-food"></i>
-              <span class="category-text">Alternate</span>
-            </li>
-
-            <li class="category-item">
-              <i class="category-icon fa-solid fa-dumbbell"></i>
-              <span class="category-text">Fitness</span>
-            </li>
-            <li class="category-item">
-              <i class="category-icon fa-solid fa-person-dress"></i>
-              <span class="category-text">Women's Care</span>
-            </li>
-            <li class="category-item">
-              <i class="category-icon fa-solid fa-stethoscope"></i>
-              <span class="category-text">Devices</span>
-            </li>
-          </ul>
-        </div>
-
-        <div
-          class="container center-text grid grid--4--cols margin-bottom-md productsContainer section--reveal"
-        ></div>
-        <div class="container center-text">
-          <button class="btn">View More</button>
-        </div>
-      </section>
-
-      <section class="section-testimonials" id="section--3">
-        <div class="container center-text">
-          <h2 class="heading-secondary">Customer review & recommendation</h2>
-        </div>
-        <div class="container grid grid--1--cols section--reveal">
-          <!-- slider -->
-          <div class="slider">
-            <div class="slide slide--1 grid grid--2--cols grid-center-v">
-              <!-- slider content -->
-              <div class="testimonial-img-box">
-                <div
-                  class="testimonial-img-url-1"
-                  role="img"
-                  aria-label="a person saying his opinion about the website"
-                ></div>
-                <img
-                  src="./assets/images/persons/person5.webp"
-                  alt="a word from one of our cleints"
-                  class="testimonial-img"
-                />
-              </div>
-              <div class="testimonial-content">
-                <blockquote class="testimonial-text">
-                  Using Medicine's website has transformed my healthcare
-                  journey. The easy-to-use interface and extensive information
-                  have simplified managing my health. The mobile app is
-                  especially helpful in reminding me to take my medications.
-                  Having all my health data in one place is incredibly
-                  convenient. Thanks to Medicine, I feel empowered in caring for
-                  my well-being..
-                </blockquote>
-
-                <p class="testimonial-name">
-                  Adam Dariene<span>&dash; Medical Assistan</span>
-                </p>
-              </div>
-            </div>
-
-            <div class="slide slide--2 grid grid--2--cols grid-center-v">
-              <div class="testimonial-img-box">
-                <div
-                  class="testimonial-img-url-2"
-                  role="img"
-                  aria-label="a person saying his opinion about the website"
-                ></div>
-                <img
-                  src="./assets/images/persons/person6.webp"
-                  alt="a word from one of our cleints"
-                  class="testimonial-img"
-                />
-              </div>
-              <div class="testimonial-content">
-                <blockquote class="testimonial-text">
-                  Medicine's platform has revolutionized how I approach my
-                  health. The website's user-friendly design and comprehensive
-                  resources have made navigating my healthcare effortless. With
-                  the mobile app, I never miss a dose of my medication. Having
-                  my health records easily accessible has given me peace of
-                  mind. I highly recommend Medicine for anyone seeking better
-                  control over their well-being ♥.
-                </blockquote>
-
-                <p class="testimonial-name">
-                  Adam Dariene<span>&dash; Medical Assistan</span>
-                </p>
-              </div>
-            </div>
-
-            <div class="slide slide--3 grid grid--2--cols grid-center-v">
-              <div class="testimonial-img-box">
-                <div
-                  class="testimonial-img-url-3"
-                  role="img"
-                  aria-label="a person saying his opinion about the website"
-                ></div>
-                <img
-                  src="./assets/images/persons/person7.webp"
-                  alt="a word from one of our cleints"
-                  class="testimonial-img"
-                />
-              </div>
-              <div class="testimonial-content">
-                <blockquote class="testimonial-text">
-                  Medicine's website has been a game-changer for me. The
-                  intuitive interface and abundance of information have
-                  simplified my healthcare management. The mobile app is a
-                  lifesaver, ensuring I never forget to take my medications.
-                  With all my health data conveniently stored in one place, I
-                  feel more organized and in control. I can't recommend Medicine
-                  enough for its invaluable contribution to my well-being.😍.
-                </blockquote>
-
-                <p class="testimonial-name">
-                  Adam Dariene<span>&dash; Medical Assistan</span>
-                </p>
-              </div>
-            </div>
-          </div>
-          <button class="slider__btn slider__btn--left">🡨</button>
-          <button class="slider__btn slider__btn--right">🡪</button>
-          <div class="dots"></div>
-        </div>
-      </section>
-
-      <section class="section-app" id="section--4">
-        <div
-          class="app-grid container grid grid--2--cols grid-center-v section--reveal"
-        >
-          <div class="app-content-box">
-            <h2 class="heading-secondary margin-bottom-sm">
-              Download the Medicine name mobile app
-            </h2>
-
-            <p class="app-description">
-              Experience the ultimate convenience in managing your health with
-              our Medicine mobile app. Download our app today to access a world
-              of wellness at your fingertips.
-            </p>
-            <div class="download-box">
-              <div class="ios-box">
-                <i class="fa-brands fa-apple download-icon"></i>
-                <p class="download-text">
-                  Download on the <br />
-                  <span><strong>App Store</strong></span>
-                </p>
-              </div>
-
-              <div class="googlePlay-box">
-                <img
-                  class="download-icon"
-                  src="./assets/images/playstore.svg"
-                  alt="google play icon"
-                />
-                <p class="download-text">
-                  Download on the <br />
-                  <span><strong>App Store</strong></span>
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="app-img-box">
-            <img
-              src="./assets/images/screen-cropped.webp"
-              alt=""
-              class="app-img"
-            />
-          </div>
-        </div>
-      </section>
-    </main>
-    <footer class="footer">
-      <div class="container grid grid--footer">
-        <div class="logo-col">
-          <a href="#" class="footer-logo">
-            <img
-              src="./assets/images/logo.png"
-              class="logo"
-              alt="website-logo"
-            />
-          </a>
-          <ul class="social-links">
-            <li>
-              <a class="footer-link" href=""
-                ><ion-icon class="social-icon" name="logo-instagram"></ion-icon
-              ></a>
-            </li>
-            <li>
-              <a class="footer-link" href=""
-                ><ion-icon class="social-icon" name="logo-facebook"></ion-icon
-              ></a>
-            </li>
-            <li>
-              <a class="footer-link" href=""
-                ><ion-icon class="social-icon" name="logo-twitter"></ion-icon
-              ></a>
-            </li>
-          </ul>
-          <p class="copyright">
-            Copyright &copy; 2027 by Medicine, Inc. All rigths reserved Coded by
-            Hossam Ayman
-          </p>
-        </div>
-        <div class="address-col">
-          <p class="footer-heading">Contact us</p>
-          <address class="contacts">
-            <p>
-              10 El Obour Buildings, Salah Salem St., Nasr City, Cairo, Egypt.
-            </p>
-
-            <p>
-              <a class="footer-link" href="tel:416-201-6370">416-201-6370</a>
-              <br />
-              <a class="footer-link" href="mailto:hello@omnifood.com"
-                >hello@medicine.com</a
-              >
-            </p>
-          </address>
-        </div>
-        <nav class="nav-col">
-          <p class="footer-heading">Account</p>
-          <ul class="footer-nav">
-            <li><a class="footer-link" href="#">Sign up</a></li>
-            <li><a class="footer-link" href="#">Create account</a></li>
-            <li><a class="footer-link" href="#">iOS app</a></li>
-            <li><a class="footer-link" href="#">Android app</a></li>
-          </ul>
-        </nav>
-        <nav class="nav-col">
-          <p class="footer-heading">Company</p>
-          <ul class="footer-nav">
-            <li><a class="footer-link" href="#">For Business</a></li>
-            <li><a class="footer-link" href="#">About Medicine</a></li>
-            <li><a class="footer-link" href="#">Cooking partners</a></li>
-            <li><a class="footer-link" href="#">Careerers</a></li>
-          </ul>
-        </nav>
-        <nav class="nav-col">
-          <p class="footer-heading">Resources</p>
-          <ul class="footer-nav">
-            <li><a class="footer-link" href="#">Help center</a></li>
-            <li><a class="footer-link" href="#">Privacy & terms</a></li>
-            <li><a class="footer-link" href="#">iOS app</a></li>
-            <li><a class="footer-link" href="#">Android app</a></li>
-          </ul>
-        </nav>
+// ── ARTICLES PREVIEW ──
+function renderArticlesPreview(){
+  document.getElementById('articlesPreview').innerHTML = MS_ARTICLES.slice(0,3).map(a=>`
+    <div class="acard" onclick="window.open('articles.html?id=${a.id}','_blank')">
+      <div class="acard-img"><img src="${a.image}" alt="${a.title}" onerror="this.parentElement.style.background='var(--pl)'"></div>
+      <div class="acard-body">
+        <div class="acard-meta"><span class="tag ${a.tagCls}" style="font-size:1.1rem">${a.cat}</span><span class="acard-date">${a.date} · ${a.readTime} read</span></div>
+        <h3 class="acard-title">${a.title}</h3>
+        <p class="acard-exc">${a.excerpt}</p>
+        <span class="aread">Read Article <i class="fas fa-arrow-right"></i></span>
       </div>
-    </footer>
-    <script
-      type="module"
-      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
-    ></script>
-    <script
-      nomodule
-      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
-    ></script>
-  </body>
+    </div>`).join('');
+}
+
+// ── AUTH ──
+function updateAuthUI(){
+  const u=msGetUser();
+  if(u){ document.getElementById('accountLabel').textContent=u.firstName; document.getElementById('accountIcon').className='fas fa-user-check'; document.getElementById('umName').textContent=`${u.firstName} ${u.lastName}`; document.getElementById('umEmail').textContent=u.email; document.getElementById('logoutBtn').style.display='flex'; }
+  else{ document.getElementById('accountLabel').textContent='Account'; document.getElementById('accountIcon').className='fas fa-user-circle'; document.getElementById('logoutBtn').style.display='none'; }
+}
+function doLogout(){ msSave('ms_user',null); localStorage.removeItem('ms_user'); updateAuthUI(); msToast('<i class="fas fa-right-from-bracket"></i> Logged out.','s'); document.getElementById('userMenu').classList.remove('open'); }
+document.getElementById('accountHact').addEventListener('click',e=>{ const u=msGetUser(); if(u) document.getElementById('userMenu').classList.toggle('open'); else location.href='account.html'; });
+document.addEventListener('click',e=>{ if(!document.getElementById('accountHact').contains(e.target)) document.getElementById('userMenu').classList.remove('open'); });
+
+// ── NEWSLETTER ──
+function subscribeNews(){ const e=document.getElementById('newsEmail').value; if(!e||!e.includes('@')){ msToast('<i class="fas fa-xmark"></i> Enter a valid email.','e'); return; } msToast('<i class="fas fa-check-circle"></i> Subscribed! Check email for 10% code.','s'); document.getElementById('newsEmail').value=''; }
+
+// ── REVEAL ──
+const ro=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('v');ro.unobserve(e.target);}});},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+
+// ── INIT ──
+buildHero();
+renderFlash();
+renderProducts('all', 8);
+renderArticlesPreview();
+renderCartUI();
+updateAuthUI();
+msStartCountdown(5*3600+42*60+18,'h1','m1','s1');
+msStartCountdown(5*3600+42*60+18,'fh','fm','fs2');
+</script>
+</body>
 </html>

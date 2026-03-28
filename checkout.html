@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Checkout — MediShop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <!-- Stripe.js -->
+  <script src="https://js.stripe.com/v3/"></script>
+  <style>
+    :root{--p:#0057B7;--pd:#003D8F;--pl:#E8F1FF;--a:#FF6B35;--al:#FFF0EB;--g:#22C55E;--gl:#DCFCE7;--r:#EF4444;--y:#F59E0B;--bg:#F8FAFF;--sur:#fff;--sur2:#F1F5F9;--tx:#0F172A;--tx2:#475569;--tx3:#94A3B8;--brd:#E2E8F0;--rsm:8px;--rmd:14px;--rlg:22px;--rxl:32px;--shd:0 4px 20px rgba(0,87,183,.12);--shd2:0 12px 40px rgba(0,87,183,.18);--fd:'Syne',sans-serif;--fb:'DM Sans',sans-serif;--tr:all .25s cubic-bezier(.4,0,.2,1)}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{font-size:62.5%;scroll-behavior:smooth}
+    body{font-family:var(--fb);font-size:1.6rem;background:var(--bg);color:var(--tx)}
+    a{text-decoration:none;color:inherit}img{display:block;max-width:100%}button{font-family:var(--fb);cursor:pointer;border:none;background:none}input,select,textarea{font-family:var(--fb)}
+    .container{max-width:124rem;margin:0 auto;padding:0 3.2rem}
+    /* HEADER */
+    .header{background:var(--sur);border-bottom:1px solid var(--brd);height:6.4rem;display:flex;align-items:center}
+    .hdr-in{display:flex;align-items:center;justify-content:space-between}
+    .logo{display:flex;align-items:center;gap:1rem;font-family:var(--fd);font-size:2rem;font-weight:800;color:var(--p)}
+    .logo-ico{width:3.6rem;height:3.6rem;background:var(--p);border-radius:var(--rsm);display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.6rem}
+    .secure-badge{display:flex;align-items:center;gap:.8rem;font-size:1.4rem;color:var(--tx2)}
+    .secure-badge i{color:var(--g);font-size:1.6rem}
+    /* STEPS */
+    .steps{background:var(--sur);border-bottom:1px solid var(--brd);padding:1.6rem 0}
+    .steps-in{display:flex;align-items:center;justify-content:center;gap:0}
+    .step{display:flex;align-items:center;gap:.8rem;padding:.8rem 2.4rem;font-size:1.4rem;font-weight:600;color:var(--tx3);position:relative}
+    .step.active{color:var(--p)}
+    .step.done{color:var(--g)}
+    .step-num{width:2.8rem;height:2.8rem;border-radius:50%;border:2px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:1.3rem;font-weight:700;flex-shrink:0}
+    .step.done .step-num{background:var(--g);border-color:var(--g);color:#fff}
+    .step.active .step-num{background:var(--p);border-color:var(--p);color:#fff}
+    .step-divider{width:4rem;height:2px;background:var(--brd);flex-shrink:0}
+    .step-divider.done{background:var(--g)}
+    /* MAIN LAYOUT */
+    .checkout-wrap{display:grid;grid-template-columns:1fr 40rem;gap:3.2rem;padding:3.2rem 0 6.4rem}
+    /* LEFT SIDE — FORMS */
+    .form-section{display:flex;flex-direction:column;gap:2.4rem}
+    .form-card{background:var(--sur);border-radius:var(--rlg);border:1.5px solid var(--brd);overflow:hidden}
+    .form-card-hdr{display:flex;align-items:center;justify-content:space-between;padding:2rem 2.4rem;border-bottom:1px solid var(--brd)}
+    .form-card-title{font-family:var(--fd);font-size:1.8rem;font-weight:800;color:var(--tx);display:flex;align-items:center;gap:.8rem}
+    .form-card-title i{color:var(--p)}
+    .form-card-body{padding:2.4rem}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem}
+    .form-group{display:flex;flex-direction:column;gap:.6rem}
+    .form-group.full{grid-column:1/-1}
+    .form-group label{font-size:1.4rem;font-weight:600;color:var(--tx)}
+    .form-group label span{color:var(--r);margin-left:.2rem}
+    .form-group input,.form-group select,.form-group textarea{padding:1.1rem 1.4rem;border:1.5px solid var(--brd);border-radius:var(--rsm);font-size:1.5rem;outline:none;transition:var(--tr);background:var(--sur);color:var(--tx)}
+    .form-group input:focus,.form-group select:focus{border-color:var(--p);box-shadow:0 0 0 3px rgba(0,87,183,.1)}
+    .form-group input.err{border-color:var(--r)}
+    .err-msg{font-size:1.2rem;color:var(--r);margin-top:.3rem;display:none}
+    .form-group input.err + .err-msg,.err-msg.show{display:block}
+    /* PAYMENT METHODS */
+    .pay-methods{display:flex;flex-direction:column;gap:1.2rem}
+    .pay-option{border:2px solid var(--brd);border-radius:var(--rmd);padding:1.6rem 2rem;cursor:pointer;transition:var(--tr);display:flex;align-items:center;justify-content:space-between}
+    .pay-option:hover{border-color:var(--p);background:var(--pl)}
+    .pay-option.selected{border-color:var(--p);background:var(--pl)}
+    .pay-option-left{display:flex;align-items:center;gap:1.2rem}
+    .pay-radio{width:2rem;height:2rem;border-radius:50%;border:2px solid var(--brd);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:var(--tr)}
+    .pay-option.selected .pay-radio{border-color:var(--p)}
+    .pay-radio-dot{width:1rem;height:1rem;border-radius:50%;background:var(--p);opacity:0;transition:var(--tr)}
+    .pay-option.selected .pay-radio-dot{opacity:1}
+    .pay-name{font-size:1.5rem;font-weight:600;color:var(--tx)}
+    .pay-desc{font-size:1.3rem;color:var(--tx2)}
+    .pay-icons{display:flex;gap:.6rem;flex-wrap:wrap}
+    .pay-ico{background:var(--sur2);border-radius:4px;padding:.3rem .7rem;font-size:1.2rem;font-weight:700;color:var(--tx2)}
+    /* Stripe card element */
+    .stripe-wrap{display:none;margin-top:1.6rem;padding:1.6rem;border:1.5px solid var(--brd);border-radius:var(--rmd);background:#fff}
+    .stripe-wrap.show{display:block}
+    #stripe-card-element{padding:.8rem;min-height:2.4rem}
+    .stripe-secure{display:flex;align-items:center;gap:.6rem;font-size:1.3rem;color:var(--tx3);margin-top:1rem}
+    /* Digital wallet details */
+    .wallet-details{display:none;margin-top:1.6rem;padding:1.6rem;border:1.5px solid var(--brd);border-radius:var(--rmd);background:var(--sur2)}
+    .wallet-details.show{display:block}
+    .wallet-number{font-family:var(--fd);font-size:2rem;font-weight:800;color:var(--p);letter-spacing:.05em}
+    /* Promo code */
+    .promo-row{display:flex;gap:1rem}
+    .promo-row input{flex:1;padding:1rem 1.4rem;border:1.5px solid var(--brd);border-radius:var(--rsm);font-size:1.4rem;outline:none;transition:var(--tr)}.promo-row input:focus{border-color:var(--p)}
+    /* RIGHT SIDE — ORDER SUMMARY */
+    .order-summary{position:sticky;top:2rem;display:flex;flex-direction:column;gap:1.6rem}
+    .sum-card{background:var(--sur);border-radius:var(--rlg);border:1.5px solid var(--brd);overflow:hidden}
+    .sum-hdr{padding:1.8rem 2.4rem;border-bottom:1px solid var(--brd);font-family:var(--fd);font-size:1.8rem;font-weight:800;color:var(--tx)}
+    .sum-body{padding:2rem 2.4rem}
+    .sum-items{display:flex;flex-direction:column;gap:1.4rem;max-height:32rem;overflow-y:auto;margin-bottom:1.6rem}
+    .sum-items::-webkit-scrollbar{width:.4rem}.sum-items::-webkit-scrollbar-thumb{background:var(--brd);border-radius:100px}
+    .sum-item{display:flex;align-items:start;gap:1.2rem}
+    .sum-item-img{width:6.4rem;height:6.4rem;background:var(--sur2);border-radius:var(--rsm);overflow:hidden;position:relative;flex-shrink:0}
+    .sum-item-img img{width:100%;height:100%;object-fit:contain;padding:.6rem}
+    .sum-item-qty{position:absolute;top:-4px;right:-4px;width:2rem;height:2rem;background:var(--p);color:#fff;border-radius:50%;font-size:1.1rem;font-weight:700;display:flex;align-items:center;justify-content:center}
+    .sum-item-name{font-size:1.4rem;font-weight:600;color:var(--tx);line-height:1.4;margin-bottom:.3rem;flex:1}
+    .sum-item-price{font-size:1.4rem;font-weight:700;color:var(--tx);text-align:right;white-space:nowrap}
+    .sum-row{display:flex;justify-content:space-between;align-items:center;font-size:1.5rem;padding:.6rem 0}
+    .sum-row.total{border-top:2px solid var(--brd);margin-top:.8rem;padding-top:1.4rem}
+    .sum-row.total span:first-child{font-family:var(--fd);font-size:1.8rem;font-weight:800;color:var(--tx)}
+    .sum-row.total span:last-child{font-family:var(--fd);font-size:2.4rem;font-weight:800;color:var(--tx)}
+    .sum-row .discount{color:var(--g);font-weight:600}
+    .sum-row .free{color:var(--g);font-weight:600}
+    /* PLACE ORDER BTN */
+    .place-order-btn{width:100%;padding:1.8rem;background:var(--a);color:#fff;border-radius:var(--rmd);font-family:var(--fd);font-size:1.8rem;font-weight:800;display:flex;align-items:center;justify-content:center;gap:1rem;transition:var(--tr);cursor:pointer}
+    .place-order-btn:hover{background:#e55a27;transform:translateY(-1px);box-shadow:0 8px 24px rgba(255,107,53,.3)}
+    .place-order-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+    .place-order-btn .spinner{width:2rem;height:2rem;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:none}
+    .place-order-btn.loading .btn-text{display:none}
+    .place-order-btn.loading .spinner{display:block}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    /* TRUST */
+    .sum-trust{display:flex;flex-direction:column;gap:.8rem}
+    .trust-line{display:flex;align-items:center;gap:.8rem;font-size:1.3rem;color:var(--tx2)}
+    .trust-line i{color:var(--g);width:1.6rem}
+    /* SUCCESS OVERLAY */
+    .success-ov{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:2000;display:none;align-items:center;justify-content:center;backdrop-filter:blur(6px)}
+    .success-ov.open{display:flex}
+    .success-modal{background:var(--sur);border-radius:var(--rxl);padding:5.6rem 4rem;text-align:center;max-width:52rem;width:96%;animation:mdIn .4s ease}
+    @keyframes mdIn{from{opacity:0;transform:scale(.9) translateY(2rem)}to{opacity:1;transform:none}}
+    .success-icon{width:8rem;height:8rem;border-radius:50%;background:var(--gl);display:flex;align-items:center;justify-content:center;margin:0 auto 2.4rem;font-size:3.6rem;color:var(--g);animation:popIn .5s ease .2s both}
+    @keyframes popIn{from{transform:scale(0)}to{transform:scale(1)}}
+    .success-title{font-family:var(--fd);font-size:3.2rem;font-weight:800;color:var(--tx);margin-bottom:1rem}
+    .success-desc{font-size:1.6rem;color:var(--tx2);line-height:1.7;margin-bottom:3.2rem}
+    .success-order-num{background:var(--pl);color:var(--p);border-radius:var(--rmd);padding:1.2rem 2.4rem;font-family:var(--fd);font-size:2rem;font-weight:800;display:inline-block;margin-bottom:3.2rem}
+    .success-btns{display:flex;gap:1.2rem;justify-content:center;flex-wrap:wrap}
+    /* TOAST */
+    .toast-c{position:fixed;bottom:2.4rem;right:2.4rem;z-index:3000;display:flex;flex-direction:column;gap:.8rem}
+    .toast{display:flex;align-items:center;gap:1rem;padding:1.2rem 1.8rem;background:var(--tx);color:#fff;border-radius:var(--rmd);font-size:1.4rem;font-weight:500;box-shadow:var(--shd2);animation:tin .3s ease;max-width:34rem}
+    @keyframes tin{from{opacity:0;transform:translateX(2rem)}to{opacity:1;transform:translateX(0)}}
+    .toast i{font-size:1.5rem}.ts i{color:var(--g)}.te i{color:var(--r)}
+    /* STRIPE NOTE */
+    .stripe-note{background:var(--pl);border:1px solid rgba(0,87,183,.2);border-radius:var(--rmd);padding:1.6rem;font-size:1.4rem;color:var(--pd);line-height:1.7}
+    .stripe-note code{background:rgba(0,87,183,.1);padding:.2rem .5rem;border-radius:4px;font-family:monospace;font-size:1.2rem}
+    /* RESPONSIVE */
+    @media(max-width:960px){.checkout-wrap{grid-template-columns:1fr}.order-summary{position:static}}
+    @media(max-width:600px){.container{padding:0 1.6rem}.form-grid{grid-template-columns:1fr}.steps-in{gap:0}.step{padding:.6rem 1rem;font-size:1.2rem}.step-divider{width:2rem}}
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header"><div class="container"><div class="hdr-in">
+  <a href="index.html" class="logo"><div class="logo-ico"><i class="fas fa-heart-pulse"></i></div>MediShop</a>
+  <div class="secure-badge"><i class="fas fa-lock"></i> Secure Checkout</div>
+  <div style="display:flex;gap:.8rem;align-items:center">
+    <span style="background:var(--sur2);border-radius:var(--rsm);padding:.4rem .8rem;font-size:1.2rem;font-weight:700;color:var(--tx2)">VISA</span>
+    <span style="background:var(--sur2);border-radius:var(--rsm);padding:.4rem .8rem;font-size:1.2rem;font-weight:700;color:var(--tx2)">MC</span>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Stripe_Logo%2C_revised_2016.svg" alt="Stripe" style="height:2rem;opacity:.7" onerror="this.style.display='none'">
+  </div>
+</div></div></header>
+
+<!-- STEPS -->
+<div class="steps"><div class="container"><div class="steps-in">
+  <div class="step done" id="step1"><div class="step-num"><i class="fas fa-check" style="font-size:1.1rem"></i></div><span>Cart</span></div>
+  <div class="step-divider done"></div>
+  <div class="step active" id="step2"><div class="step-num">2</div><span>Details</span></div>
+  <div class="step-divider" id="sdiv2"></div>
+  <div class="step" id="step3"><div class="step-num">3</div><span>Payment</span></div>
+  <div class="step-divider" id="sdiv3"></div>
+  <div class="step" id="step4"><div class="step-num">4</div><span>Confirm</span></div>
+</div></div></div>
+
+<!-- STRIPE SETUP NOTE -->
+<!-- <div class="container" style="padding-top:2.4rem">
+  <div class="stripe-note" id="stripeNote">
+    <strong>🔧 Developer Note:</strong> To activate Stripe payments, replace the test key below with your live Publishable Key from <a href="https://dashboard.stripe.com/apikeys" target="_blank" style="color:var(--p);font-weight:700">dashboard.stripe.com/apikeys</a>. You'll also need a backend endpoint to create a PaymentIntent (see the JS comments). Current key: <code>pk_test_YOUR_PUBLISHABLE_KEY</code>. For testing, use card <code>4242 4242 4242 4242</code>, any future date, any CVC.
+  </div>
+</div> -->
+
+<!-- MAIN -->
+<div class="container"><div class="checkout-wrap">
+
+  <!-- LEFT: FORMS -->
+  <div class="form-section">
+
+    <!-- CONTACT INFO -->
+    <div class="form-card">
+      <div class="form-card-hdr">
+        <div class="form-card-title"><i class="fas fa-user"></i> Contact Information</div>
+        <a href="account.html" style="font-size:1.4rem;font-weight:600;color:var(--p)">Sign in</a>
+      </div>
+      <div class="form-card-body">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>First Name <span>*</span></label>
+            <input type="text" id="firstName" placeholder="Ahmed" oninput="validateField(this)"/>
+            <div class="err-msg">First name is required</div>
+          </div>
+          <div class="form-group">
+            <label>Last Name <span>*</span></label>
+            <input type="text" id="lastName" placeholder="Hassan" oninput="validateField(this)"/>
+            <div class="err-msg">Last name is required</div>
+          </div>
+          <div class="form-group full">
+            <label>Email Address <span>*</span></label>
+            <input type="email" id="email" placeholder="ahmed@example.com" oninput="validateEmail(this)"/>
+            <div class="err-msg">Enter a valid email address</div>
+          </div>
+          <div class="form-group full">
+            <label>Phone Number <span>*</span></label>
+            <input type="tel" id="phone" placeholder="+20 100 000 0000" oninput="validatePhone(this)"/>
+            <div class="err-msg">Enter a valid phone number</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DELIVERY ADDRESS -->
+    <div class="form-card">
+      <div class="form-card-hdr">
+        <div class="form-card-title"><i class="fas fa-map-marker-alt"></i> Delivery Address</div>
+        <label style="display:flex;align-items:center;gap:.6rem;font-size:1.4rem;color:var(--tx2);cursor:pointer">
+          <input type="checkbox" id="saveAddr" style="accent-color:var(--p)"> Save for next time
+        </label>
+      </div>
+      <div class="form-card-body">
+        <div class="form-grid">
+          <div class="form-group full">
+            <label>Street Address <span>*</span></label>
+            <input type="text" id="address" placeholder="10 El Obour Buildings, Salah Salem St." oninput="validateField(this)"/>
+            <div class="err-msg">Address is required</div>
+          </div>
+          <div class="form-group full">
+            <label>Apartment / Floor / Building</label>
+            <input type="text" id="apartment" placeholder="Apt 5, Floor 3"/>
+          </div>
+          <div class="form-group">
+            <label>City <span>*</span></label>
+            <select id="city" onchange="updateDelivery()">
+              <option value="">Select city…</option>
+              <option value="cairo">Cairo</option>
+              <option value="giza">Giza</option>
+              <option value="alexandria">Alexandria</option>
+              <option value="sharm">Sharm El Sheikh</option>
+              <option value="hurghada">Hurghada</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>District / Area <span>*</span></label>
+            <input type="text" id="district" placeholder="Nasr City" oninput="validateField(this)"/>
+            <div class="err-msg">District is required</div>
+          </div>
+          <div class="form-group full">
+            <label>Delivery Notes</label>
+            <textarea id="notes" placeholder="Any instructions for delivery (gate code, landmarks…)" rows="2" style="padding:1.1rem 1.4rem;border:1.5px solid var(--brd);border-radius:var(--rsm);font-size:1.5rem;outline:none;resize:vertical;transition:var(--tr)"></textarea>
+          </div>
+        </div>
+        <!-- Delivery estimate -->
+        <div id="deliveryEst" style="margin-top:1.4rem;padding:1.2rem 1.6rem;background:var(--gl);border-radius:var(--rsm);font-size:1.4rem;color:#155724;display:none">
+          <i class="fas fa-truck-fast"></i> <span id="deliveryEstText"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAYMENT -->
+    <div class="form-card">
+      <div class="form-card-hdr">
+        <div class="form-card-title"><i class="fas fa-credit-card"></i> Payment Method</div>
+      </div>
+      <div class="form-card-body">
+        <div class="pay-methods">
+
+          <!-- Credit / Debit Card (Stripe) -->
+          <div class="pay-option selected" id="pm-card" onclick="selectPayment('card')">
+            <div class="pay-option-left">
+              <div class="pay-radio"><div class="pay-radio-dot"></div></div>
+              <div><div class="pay-name"><i class="fas fa-credit-card" style="color:var(--p)"></i> Credit / Debit Card</div><div class="pay-desc">Visa, Mastercard, Amex — Powered by Stripe</div></div>
+            </div>
+            <div class="pay-icons"><span class="pay-ico">VISA</span><span class="pay-ico">MC</span><span class="pay-ico">Amex</span></div>
+          </div>
+          <div class="stripe-wrap show" id="stripeWrap">
+            <div id="stripe-card-element"><!-- Stripe mounts here --></div>
+            <div id="stripe-errors" style="color:var(--r);font-size:1.3rem;margin-top:.8rem"></div>
+            <div class="stripe-secure"><i class="fas fa-lock"></i> Encrypted with 256-bit SSL. MediShop never stores your card details.</div>
+          </div>
+
+          <!-- Fawry -->
+          <div class="pay-option" id="pm-fawry" onclick="selectPayment('fawry')">
+            <div class="pay-option-left">
+              <div class="pay-radio"><div class="pay-radio-dot"></div></div>
+              <div><div class="pay-name"><i class="fas fa-store" style="color:#f90"></i> Fawry</div><div class="pay-desc">Pay at any Fawry outlet near you</div></div>
+            </div>
+            <div class="pay-icons"><span class="pay-ico" style="background:#fff3cd;color:#856404">Fawry</span></div>
+          </div>
+          <div class="wallet-details" id="fawry-details">
+            <p style="font-size:1.4rem;color:var(--tx2);margin-bottom:.8rem">Your Fawry reference code will be generated after order placement. Pay at any Fawry outlet within 48 hours.</p>
+          </div>
+
+          <!-- Vodafone Cash -->
+          <div class="pay-option" id="pm-vodafone" onclick="selectPayment('vodafone')">
+            <div class="pay-option-left">
+              <div class="pay-radio"><div class="pay-radio-dot"></div></div>
+              <div><div class="pay-name"><i class="fas fa-mobile-alt" style="color:#e60000"></i> Vodafone Cash</div><div class="pay-desc">Send directly from your Vodafone wallet</div></div>
+            </div>
+            <div class="pay-icons"><span class="pay-ico" style="background:#fee2e2;color:#991b1b">VF Cash</span></div>
+          </div>
+          <div class="wallet-details" id="vodafone-details">
+            <p style="font-size:1.4rem;color:var(--tx2);margin-bottom:.6rem">Transfer to:</p>
+            <div class="wallet-number">📱 010 0000 0000</div>
+            <p style="font-size:1.3rem;color:var(--tx3);margin-top:.6rem">Use your order number as the transfer note. Send screenshot to hello@medishop.com</p>
+          </div>
+
+          <!-- Cash on Delivery -->
+          <div class="pay-option" id="pm-cod" onclick="selectPayment('cod')">
+            <div class="pay-option-left">
+              <div class="pay-radio"><div class="pay-radio-dot"></div></div>
+              <div><div class="pay-name"><i class="fas fa-money-bill-wave" style="color:var(--g)"></i> Cash on Delivery</div><div class="pay-desc">Pay when your order arrives. +$2 service fee.</div></div>
+            </div>
+            <div class="pay-icons"><span class="pay-ico" style="background:var(--gl);color:#155724">COD</span></div>
+          </div>
+
+        </div>
+
+        <!-- Promo code -->
+        <div style="margin-top:2rem;padding-top:2rem;border-top:1px solid var(--brd)">
+          <label style="font-size:1.5rem;font-weight:700;color:var(--tx);display:block;margin-bottom:1rem"><i class="fas fa-tag" style="color:var(--a)"></i> Promo Code</label>
+          <div class="promo-row">
+            <input type="text" id="promoInp" placeholder="Enter promo code (try HEALTH10)"/>
+            <button style="padding:1rem 1.8rem;background:var(--p);color:#fff;border-radius:var(--rsm);font-size:1.4rem;font-weight:600;transition:var(--tr)" onclick="applyPromo()">Apply</button>
+          </div>
+          <div id="promoMsg" style="font-size:1.3rem;margin-top:.6rem;display:none"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- RIGHT: ORDER SUMMARY -->
+  <div class="order-summary">
+    <div class="sum-card">
+      <div class="sum-hdr">Order Summary</div>
+      <div class="sum-body">
+        <div class="sum-items" id="sumItems">
+          <div style="text-align:center;padding:2rem;color:var(--tx3);font-size:1.4rem"><i class="fas fa-cart-shopping" style="font-size:3rem;display:block;margin-bottom:1rem;color:var(--brd)"></i>Your cart is empty</div>
+        </div>
+        <div style="border-top:1px solid var(--brd);padding-top:1.2rem">
+          <div class="sum-row"><span style="color:var(--tx2)">Subtotal</span><span id="sumSubtotal">$0.00</span></div>
+          <div class="sum-row" id="codRow" style="display:none"><span style="color:var(--tx2)">COD Fee</span><span style="color:var(--a)">+$2.00</span></div>
+          <div class="sum-row" id="discountRow" style="display:none"><span style="color:var(--tx2)">Discount (10%)</span><span class="discount" id="discountAmt"></span></div>
+          <div class="sum-row"><span style="color:var(--tx2)">Delivery</span><span class="free" id="deliveryFee">FREE 🚀</span></div>
+          <div class="sum-row total"><span>Total</span><span id="sumTotal">$0.00</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PLACE ORDER -->
+    <button class="place-order-btn" id="placeOrderBtn" onclick="submitPayment()">
+      <div class="spinner"></div>
+      <div class="btn-text"><i class="fas fa-lock"></i> Place Order</div>
+    </button>
+
+    <!-- TRUST -->
+    <div class="sum-card">
+      <div class="sum-body">
+        <div class="sum-trust">
+          <div class="trust-line"><i class="fas fa-lock"></i> SSL encrypted & PCI compliant</div>
+          <div class="trust-line"><i class="fas fa-shield-halved"></i> Fraud protection on all orders</div>
+          <div class="trust-line"><i class="fas fa-rotate-left"></i> 30-day hassle-free returns</div>
+          <div class="trust-line"><i class="fas fa-truck-fast"></i> 30-min delivery in Cairo & Giza</div>
+          <div class="trust-line"><i class="fas fa-headset"></i> 24/7 pharmacist support</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAYMENT ICONS -->
+    <div style="display:flex;align-items:center;justify-content:center;gap:.8rem;flex-wrap:wrap;padding:1rem 0">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Stripe_Logo%2C_revised_2016.svg" style="height:2.2rem;opacity:.5" alt="Stripe" onerror="this.style.display='none'">
+      <span class="pay-ico">VISA</span><span class="pay-ico">MC</span><span class="pay-ico">Amex</span><span class="pay-ico">Fawry</span><span class="pay-ico">VF Cash</span><span class="pay-ico">COD</span>
+    </div>
+  </div>
+
+</div></div>
+
+<!-- SUCCESS OVERLAY -->
+<div class="success-ov" id="successOv">
+
+
+ 
+
+
+  <div class="success-modal">
+    <div class="success-icon"><i class="fas fa-check"></i></div>
+    <h2 class="success-title">Order Placed! 🎉</h2>
+    <p class="success-desc">Thank you for your order. You'll receive a confirmation SMS and email shortly. Your delivery is on its way!</p>
+    <div class="success-order-num" id="orderNumDisplay">#MS-000000</div>
+    <div class="success-btns">
+      <a href="index.html" style="display:inline-flex;align-items:center;gap:.8rem;padding:1.2rem 2.4rem;background:var(--p);color:#fff;border-radius:var(--rmd);font-size:1.5rem;font-weight:600">
+        <i class="fas fa-home"></i> Back to Shop
+      </a>
+      <button style="padding:1.2rem 2.4rem;background:var(--sur2);color:var(--tx);border-radius:var(--rmd);font-size:1.5rem;font-weight:600" onclick="window.print()">
+        <i class="fas fa-print"></i> Print Receipt
+      </button>
+    </div>
+  </div>
+
+
+
+ <div id="ckSuccess" style="display:none; text-align:center; padding:6.4rem 3.2rem; background:var(--sur); border-radius:var(--rxl); margin:4rem 0">
+  <div style="width:9.6rem;height:9.6rem;border-radius:50%;background:var(--gl);display:flex;align-items:center;justify-content:center;margin:0 auto 3.2rem;font-size:4rem;color:var(--g)">
+    <i class="fas fa-check"></i>
+  </div>
+  <h2 style="font-family:var(--fd);font-size:3.6rem;font-weight:800;color:var(--tx);margin-bottom:1.2rem">Order Confirmed! 🎉</h2>
+  <p style="font-size:1.6rem;color:var(--tx2);margin-bottom:2.4rem">Thank you! Your order has been placed and will be delivered in ~30 minutes.</p>
+  <div style="background:var(--pl);border-radius:var(--rmd);padding:1.4rem 2.4rem;font-family:var(--fd);font-size:2rem;font-weight:800;color:var(--p);display:inline-block;margin-bottom:.8rem">
+    Order ID: <span id="successOrderId"></span>
+  </div>
+  <p style="font-size:1.5rem;color:var(--tx2);margin-bottom:.8rem">Total charged: <strong id="successTotal"></strong></p>
+  <p style="font-size:1.4rem;color:var(--tx3);margin-bottom:3.2rem">Confirmation sent to: <span id="successEmail"></span></p>
+  <a href="index.html" class="btn btn-p" style="font-size:1.6rem;padding:1.4rem 3.2rem">
+    <i class="fas fa-house"></i> Back to Home
+  </a>
+</div>
+
+
+</div>
+
+<!-- TOAST -->
+<div class="toast-c" id="toastC"></div>
+
+<script>
+
+let selectedPayment = 'card';   // default payment method
+let promoApplied = false;        // tracks if a promo code was applied
+let promoDiscount = 0;           // discount amount
+// =====================================================================
+// STRIPE SETUP
+// ---------------------------------------------------------------------
+// 🔧 WHAT YOU NEED FROM STRIPE:
+//   1. A Stripe account at stripe.com
+//   2. Your Publishable Key → replace 'pk_test_YOUR_PUBLISHABLE_KEY' below
+//   3. A backend endpoint (Node.js/Python/PHP) that creates a PaymentIntent
+//      and returns the client_secret. Example endpoint:
+//
+//   POST /api/create-payment-intent
+//   Body: { amount: 4999, currency: 'usd' }  (amount in cents)
+//   Returns: { client_secret: 'pi_xxx_secret_xxx' }
+//
+//   Sample Node.js:
+//   app.post('/api/create-payment-intent', async (req, res) => {
+//     const paymentIntent = await stripe.paymentIntents.create({
+//       amount: req.body.amount,
+//       currency: 'usd',
+//       automatic_payment_methods: { enabled: true },
+//     });
+//     res.json({ client_secret: paymentIntent.client_secret });
+//   });
+//
+//   4. Replace BACKEND_URL with your server URL
+
+
+const API = 'http://localhost:3001/api';  // your backend URL
+// ↑ Change to your real domain when you deploy e.g. 'https://api.medishop.com/api'
+ 
+// Initialize Stripe with TEST publishable key
+// Get yours from: dashboard.stripe.com → Developers → API Keys
+const stripe = Stripe('pk_test_51TFysOC0beVkCgr8EMvRYoXA3mlZBhs3aQEgdlhJXkf96hqsWI15XLJlXn74m0z37nh1z4C8wctSvd97s0c3KPDB00cRyUjgm9');
+const elements = stripe.elements();
+ 
+// Mount the Stripe card element into #stripe-card-element
+const cardElement = elements.create('card', {
+  style: {
+    base: {
+      fontFamily: '"DM Sans", sans-serif',
+      fontSize: '16px',
+      color: '#0F172A',
+      '::placeholder': { color: '#94A3B8' }
+    },
+    invalid: { color: '#EF4444' }
+  }
+});
+cardElement.mount('#stripe-card-element');
+cardElement.on('focus',  () => document.getElementById('stripe-card-element').classList.add('focused'));
+cardElement.on('blur',   () => document.getElementById('stripe-card-element').classList.remove('focused'));
+cardElement.on('change', e => { document.getElementById('stripe-errors').textContent = e.error ? e.error.message : ''; });
+ 
+
+// =====================================================================
+// !My comment
+// const STRIPE_PUBLISHABLE_KEY = 'pk_test_51TFysOC0beVkCgr8EMvRYoXA3mlZBhs3aQEgdlhJXkf96hqsWI15XLJlXn74m0z37nh1z4C8wctSvd97s0c3KPDB00cRyUjgm9'; // 🔑 Replace this
+// const BACKEND_URL = 'https://your-backend.com'; // 🌐 Replace this
+
+// let stripeInstance = null;
+// let cardElement = null;
+// let selectedPayment = 'card';
+// let promoApplied = false;
+// let discountPct = 0;
+
+// // Initialize Stripe (only if key is replaced)
+// function initStripe() {
+//   if (STRIPE_PUBLISHABLE_KEY.includes('YOUR_PUBLISHABLE_KEY')) return;
+//   try {
+//     stripeInstance = Stripe(STRIPE_PUBLISHABLE_KEY);
+//     const elements = stripeInstance.elements();
+//     cardElement = elements.create('card', {
+//       style: {
+//         base: { fontSize: '15px', fontFamily: "'DM Sans', sans-serif", color: '#0F172A', '::placeholder': { color: '#94A3B8' } },
+//         invalid: { color: '#EF4444' }
+//       }
+//     });
+//     cardElement.mount('#stripe-card-element');
+//     cardElement.on('change', e => {
+//       document.getElementById('stripe-errors').textContent = e.error ? e.error.message : '';
+//     });
+//   } catch(e) { console.log('Stripe not initialized:', e.message); }
+// }
+
+// =====================================================================
+// CART STATE
+// =====================================================================
+let cart = JSON.parse(localStorage.getItem('ms_cart') || '[]');
+
+function renderSummary() {
+  const items = document.getElementById('sumItems');
+  if (!cart.length) {
+    items.innerHTML = `<div style="text-align:center;padding:2rem;color:var(--tx3);font-size:1.4rem"><i class="fas fa-cart-shopping" style="font-size:3rem;display:block;margin-bottom:1rem;color:var(--brd)"></i>Your cart is empty. <a href="index.html" style="color:var(--p);font-weight:600">Go shopping</a></div>`;
+    document.getElementById('sumSubtotal').textContent = '$0.00';
+    document.getElementById('sumTotal').textContent = '$0.00';
+    return;
+  }
+  items.innerHTML = cart.map(item => `
+    <div class="sum-item">
+      <div class="sum-item-img">
+        <img src="${item.image}" alt="${item.name}" onerror="this.src='https://placehold.co/64x64/e8f1ff/0057B7?text=P'">
+        <div class="sum-item-qty">${item.qty}</div>
+      </div>
+      <div style="flex:1"><div class="sum-item-name">${item.name}</div></div>
+      <div class="sum-item-price">$${(item.price * item.qty).toFixed(2)}</div>
+    </div>`).join('');
+  updateTotals();
+}
+
+function updateTotals() {
+  const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+  const codFee = selectedPayment === 'cod' ? 2 : 0;
+  const discount = promoApplied ? subtotal * discountPct : 0;
+  const total = subtotal + codFee - discount;
+  document.getElementById('sumSubtotal').textContent = `$${subtotal.toFixed(2)}`;
+  document.getElementById('sumTotal').textContent = `$${total.toFixed(2)}`;
+  document.getElementById('codRow').style.display = selectedPayment === 'cod' ? '' : 'none';
+  if (promoApplied) {
+    document.getElementById('discountRow').style.display = '';
+    document.getElementById('discountAmt').textContent = `-$${discount.toFixed(2)}`;
+  } else {
+    document.getElementById('discountRow').style.display = 'none';
+  }
+}
+
+// =====================================================================
+// PAYMENT METHOD SELECTION
+// =====================================================================
+function selectPayment(method) {
+  selectedPayment = method;
+  ['card','fawry','vodafone','cod'].forEach(m => {
+    const el = document.getElementById(`pm-${m}`);
+    if (el) el.classList.toggle('selected', m === method);
+  });
+  document.getElementById('stripeWrap').classList.toggle('show', method === 'card');
+  ['fawry','vodafone'].forEach(m => {
+    const d = document.getElementById(`${m}-details`);
+    if (d) d.classList.toggle('show', m === method);
+  });
+  updateTotals();
+}
+
+// =====================================================================
+// DELIVERY ESTIMATE
+// =====================================================================
+function updateDelivery() {
+  const city = document.getElementById('city').value;
+  const est = document.getElementById('deliveryEst');
+  const txt = document.getElementById('deliveryEstText');
+  if (!city) { est.style.display = 'none'; return; }
+  const times = {
+    cairo: '30–45 minutes 🚀 Express available',
+    giza: '30–45 minutes 🚀 Express available',
+    alexandria: '2–4 hours 📦',
+    sharm: 'Next day delivery 📦',
+    hurghada: 'Next day delivery 📦',
+    other: '1–3 business days 📦',
+  };
+  txt.textContent = times[city] || '1–3 business days';
+  est.style.display = '';
+}
+
+// =====================================================================
+// PROMO CODE
+// =====================================================================
+function applyPromo() {
+  const code = document.getElementById('promoInp').value.trim().toUpperCase();
+  const msg = document.getElementById('promoMsg');
+  const codes = { HEALTH10: 0.10, MEDISHOP: 0.15, WELCOME20: 0.20 };
+  if (codes[code]) {
+    promoApplied = true;
+    discountPct = codes[code];
+    msg.style.display = '';
+    msg.style.color = 'var(--g)';
+    msg.innerHTML = `<i class="fas fa-check-circle"></i> Code applied! ${(codes[code]*100).toFixed(0)}% discount added.`;
+    updateTotals();
+    toast(`<i class="fas fa-tag"></i> Promo code applied! ${(codes[code]*100).toFixed(0)}% off`, 's');
+  } else {
+    promoApplied = false;
+    discountPct = 0;
+    msg.style.display = '';
+    msg.style.color = 'var(--r)';
+    msg.innerHTML = `<i class="fas fa-xmark"></i> Invalid code. Try HEALTH10, MEDISHOP, or WELCOME20.`;
+    updateTotals();
+  }
+}
+
+// =====================================================================
+// FORM VALIDATION
+// =====================================================================
+function validateField(input) {
+  const empty = !input.value.trim();
+  input.classList.toggle('err', empty);
+  return !empty;
+}
+function validateEmail(input) {
+  const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value);
+  input.classList.toggle('err', !valid);
+  return valid;
+}
+function validatePhone(input) {
+  const valid = /^[\+]?[\d\s\-]{8,}$/.test(input.value);
+  input.classList.toggle('err', !valid);
+  return valid;
+}
+
+function validateAll() {
+  const fields = ['firstName','lastName','address','district'];
+  let valid = true;
+  fields.forEach(id => { if (!validateField(document.getElementById(id))) valid = false; });
+  if (!validateEmail(document.getElementById('email'))) valid = false;
+  if (!validatePhone(document.getElementById('phone'))) valid = false;
+  if (!document.getElementById('city').value) { toast('<i class="fas fa-xmark"></i> Please select your city.', 'e'); valid = false; }
+  return valid;
+}
+
+// =====================================================================
+// PLACE ORDER
+// =====================================================================
+// async function placeOrder() {
+
+// OLD DEMO FLOW (no real payment processing):
+
+// async function submitPayment() {
+//   console.log("REAL STRIPE FLOW RUNNING");
+//   if (!cart.length) { toast('<i class="fas fa-xmark"></i> Your cart is empty!', 'e'); return; }
+//   if (!validateAll()) { toast('<i class="fas fa-xmark"></i> Please fill in all required fields.', 'e'); return; }
+
+//   const btn = document.getElementById('placeOrderBtn');
+//   btn.classList.add('loading');
+//   btn.disabled = true;
+
+//   try {
+//     if (selectedPayment === 'card') {
+//       await processStripePayment(btn);
+//     } else {
+//       // Simulate processing for other methods
+//       await new Promise(r => setTimeout(r, 1500));
+//       completeOrder();
+//     }
+//   } catch(err) {
+//     btn.classList.remove('loading');
+//     btn.disabled = false;
+//     toast(`<i class="fas fa-xmark"></i> ${err.message || 'Payment failed. Please try again.'}`, 'e');
+//   }
+// }
+
+
+// ════════════════════════════════════════════════════════════════════
+// 2. checkout.html — REPLACE your submitPayment() function with this
+// ════════════════════════════════════════════════════════════════════
+ 
+
+
+async function submitPayment() {
+  if (!cart.length) { toast('<i class="fas fa-xmark"></i> Your cart is empty.', 'e'); return; }
+  if (!validateAll()) { toast('<i class="fas fa-xmark"></i> Please fill in all required fields.', 'e'); return; }
+
+  const btn = document.getElementById('placeOrderBtn');
+  btn.classList.add('loading');
+  btn.disabled = true;
+
+  try {
+    if (selectedPayment === 'card') {
+      // Step 1: Create PaymentIntent on backend
+      const coupon = document.getElementById('promoInp')?.value?.trim() || '';
+      const intentRes = await fetch(`${API}/payment/create-intent`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ items: cart, coupon })
+      });
+      const intentData = await intentRes.json();
+      if (!intentRes.ok) throw new Error(intentData.error || 'Failed to create payment');
+
+      // Step 2: Confirm card payment with Stripe
+      const { error, paymentIntent } = await stripe.confirmCardPayment(intentData.clientSecret, {
+        payment_method: {
+          card: cardElement,
+          billing_details: {
+            name: `${document.getElementById('firstName').value} ${document.getElementById('lastName').value}`,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value,
+            address: {
+              line1: document.getElementById('address').value,
+              city: document.getElementById('city').value,
+              country: 'EG'
+            }
+          }
+        }
+      });
+
+      if (error) {
+        document.getElementById('stripe-errors').textContent = error.message;
+        throw new Error(error.message);
+      }
+
+      // Step 3: Confirm order on backend
+      const orderRes = await fetch(`${API}/orders/confirm`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...(localStorage.getItem('ms_token') ? { 'Authorization': `Bearer ${localStorage.getItem('ms_token')}` } : {})
+        },
+        body: JSON.stringify({
+          paymentIntentId: paymentIntent.id,
+          items: cart,
+          email: document.getElementById('email').value,
+          firstName: document.getElementById('firstName').value,
+          lastName: document.getElementById('lastName').value,
+          phone: document.getElementById('phone').value,
+          shippingAddress: {
+            line1: document.getElementById('address').value,
+            city: document.getElementById('city').value,
+            country: 'EG'
+          }
+        })
+      });
+      const orderData = await orderRes.json();
+      if (!orderRes.ok) throw new Error(orderData.error || 'Order confirmation failed');
+
+      // Step 4: Success
+      localStorage.removeItem('ms_cart');
+      completeOrder(); // uses your existing success overlay
+
+    } else {
+      // Non-card payments (Fawry, Vodafone Cash, COD) — simulate for now
+      await new Promise(r => setTimeout(r, 1500));
+      completeOrder();
+    }
+
+  } catch (err) {
+    toast(`<i class="fas fa-xmark"></i> ${err.message}`, 'e');
+    console.error('Payment error:', err);
+  } finally {
+    btn.classList.remove('loading');
+    btn.disabled = false;
+  }
+}
+
+// ! Replace it 1
+// async function submitPayment() {
+//   const cart = JSON.parse(localStorage.getItem('ms_cart') || '[]');
+//   // Validate form fields first
+//   const fields = ['firstName','lastName','email','phone','address','city'];
+//   let valid = true;
+//   fields.forEach(id => {
+//     const el = document.getElementById(id);
+//     if (!el || !el.value.trim()) {
+//       const err = document.getElementById(`err-${id}`);
+//       if (err) { err.classList.add('show'); }
+//       if (el)  { el.classList.add('err'); }
+//       valid = false;
+//     }
+//   });
+//   if (!valid) { msToast('<i class="fas fa-xmark"></i> Please fill all required fields.', 'e'); return; }
+ 
+// // const cart = msGetCart();
+
+// if (!cart.length) { msToast('<i class="fas fa-xmark"></i> Your cart is empty.', 'e'); return; }
+ 
+//   // Show loading
+//   document.getElementById('ckLoading').classList.add('show');
+//   document.getElementById('loadingMsg').textContent = 'Creating payment intent…';
+ 
+//   try {
+//     // Step 1: Ask backend to create PaymentIntent
+//     const coupon = document.getElementById('os-coupon-input')?.value?.trim() || '';
+//     const intentRes = await fetch(`${API}/payment/create-intent`, {
+//       method: 'POST',
+//       headers: { 'Content-Type': 'application/json' },
+//       body: JSON.stringify({ items: cart, coupon })
+//     });
+//     const intentData = await intentRes.json();
+//     if (!intentRes.ok) throw new Error(intentData.error || 'Failed to create payment');
+ 
+//     document.getElementById('loadingMsg').textContent = 'Processing payment…';
+ 
+//     // Step 2: Confirm payment with Stripe (uses TEST card)
+//     const { error, paymentIntent } = await stripe.confirmCardPayment(intentData.clientSecret, {
+//       payment_method: {
+//         card: cardElement,
+//         billing_details: {
+//           name: `${document.getElementById('firstName').value} ${document.getElementById('lastName').value}`,
+//           email: document.getElementById('email').value,
+//           phone: document.getElementById('phone').value,
+//           address: {
+//             line1: document.getElementById('address').value,
+//             city: document.getElementById('city').value,
+//             country: document.getElementById('country')?.value || 'EG'
+//           }
+//         }
+//       }
+//     });
+ 
+//     if (error) {
+//       document.getElementById('stripe-errors').textContent = error.message;
+//       throw new Error(error.message);
+//     }
+ 
+//     document.getElementById('loadingMsg').textContent = 'Confirming your order…';
+ 
+//     // Step 3: Tell backend to confirm the order
+//     const orderRes = await fetch(`${API}/orders/confirm`, {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//         // Include auth token if user is logged in
+//         ...(localStorage.getItem('ms_token') ? { 'Authorization': `Bearer ${localStorage.getItem('ms_token')}` } : {})
+//       },
+//       body: JSON.stringify({
+//         paymentIntentId: paymentIntent.id,
+//         items: cart,
+//         email: document.getElementById('email').value,
+//         firstName: document.getElementById('firstName').value,
+//         lastName: document.getElementById('lastName').value,
+//         phone: document.getElementById('phone').value,
+//         shippingAddress: {
+//           line1: document.getElementById('address').value,
+//           city: document.getElementById('city').value,
+//           country: 'EG'
+//         }
+//       })
+//     });
+//     const orderData = await orderRes.json();
+//     if (!orderRes.ok) throw new Error(orderData.error || 'Order confirmation failed');
+ 
+//     // Step 4: Clear cart and show success
+//     msSave('ms_cart', []);
+//     document.getElementById('ckLoading').classList.remove('show');
+//     showOrderSuccess(orderData.order);
+ 
+//   } catch (err) {
+//     document.getElementById('ckLoading').classList.remove('show');
+//     msToast(`<i class="fas fa-xmark"></i> ${err.message}`, 'e');
+//     console.error('Payment error:', err);
+//   }
+// }
+
+
+
+ 
+// Show success screen — ADD this function to checkout.html script
+// ! Replace it 2
+// function showOrderSuccess(order) {
+//   document.getElementById('checkoutMain').style.display = 'none';
+//   const s = document.getElementById('ckSuccess');
+//   s.style.display = 'block';
+//   document.getElementById('successOrderId').textContent  = order.id;
+//   document.getElementById('successTotal').textContent    = `$${order.total}`;
+//   document.getElementById('successEmail').textContent    = document.getElementById('email').value;
+// }
+
+
+async function processStripePayment(btn) {
+  if (!stripe || !cardElement){
+    // Demo mode — simulate payment
+    await new Promise(r => setTimeout(r, 2000));
+    completeOrder();
+    return;
+  }
+
+  // REAL STRIPE FLOW (uncomment when backend is ready):
+  // const subtotal = cart.reduce((s,i)=>s+i.price*i.qty,0);
+  // const total = Math.round((subtotal - (promoApplied ? subtotal*discountPct : 0)) * 100);
+  // const res = await fetch(`${BACKEND_URL}/api/create-payment-intent`, {
+  //   method: 'POST', headers:{'Content-Type':'application/json'},
+  //   body: JSON.stringify({ amount: total, currency: 'usd' })
+  // });
+  // const { client_secret } = await res.json();
+  // const { error, paymentIntent } = await stripeInstance.confirmCardPayment(client_secret, {
+  //   payment_method: { card: cardElement, billing_details: {
+  //     name: `${document.getElementById('firstName').value} ${document.getElementById('lastName').value}`,
+  //     email: document.getElementById('email').value,
+  //   }}
+  // });
+  // if (error) throw new Error(error.message);
+  // if (paymentIntent.status === 'succeeded') { completeOrder(); }
+
+  // Demo mode for now:
+  await new Promise(r => setTimeout(r, 2000));
+  completeOrder();
+}
+
+function completeOrder() {
+  // Generate order number
+  const orderNum = 'MS-' + Date.now().toString().slice(-6);
+  document.getElementById('orderNumDisplay').textContent = `#${orderNum}`;
+
+  // Save order to localStorage
+  const order = {
+    id: orderNum,
+    items: [...cart],
+    total: cart.reduce((s,i)=>s+i.price*i.qty,0),
+    paymentMethod: selectedPayment,
+    date: new Date().toISOString(),
+    address: document.getElementById('address').value,
+    status: 'confirmed',
+  };
+  const orders = JSON.parse(localStorage.getItem('ms_orders') || '[]');
+  orders.unshift(order);
+  try { localStorage.setItem('ms_orders', JSON.stringify(orders)); } catch(e) {}
+
+  // Clear cart
+  try { localStorage.removeItem('ms_cart'); } catch(e) {}
+
+  // Update step indicators
+  ['step3','step4'].forEach(id => {
+    const el = document.getElementById(id);
+    el.classList.remove('active');
+    el.classList.add('done');
+    el.querySelector('.step-num').innerHTML = '<i class="fas fa-check" style="font-size:1.1rem"></i>';
+  });
+  ['sdiv2','sdiv3'].forEach(id => document.getElementById(id).classList.add('done'));
+  document.getElementById('step2').classList.remove('active');
+  document.getElementById('step2').classList.add('done');
+  document.getElementById('step2').querySelector('.step-num').innerHTML = '<i class="fas fa-check" style="font-size:1.1rem"></i>';
+
+  // Show success
+  document.getElementById('successOv').classList.add('open');
+  document.getElementById('placeOrderBtn').classList.remove('loading');
+  document.getElementById('placeOrderBtn').disabled = false;
+}
+
+// =====================================================================
+// TOAST
+// =====================================================================
+function toast(html, type='s') {
+  const tc = document.getElementById('toastC');
+  const t = document.createElement('div');
+  t.className = `toast t${type}`;
+  t.innerHTML = html;
+  tc.appendChild(t);
+  setTimeout(() => { t.style.opacity='0';t.style.transform='translateX(2rem)';t.style.transition='all .3s';setTimeout(()=>t.remove(),300); }, 3500);
+}
+
+// =====================================================================
+// INIT
+// =====================================================================
+function prefillFromUser() {
+  const user = JSON.parse(localStorage.getItem('ms_user') || 'null');
+  if (!user) return;
+  if (user.firstName) document.getElementById('firstName').value = user.firstName;
+  if (user.lastName) document.getElementById('lastName').value = user.lastName;
+  if (user.email) document.getElementById('email').value = user.email;
+  if (user.phone) document.getElementById('phone').value = user.phone;
+}
+
+renderSummary();
+prefillFromUser();
+// initStripe(); 
+</script>
+</body>
+</html>
